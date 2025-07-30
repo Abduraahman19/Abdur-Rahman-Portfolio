@@ -88,9 +88,9 @@ const Hero = () => {
 
   const buttonVariants = {
     rest: { scale: 1 },
-    hover: { 
+    hover: {
       scale: 1.05,
-      transition: { 
+      transition: {
         type: "spring",
         stiffness: 400,
         damping: 10
@@ -105,8 +105,14 @@ const Hero = () => {
     { icon: "💻", size: "text-3xl", delay: 0.3 },
     { icon: "🔗", size: "text-xl", delay: 0.5 },
     { icon: "🌐", size: "text-2xl", delay: 0.2 },
-    { icon: "📱", size: "text-3xl", delay: 0.4 }
+    { icon: "📱", size: "text-3xl", delay: 0.4 },
+    { icon: "⚙️", size: "text-2xl", delay: 0.6 },   // Gear for settings or dev tools
+    { icon: "🧠", size: "text-3xl", delay: 0.7 },   // Brain for AI/ML
+    { icon: "🎨", size: "text-xl", delay: 0.8 },    // Palette for design
+    { icon: "🛠️", size: "text-2xl", delay: 0.9 },   // Tools for development
+    { icon: "📦", size: "text-3xl", delay: 1.0 }    // Package for deployment/modules
   ]
+
 
   return (
     <section
@@ -136,7 +142,7 @@ const Hero = () => {
           <motion.div
             key={i}
             className={`absolute ${tech.size} text-teal-400/30 dark:text-teal-500/30`}
-            initial={{ 
+            initial={{
               opacity: 0,
               y: 100,
               x: Math.random() * 100 - 50
@@ -169,7 +175,7 @@ const Hero = () => {
         variants={container}
         initial="hidden"
         animate={isInView ? "visible" : "hidden"}
-        className="relative z-10 max-w-4xl"
+        className="relative z-10 max-w-4xl mt-20"
       >
         <motion.p
           variants={item}
@@ -177,7 +183,7 @@ const Hero = () => {
         >
           <motion.span
             initial={{ opacity: 0 }}
-            animate={isInView ? { 
+            animate={isInView ? {
               opacity: 1,
               transition: { delay: 0.3 }
             } : {}}
@@ -190,11 +196,11 @@ const Hero = () => {
           variants={item}
           className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold text-gray-900 dark:text-white mb-4 leading-tight tracking-tight"
         >
-          <motion.span 
+          <motion.span
             className="inline-block"
             initial={{ opacity: 0, y: 20 }}
-            animate={isInView ? { 
-              opacity: 1, 
+            animate={isInView ? {
+              opacity: 1,
               y: 0,
               transition: { delay: 0.4 }
             } : {}}
@@ -204,11 +210,11 @@ const Hero = () => {
           <motion.span
             className="inline-block text-transparent bg-clip-text bg-gradient-to-r from-teal-500 to-cyan-600"
             initial={{ opacity: 0, x: -20 }}
-            animate={isInView ? { 
-              opacity: 1, 
+            animate={isInView ? {
+              opacity: 1,
               x: 0,
-              transition: { 
-                delay: 0.6, 
+              transition: {
+                delay: 0.6,
                 duration: 0.8,
                 type: "spring",
                 stiffness: 100,
@@ -218,7 +224,7 @@ const Hero = () => {
             whileHover={{
               scale: 1.05,
               backgroundPosition: ['0% 50%', '100% 50%'],
-              transition: { 
+              transition: {
                 duration: 2,
                 repeat: Infinity,
                 repeatType: "reverse"
@@ -236,7 +242,7 @@ const Hero = () => {
           <motion.span
             className="inline-block"
             initial={{ opacity: 0 }}
-            animate={isInView ? { 
+            animate={isInView ? {
               opacity: 1,
               transition: { delay: 0.8 }
             } : {}}
@@ -272,7 +278,7 @@ const Hero = () => {
         >
           <motion.span
             initial={{ opacity: 0 }}
-            animate={isInView ? { 
+            animate={isInView ? {
               opacity: 1,
               transition: { delay: 1.0 }
             } : {}}
@@ -283,7 +289,7 @@ const Hero = () => {
           <motion.span
             className="font-medium text-teal-600 dark:text-teal-400"
             initial={{ opacity: 0 }}
-            animate={isInView ? { 
+            animate={isInView ? {
               opacity: 1,
               transition: { delay: 1.2 }
             } : {}}
@@ -309,7 +315,7 @@ const Hero = () => {
           >
             {/* Animated background layers */}
             <motion.span
-              className="absolute inset-0 border-2 border-teal-500 dark:border-teal-400 rounded-lg"
+              className="absolute inset-0 border-2 border-teal-500 dark:border-teal-400 rounded-full"
               variants={{
                 rest: { opacity: 1 },
                 hover: { opacity: 0.8 }
@@ -317,7 +323,7 @@ const Hero = () => {
             />
 
             <motion.span
-              className="absolute inset-0 bg-gradient-to-r from-teal-500 to-cyan-600 rounded-lg"
+              className="absolute inset-0 bg-gradient-to-r from-teal-500 to-cyan-600 rounded-full"
               variants={{
                 rest: { opacity: 0, x: "-100%" },
                 hover: {
@@ -335,7 +341,7 @@ const Hero = () => {
 
             {/* Ripple effect */}
             <motion.span
-              className="absolute inset-0 rounded-lg overflow-hidden"
+              className="absolute inset-0 rounded-full overflow-hidden"
             >
               <motion.span
                 className="absolute bg-teal-400/20 rounded-full"

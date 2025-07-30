@@ -1,12 +1,27 @@
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import { useState } from "react";
+import { FiExternalLink, FiGithub, FiChevronDown, FiChevronUp } from "react-icons/fi";
+import { TbBrandNextjs, TbBrandReact, TbBrandFirebase, TbBrandMongodb } from "react-icons/tb";
+import { SiTailwindcss, SiTypescript, SiStripe, SiPaypal } from "react-icons/si";
+
+// Tech icons mapping for better visual representation
+const techIcons = {
+  "Next.js": <TbBrandNextjs className="text-gray-700 dark:text-gray-300" />,
+  "React": <TbBrandReact className="text-blue-500" />,
+  "Firebase": <TbBrandFirebase className="text-orange-500" />,
+  "MongoDB": <TbBrandMongodb className="text-green-500" />,
+  "Tailwind CSS": <SiTailwindcss className="text-cyan-500" />,
+  "TypeScript": <SiTypescript className="text-blue-600" />,
+  "Integrate Stripe": <SiStripe className="text-purple-500" />,
+  "Integrate PayPal": <SiPaypal className="text-blue-700" />,
+  // Add more icons as needed
+};
 
 const projects = [
   {
     title: "Real-Time ChatApp",
-    description:
-      "A modern, fast, and secure real-time chat application inspired by WhatsApp. Users can send and receive messages instantly, see typing indicators, read receipts, and enjoy a smooth, responsive chat experience across all devices.",
+    description:"This is a professional real-time Chat App with a clean and modern interface, secure user authentication, and smooth messaging functionality. It showcases your skills in real-time communication, UI/UX design, and frontend-backend integration.",
     tags: ["Next.js", "Mui", "Tailwind css", "Firebase"],
     github: "#",
     live: "https://chat-app-professional.vercel.app/",
@@ -14,8 +29,7 @@ const projects = [
   },
   {
     title: "Task Management App",
-    description:
-      "A simple and clean To-Do portfolio app to manage daily tasks with ease. Built using React.js and Tailwind CSS, it showcases smooth UI, responsive design, and real-time task handling—perfect for productivity and portfolio display.",
+    description:"This is a Sticky Wall To-Do App that allows users to create and organize tasks visually using colorful sticky notes. With its interactive and user-friendly interface, it offers an engaging way to manage daily tasks. This project showcases your skills in dynamic UI design, state management, and responsive frontend development.",
     tags: ["React", "Node.js", "MongoDB", "Tailwind CSS"],
     github: "#",
     live: "https://sticky-wall-todo.netlify.app/",
@@ -25,7 +39,7 @@ const projects = [
     title: "E-Commerce Platform",
     description:
       "A full-featured E-Commerce platform built for both users and admins. It includes secure payment gateways like Crypto, PayPal, Stripe, and local payment integration. With user-friendly shopping, real-time order tracking, and a powerful admin dashboard for managing products, orders, and payments—this project is designed to showcase advanced e-commerce functionality with modern tech.",
-    tags: ["Next.js", "Stripe", "Firebase", "TypeScript"],
+    tags: ["Vite React.js", "Integrate Stripe", "MongoDB", "TypeScript", "Tailwind CSS", "Integrate PayPal", "Integrate NowPayments"],
     github: "#",
     live: "#",
     image: "/p1.jpg",
@@ -46,14 +60,14 @@ const projects = [
     live: "https://real-time-weather-app-lime.vercel.app/?location=faisalabad",
     image: "/weather.png"
   },
-  // {
-  //   title: "Weather App",
-  //   description: "Real-time weather application with location detection and 5-day forecast using weather API.",
-  //   tags: ["React", "OpenWeather API", "Geolocation", "Tailwind CSS"],
-  //   github: "#",
-  //   live: "#",
-  //   image: "/project6.jpg"
-  // }
+  {
+    title: "AI Chat Assistant",
+    description: "This is a smart AI chat assistant with a clean UI, built for real-time conversations. It showcases AI integration and responsive frontend design.",
+    tags: ["Next.js", "Gemini API Integration", "Geolocation", "Tailwind CSS"],
+    github: "#",
+    live: "https://ai-chat-assistant-pi.vercel.app/",
+    image: "/Chat.png"
+  }
 ];
 
 const Projects = () => {
@@ -62,63 +76,102 @@ const Projects = () => {
     triggerOnce: true,
   });
 
-  const [visibleProjects, setVisibleProjects] = useState(3);
-  const showMoreProjects = () => setVisibleProjects(projects.length);
+  const [showAllProjects, setShowAllProjects] = useState(false);
+  const visibleProjects = showAllProjects ? projects.length : 3;
 
+  const toggleProjectsVisibility = () => {
+    setShowAllProjects(!showAllProjects);
+  };
+
+  // Animation variants
   const container = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.1,
+        staggerChildren: 0.15,
         when: "beforeChildren",
       },
     },
   };
 
   const item = {
-    hidden: { y: 50, opacity: 0 },
+    hidden: { 
+      y: 60, 
+      opacity: 0,
+      transition: {
+        type: "spring",
+        damping: 12,
+        stiffness: 100,
+      }
+    },
     visible: {
       y: 0,
       opacity: 1,
       transition: {
-        duration: 0.6,
-        ease: [0.25, 0.1, 0.25, 1],
-      },
+        type: "spring",
+        damping: 12,
+        stiffness: 100,
+        duration: 0.8,
+      }
     },
+    hover: {
+      y: -5,
+      transition: {
+        type: "spring",
+        stiffness: 400,
+        damping: 10
+      }
+    }
+  };
+
+  const fadeIn = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        duration: 0.6,
+        ease: "easeOut"
+      }
+    }
   };
 
   return (
     <section
       id="work"
       ref={ref}
-      className="py-20 px-6 sm:px-12 lg:px-24 bg-gray-50 dark:bg-gray-900"
+      className="relative py-24 px-6 sm:px-12 lg:px-24 bg-gradient-to-br from-gray-50/30 to-gray-100/30 dark:from-gray-900/30 dark:to-gray-950/30 overflow-hidden"
       aria-label="Projects section"
     >
-      <div className="max-w-7xl mx-auto">
+      {/* Decorative elements */}
+      <div className="absolute top-0 left-0 w-full h-full opacity-5 dark:opacity-10 pointer-events-none">
+        <div className="absolute top-20 left-10 w-64 h-64 bg-teal-400 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-2000"></div>
+        <div className="absolute top-0 right-20 w-96 h-96 bg-purple-400 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob"></div>
+        <div className="absolute bottom-10 left-1/2 w-80 h-80 bg-blue-400 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-4000"></div>
+      </div>
+
+      <div className="relative max-w-7xl mx-auto">
         <motion.div
           variants={container}
           initial="hidden"
           animate={inView ? "visible" : "hidden"}
-          className="mb-16"
+          className="mb-20"
         >
-          <motion.h2
-            variants={item}
-            className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-2 flex items-center"
-          >
+          <motion.div variants={fadeIn} className="flex items-center mb-8">
             <span className="text-teal-500 dark:text-teal-400 font-mono text-lg md:text-xl mr-4">
               03.
             </span>
-            <span className="text-teal-500 mr-2 dark:text-teal-400">My</span>
-            Projects
-            <span className="hidden md:inline-block h-px w-32 bg-teal-500 dark:bg-teal-400 ml-6"></span>
-          </motion.h2>
+            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white">
+              <span className="text-teal-500 dark:text-teal-400">Featured</span> Projects
+            </h2>
+            <span className="hidden md:inline-block h-px w-32 bg-teal-500 dark:bg-teal-400 ml-6 flex-grow"></span>
+          </motion.div>
+          
           <motion.p
-            variants={item}
-            className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl"
+            variants={fadeIn}
+            className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl leading-relaxed"
           >
-            Here are some of my selected projects. Each one was crafted with
-            attention to detail and a focus on solving real-world problems.
+            Here's a selection of my recent work. Each project represents a unique challenge solved with modern technologies and clean, efficient code.
           </motion.p>
         </motion.div>
 
@@ -126,109 +179,153 @@ const Projects = () => {
           variants={container}
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
         >
-          {projects.slice(0, visibleProjects).map((project, index) => (
-            <motion.div
-              key={index}
-              variants={item}
-              className="group relative h-full"
-            >
-              <div className="absolute inset-0 bg-gradient-to-br from-teal-500/10 to-purple-500/10 dark:from-teal-400/5 dark:to-purple-400/5 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+          <AnimatePresence>
+            {projects.slice(0, visibleProjects).map((project, index) => (
+              <motion.div
+                key={index}
+                variants={item}
+                initial="hidden"
+                animate="visible"
+                whileHover="hover"
+                className="group relative h-full"
+                layout
+              >
+                <div className={`absolute rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500`} />
 
-              <div className="h-full flex flex-col bg-white dark:bg-gray-800 rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
-                <div className="relative overflow-hidden h-60">
-                  <img
-                    src={project.image}
-                    alt={project.title}
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                </div>
-
-                <div className="p-6 flex flex-col flex-grow">
-                  <div className="mb-2">
-                    <span className="text-xs font-mono text-teal-600 dark:text-teal-400">
-                      Featured Project
-                    </span>
-                  </div>
-                  <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3 group-hover:text-teal-600 dark:group-hover:text-teal-400 transition-colors">
-                    {project.title}
-                  </h3>
-                  <p className="text-gray-600 dark:text-gray-300 mb-4 flex-grow">
-                    {project.description}
-                  </p>
-
-                  <ul className="flex flex-wrap gap-2 mb-6">
-                    {project.tags.map((tag, i) => (
-                      <li
-                        key={i}
-                        className="text-xs font-mono bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 px-2 py-1 rounded-full"
+                <div className="h-full flex flex-col bg-white dark:bg-gray-800 rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-300 border border-gray-200 dark:border-gray-700">
+                  <div className="relative overflow-hidden h-60">
+                    <motion.img
+                      src={project.image}
+                      alt={project.title}
+                      className="w-full h-full object-cover"
+                      initial={{ scale: 1 }}
+                      whileHover={{ scale: 1.05 }}
+                      transition={{ duration: 0.5 }}
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
+                      <motion.div
+                        initial={{ y: 20, opacity: 0 }}
+                        whileHover={{ y: 0, opacity: 1 }}
+                        transition={{ delay: 0.2 }}
+                        className="flex gap-4"
                       >
-                        {tag}
-                      </li>
-                    ))}
-                  </ul>
+                        {project.github !== "#" && (
+                          <a
+                            href={project.github}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="bg-white/90 dark:bg-gray-800/90 p-2 rounded-full hover:bg-white transition-colors"
+                            aria-label="GitHub repository"
+                          >
+                            <FiGithub className="text-gray-800 dark:text-gray-200" />
+                          </a>
+                        )}
+                        {project.live !== "#" && (
+                          <a
+                            href={project.live}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="bg-white/90 dark:bg-gray-800/90 p-2 rounded-full hover:bg-white transition-colors"
+                            aria-label="Live demo"
+                          >
+                            <FiExternalLink className="text-gray-800 dark:text-gray-200" />
+                          </a>
+                        )}
+                      </motion.div>
+                    </div>
+                  </div>
 
-                  <div className="flex gap-4 mt-auto">
-                    <a
-                      href={project.live}
-                      target="blank"
-                      className="text-gray-700 dark:text-gray-300 hover:text-teal-600 dark:hover:text-teal-400 transition-colors flex items-center gap-2 group/link text-sm"
-                      aria-label="Live demo"
-                    >
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="16"
-                        height="16"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        className="group-hover/link:translate-x-1 transition-transform"
-                      >
-                        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
-                        <polyline points="15 3 21 3 21 9"></polyline>
-                        <line x1="10" y1="14" x2="21" y2="3"></line>
-                      </svg>
-                      Live
-                    </a>
+                  <div className="p-6 flex flex-col flex-grow">
+                    <div className="mb-3">
+                      <span className="text-xs font-mono text-teal-600 dark:text-teal-400 tracking-wider">
+                        FEATURED PROJECT
+                      </span>
+                    </div>
+                    <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-4 group-hover:text-teal-600 dark:group-hover:text-teal-400 transition-colors">
+                      {project.title}
+                    </h3>
+                    <p className="text-gray-600 dark:text-gray-300 mb-6 flex-grow leading-relaxed">
+                      {project.description}
+                    </p>
+
+                    <ul className="flex flex-wrap gap-3 mb-6">
+                      {project.tags.map((tag, i) => (
+                        <motion.li
+                          key={i}
+                          whileHover={{ scale: 1.05 }}
+                          className="text-xs font-mono bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 px-3 py-1.5 rounded-full flex items-center gap-1.5"
+                        >
+                          {techIcons[tag] || null}
+                          {tag}
+                        </motion.li>
+                      ))}
+                    </ul>
+
+                    <div className="flex gap-4 mt-auto">
+                      {project.github !== "#" && (
+                        <motion.a
+                          href={project.github}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-gray-700 dark:text-gray-300 hover:text-teal-600 dark:hover:text-teal-400 transition-colors flex items-center gap-2 group/link text-sm font-medium"
+                          whileHover={{ x: 2 }}
+                          aria-label="GitHub repository"
+                        >
+                          <FiGithub className="group-hover/link:scale-110 transition-transform" />
+                          Code
+                        </motion.a>
+                      )}
+                      {project.live !== "#" && (
+                        <motion.a
+                          href={project.live}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-gray-700 dark:text-gray-300 hover:text-teal-600 dark:hover:text-teal-400 transition-colors flex items-center gap-2 group/link text-sm font-medium"
+                          whileHover={{ x: 2 }}
+                          aria-label="Live demo"
+                        >
+                          <FiExternalLink className="group-hover/link:scale-110 transition-transform" />
+                          Live Demo
+                        </motion.a>
+                      )}
+                    </div>
                   </div>
                 </div>
-              </div>
-            </motion.div>
-          ))}
+              </motion.div>
+            ))}
+          </AnimatePresence>
         </motion.div>
 
-        {visibleProjects < projects.length && (
+        {projects.length > 3 && (
           <motion.div
-            variants={item}
-            className="mt-12 text-center"
+            variants={fadeIn}
+            className="mt-16 text-center"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ delay: 0.3 }}
+            transition={{ delay: 0.5 }}
           >
-            <button
-              onClick={showMoreProjects}
-              className="inline-flex items-center px-6 py-3 border border-teal-600 dark:border-teal-400 rounded-full text-teal-600 dark:text-teal-400 hover:bg-teal-600 hover:text-white dark:hover:bg-teal-400 dark:hover:text-gray-900 transition-colors duration-300"
+            <motion.button
+              onClick={toggleProjectsVisibility}
+              className="inline-flex items-center px-8 py-3.5 border-2 border-teal-500 dark:border-teal-400 rounded-full text-teal-600 dark:text-teal-400 hover:bg-teal-600/10 dark:hover:bg-teal-400/10 transition-colors duration-300 font-medium group"
+              whileHover={{ 
+                scale: 1.05,
+                boxShadow: "0 0 15px rgba(20, 184, 166, 0.3)"
+              }}
+              whileTap={{ scale: 0.95 }}
             >
-              Show More Projects
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="20"
-                height="20"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                className="ml-2"
+              {showAllProjects ? 'Show Less Projects' : 'Show More Projects'}
+              <motion.span
+                className="ml-3"
+                animate={{ rotate: showAllProjects ? 180 : 0 }}
+                transition={{ type: "spring", stiffness: 300 }}
               >
-                <path d="M5 12h14"></path>
-                <path d="M12 5l7 7-7 7"></path>
-              </svg>
-            </button>
+                {showAllProjects ? (
+                  <FiChevronUp className="group-hover:translate-y-[-2px] transition-transform" />
+                ) : (
+                  <FiChevronDown className="group-hover:translate-y-[2px] transition-transform" />
+                )}
+              </motion.span>
+            </motion.button>
           </motion.div>
         )}
       </div>
