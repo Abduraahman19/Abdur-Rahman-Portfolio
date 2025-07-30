@@ -282,11 +282,11 @@ const Contact = () => {
                     <div>
                       <h4 className="text-lg font-semibold text-gray-900 dark:text-white">Email</h4>
                       <a
-                        href="mailto:abdurrahmanasim0303@gmail.com"
+                        href="mailto:abdurrahmanmughal0303@gmail.com"
                         className="text-teal-600 dark:text-teal-400 hover:underline"
                         aria-label="Send me an email"
                       >
-                        abdurrahmanasim0303@gmail.com
+                        abdurrahmanmughal0303@gmail.com
                       </a>
                     </div>
                   </motion.div>
