@@ -87,8 +87,8 @@ const Contact = () => {
 
   const socialLinks = [
     { icon: <FaGithub className="w-5 h-5" />, name: "GitHub", url: "https://github.com/Abduraahman19", color: "bg-gray-600 hover:bg-gray-700" },
-    { icon: <FaLinkedin className="w-5 h-5" />, name: "LinkedIn", url: "https://linkedin.com", color: "bg-blue-600 hover:bg-blue-700" },
-    { icon: <FaTwitter className="w-5 h-5" />, name: "Twitter", url: "https://twitter.com", color: "bg-sky-500 hover:bg-sky-600" },
+    { icon: <FaLinkedin className="w-5 h-5" />, name: "LinkedIn", url: "https://www.linkedin.com/in/abdur-rahman-asim/", color: "bg-blue-600 hover:bg-blue-700" },
+    { icon: <FaTwitter className="w-5 h-5" />, name: "Twitter", url: "https://x.com/AbdurRahma86120", color: "bg-sky-500 hover:bg-sky-600" },
   ];
 
   return (

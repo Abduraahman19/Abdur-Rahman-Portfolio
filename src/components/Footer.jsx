@@ -47,14 +47,14 @@ const Footer = () => {
     { 
       icon: <FaLinkedin className="w-5 h-5" />, 
       name: "LinkedIn", 
-      url: "https://linkedin.com", 
+      url: "https://www.linkedin.com/in/abdur-rahman-asim/", 
       color: "bg-blue-600 hover:bg-blue-700",
       animation: { rotate: [0, 10, -10, 0] }
     },
     { 
       icon: <FaTwitter className="w-5 h-5" />, 
       name: "Twitter", 
-      url: "https://twitter.com", 
+      url: "https://x.com/AbdurRahma86120", 
       color: "bg-sky-500 hover:bg-sky-600",
       animation: { rotate: [0, 10, -10, 0] }
     },
