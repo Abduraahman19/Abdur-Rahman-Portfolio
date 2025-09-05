@@ -1,7 +1,7 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useInView } from "react-intersection-observer";
-import { useState } from "react";
-import { FiExternalLink, FiGithub, FiChevronDown, FiChevronUp } from "react-icons/fi";
+import { useState, useMemo } from "react";
+import { FiExternalLink, FiGithub, FiChevronDown, FiChevronUp, FiFilter, FiEye, FiCode } from "react-icons/fi";
 import { TbBrandNextjs, TbBrandReact, TbBrandFirebase, TbBrandMongodb } from "react-icons/tb";
 import { SiTailwindcss, SiTypescript, SiStripe, SiPaypal } from "react-icons/si";
 
@@ -15,34 +15,49 @@ const techIcons = {
   "TypeScript": <SiTypescript className="text-blue-600" />,
   "Integrate Stripe": <SiStripe className="text-purple-500" />,
   "Integrate PayPal": <SiPaypal className="text-blue-700" />,
-  // Add more icons as needed
+  "Mui": <span className="text-xs font-bold text-blue-400">MUI</span>,
+  "Node.js": <span className="text-xs font-bold text-green-600">Node</span>,
+  "JavaScript": <span className="text-xs font-bold text-yellow-500">JS</span>,
+  "Framer Motion": <span className="text-xs font-bold text-purple-500">FM</span>,
+  "OpenWeatherMap API": <span className="text-xs font-bold text-orange-500">API</span>,
+  "Gemini API Integration": <span className="text-xs font-bold text-teal-500">AI</span>,
+  "Geolocation": <span className="text-xs font-bold text-blue-500">Geo</span>,
+  "Integrate NowPayments": <span className="text-xs font-bold text-green-500">Crypto</span>,
 };
 
 const projects = [
   {
     title: "Real-Time ChatApp",
-    description:"This is a professional real-time Chat App with a clean and modern interface, secure user authentication, and smooth messaging functionality. It showcases your skills in real-time communication, UI/UX design, and frontend-backend integration.",
+    description: "This is a professional real-time Chat App with a clean and modern interface, secure user authentication, and smooth messaging functionality. It showcases your skills in real-time communication, UI/UX design, and frontend-backend integration.",
     tags: ["Next.js", "Mui", "Tailwind css", "Firebase"],
     github: "#",
     live: "https://chat-app-professional.vercel.app/",
     image: "/p3.jpg",
   },
+
+  {
+    title: "Smart Resume Parser + Candidate Tracker System",
+    description: "An AI-powered hiring tool built with React.js, TailwindCSS, Node.js, and MongoDB. It parses resumes, extracts candidate details, matches skills to job roles using Google Gemini API, and lets recruiters quickly search, filter, and shortlist candidates for smarter hiring.",
+    tags: ["vite React.js", "Gemini API Integration", "Node.js", "Tailwind CSS"],
+    github: "#",
+    live: "https://talenttrack-ai.vercel.app/",
+    image: "/Talent Track.png"
+  },
+  {
+    title: "AI Chat Assistant",
+    description: "This is a smart AI chat assistant with a clean UI, built for real-time conversations. It showcases AI integration and responsive frontend design.",
+    tags: ["Next.js", "Gemini API Integration", "Geolocation", "Tailwind CSS"],
+    github: "#",
+    live: "https://ai-chat-assistant-pi.vercel.app/",
+    image: "/Chat.png"
+  },
   {
     title: "Task Management App",
-    description:"This is a Sticky Wall To-Do App that allows users to create and organize tasks visually using colorful sticky notes. With its interactive and user-friendly interface, it offers an engaging way to manage daily tasks. This project showcases your skills in dynamic UI design, state management, and responsive frontend development.",
+    description: "This is a Sticky Wall To-Do App that allows users to create and organize tasks visually using colorful sticky notes. With its interactive and user-friendly interface, it offers an engaging way to manage daily tasks. This project showcases your skills in dynamic UI design, state management, and responsive frontend development.",
     tags: ["React", "Node.js", "MongoDB", "Tailwind CSS"],
     github: "#",
     live: "https://sticky-wall-todo.netlify.app/",
     image: "/p2.jpg",
-  },
-  {
-    title: "E-Commerce Platform",
-    description:
-      "A full-featured E-Commerce platform built for both users and admins. It includes secure payment gateways like Crypto, PayPal, Stripe, and local payment integration. With user-friendly shopping, real-time order tracking, and a powerful admin dashboard for managing products, orders, and payments—this project is designed to showcase advanced e-commerce functionality with modern tech.",
-    tags: ["Vite React.js", "Integrate Stripe", "MongoDB", "TypeScript", "Tailwind CSS", "Integrate PayPal", "Integrate NowPayments"],
-    github: "#",
-    live: "#",
-    image: "/p1.jpg",
   },
   {
     title: "QR Code Generator",
@@ -60,14 +75,15 @@ const projects = [
     live: "https://real-time-weather-app-lime.vercel.app/?location=faisalabad",
     image: "/weather.png"
   },
+
   {
-    title: "AI Chat Assistant",
-    description: "This is a smart AI chat assistant with a clean UI, built for real-time conversations. It showcases AI integration and responsive frontend design.",
-    tags: ["Next.js", "Gemini API Integration", "Geolocation", "Tailwind CSS"],
+    title: "E-Commerce Platform",
+    description: "A full-featured E-Commerce platform built for both users and admins. It includes secure payment gateways like Crypto, PayPal, Stripe, and local payment integration. With user-friendly shopping, real-time order tracking, and a powerful admin dashboard for managing products, orders, and payments—this project is designed to showcase advanced e-commerce functionality with modern tech.",
+    tags: ["Vite React.js", "Integrate Stripe", "MongoDB", "TypeScript", "Tailwind CSS", "Integrate PayPal", "Integrate NowPayments"],
     github: "#",
-    live: "https://ai-chat-assistant-pi.vercel.app/",
-    image: "/Chat.png"
-  }
+    live: "#",
+    image: "/p1.jpg",
+  },
 ];
 
 const Projects = () => {
@@ -78,7 +94,40 @@ const Projects = () => {
 
   const [showAllProjects, setShowAllProjects] = useState(false);
   const [hoveredProject, setHoveredProject] = useState(null);
-  const visibleProjects = showAllProjects ? projects.length : 3;
+  const [selectedFilter, setSelectedFilter] = useState('All');
+
+  // Get unique categories from projects
+  const categories = useMemo(() => {
+    const cats = new Set(['All']);
+    projects.forEach(project => {
+      if (project.tags.includes('Next.js') || project.tags.includes('React')) cats.add('Frontend');
+      if (project.tags.includes('Node.js') || project.tags.includes('MongoDB')) cats.add('Full Stack');
+      if (project.tags.includes('AI') || project.tags.includes('Gemini API Integration')) cats.add('AI/ML');
+      if (project.tags.includes('E-Commerce') || project.tags.includes('Stripe')) cats.add('E-Commerce');
+    });
+    return Array.from(cats);
+  }, []);
+
+  // Filter projects based on selected category
+  const filteredProjects = useMemo(() => {
+    if (selectedFilter === 'All') return projects;
+    return projects.filter(project => {
+      switch (selectedFilter) {
+        case 'Frontend':
+          return project.tags.some(tag => ['Next.js', 'React', 'Vite React'].includes(tag));
+        case 'Full Stack':
+          return project.tags.some(tag => ['Node.js', 'MongoDB', 'Firebase'].includes(tag));
+        case 'AI/ML':
+          return project.tags.some(tag => ['Gemini API Integration', 'AI'].includes(tag));
+        case 'E-Commerce':
+          return project.tags.some(tag => ['Integrate Stripe', 'Integrate PayPal', 'E-Commerce'].includes(tag));
+        default:
+          return true;
+      }
+    });
+  }, [selectedFilter]);
+
+  const visibleProjects = showAllProjects ? filteredProjects.length : Math.min(3, filteredProjects.length);
 
   const toggleProjectsVisibility = () => {
     setShowAllProjects(!showAllProjects);
@@ -97,8 +146,8 @@ const Projects = () => {
   };
 
   const item = {
-    hidden: { 
-      y: 60, 
+    hidden: {
+      y: 60,
       opacity: 0,
       transition: {
         type: "spring",
@@ -141,15 +190,15 @@ const Projects = () => {
     <section
       id="work"
       ref={ref}
-      className="relative py-28 px-6 sm:px-12 lg:px-24 bg-gradient-to-br from-gray-50/50 to-gray-100/50 dark:from-gray-900/50 dark:to-gray-950/50 overflow-hidden"
+      className="relative px-6 overflow-hidden py-28 sm:px-12 lg:px-24 bg-gradient-to-br from-gray-50/50 to-gray-100/50 dark:from-gray-900/50 dark:to-gray-950/50"
       aria-label="Projects section"
     >
       {/* Enhanced decorative elements */}
       <div className="absolute inset-0 -z-10">
-        <div className="absolute top-20 left-10 w-96 h-96 bg-gradient-to-r from-teal-400/10 to-cyan-400/10 rounded-full mix-blend-multiply filter blur-3xl animate-blob"></div>
-        <div className="absolute top-0 right-20 w-80 h-80 bg-gradient-to-r from-purple-400/10 to-pink-400/10 rounded-full mix-blend-multiply filter blur-3xl animate-blob animation-delay-2000"></div>
-        <div className="absolute bottom-10 left-1/2 w-72 h-72 bg-gradient-to-r from-blue-400/10 to-indigo-400/10 rounded-full mix-blend-multiply filter blur-3xl animate-blob animation-delay-4000"></div>
-        
+        <div className="absolute rounded-full top-20 left-10 w-96 h-96 bg-gradient-to-r from-teal-400/10 to-cyan-400/10 mix-blend-multiply filter blur-3xl animate-blob"></div>
+        <div className="absolute top-0 rounded-full right-20 w-80 h-80 bg-gradient-to-r from-purple-400/10 to-pink-400/10 mix-blend-multiply filter blur-3xl animate-blob animation-delay-2000"></div>
+        <div className="absolute rounded-full bottom-10 left-1/2 w-72 h-72 bg-gradient-to-r from-blue-400/10 to-indigo-400/10 mix-blend-multiply filter blur-3xl animate-blob animation-delay-4000"></div>
+
         {/* Floating particles */}
         {[...Array(15)].map((_, i) => (
           <motion.div
@@ -177,7 +226,7 @@ const Projects = () => {
         ))}
       </div>
 
-      <div className="relative max-w-7xl mx-auto">
+      <div className="relative mx-auto max-w-7xl">
         <motion.div
           variants={container}
           initial="hidden"
@@ -185,8 +234,8 @@ const Projects = () => {
           className="mb-20"
         >
           <motion.div variants={fadeIn} className="flex items-center mb-8">
-            <motion.span 
-              className="text-teal-500 dark:text-teal-400 font-mono text-lg md:text-xl mr-4"
+            <motion.span
+              className="mr-4 font-mono text-lg text-teal-500 dark:text-teal-400 md:text-xl"
               animate={{
                 rotate: [0, 10, -10, 0],
                 transition: {
@@ -198,213 +247,183 @@ const Projects = () => {
             >
               03.
             </motion.span>
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white">
-              <span className="text-teal-500 dark:text-teal-400">Featured</span> Projects
+            <h2 className="text-4xl font-bold text-gray-900 md:text-5xl dark:text-white">
+              My <span className="text-teal-500 dark:text-teal-400">Projects</span>
             </h2>
-            <motion.span 
-              className="hidden md:inline-block h-px bg-teal-500 dark:bg-teal-400 ml-6 flex-grow max-w-32"
+            <motion.span
+              className="flex-grow hidden h-px ml-6 bg-teal-500 md:inline-block dark:bg-teal-400 max-w-32"
               initial={{ scaleX: 0 }}
               animate={{ scaleX: 1 }}
               transition={{ delay: 0.5, duration: 1 }}
             />
           </motion.div>
-          
+
           <motion.p
             variants={fadeIn}
-            className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl leading-relaxed"
+            className="max-w-3xl mb-8 text-xl leading-relaxed text-gray-600 dark:text-gray-300"
           >
             Here's a selection of my recent work. Each project represents a unique challenge solved with modern technologies and clean, efficient code.
           </motion.p>
+
+          {/* Project Stats */}
+          <motion.div
+            variants={fadeIn}
+            className="flex flex-wrap gap-6 mb-12"
+          >
+            <div className="flex items-center gap-2 px-4 py-2 bg-white rounded-lg shadow-sm dark:bg-gray-800">
+              <FiCode className="text-teal-500" />
+              <span className="text-sm font-medium text-gray-600 dark:text-gray-400">
+                {filteredProjects.length} Projects
+              </span>
+            </div>
+            <div className="flex items-center gap-2 px-4 py-2 bg-white rounded-lg shadow-sm dark:bg-gray-800">
+              <FiEye className="text-blue-500" />
+              <span className="text-sm font-medium text-gray-600 dark:text-gray-400">
+                {filteredProjects.filter(p => p.live !== '#').length} Live Demos
+              </span>
+            </div>
+          </motion.div>
         </motion.div>
 
         <motion.div
           variants={container}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+          className="grid grid-cols-1 gap-8 md:grid-cols-2 xl:grid-cols-3"
         >
-          <AnimatePresence>
-            {projects.slice(0, visibleProjects).map((project, index) => (
+          <AnimatePresence mode="wait">
+            {filteredProjects.slice(0, visibleProjects).map((project, index) => (
+              // Grid View
               <motion.div
-                key={index}
+                key={`${project.title}-${selectedFilter}`}
                 variants={item}
                 initial="hidden"
                 animate="visible"
+                exit="hidden"
                 whileHover="hover"
-                className="group relative h-full"
+                className="relative overflow-hidden transition-all duration-500 bg-white shadow-xl rounded-2xl dark:bg-gray-800 hover:shadow-2xl group"
                 layout
+                onMouseEnter={() => setHoveredProject(index)}
+                onMouseLeave={() => setHoveredProject(null)}
               >
-                <div className={`absolute rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500`} />
+                {/* Grid Image */}
+                <div className="relative h-48 overflow-hidden bg-gray-100 dark:bg-gray-700">
+                  <motion.img
+                    src={project.image}
+                    alt={project.title}
+                    className="object-contain w-full h-full"
+                    initial={{ scale: 1 }}
+                    whileHover={{ scale: 1.05 }}
+                    transition={{ duration: 0.6 }}
+                  />
+                  <div className="absolute inset-0 transition-opacity duration-300 opacity-0 bg-gradient-to-t from-black/60 via-transparent to-transparent group-hover:opacity-100" />
 
-                <div 
-                  className="h-full flex flex-col bg-white/90 dark:bg-gray-800/90 backdrop-blur-lg rounded-3xl overflow-hidden shadow-2xl hover:shadow-3xl transition-all duration-500 border border-gray-200/50 dark:border-gray-700/50 group"
-                  onMouseEnter={() => setHoveredProject(index)}
-                  onMouseLeave={() => setHoveredProject(null)}
-                >
-                  <div className="relative overflow-hidden h-64">
-                    <motion.img
-                      src={project.image}
-                      alt={project.title}
-                      className="w-full h-full object-cover"
-                      initial={{ scale: 1 }}
-                      whileHover={{ scale: 1.1 }}
-                      transition={{ duration: 0.6, ease: "easeOut" }}
-                    />
-                    
-                    {/* Enhanced overlay gradient */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                    {/* Enhanced action buttons */}
-                    <motion.div 
-                      className="absolute inset-0 flex items-center justify-center gap-4 opacity-0 group-hover:opacity-100 transition-all duration-500"
-                      initial={{ scale: 0.8 }}
-                      whileHover={{ scale: 1 }}
-                    >
-                      {project.github !== "#" && (
-                        <motion.a
-                          href={project.github}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="bg-white/95 dark:bg-gray-800/95 backdrop-blur-sm p-4 rounded-full hover:bg-white dark:hover:bg-gray-800 transition-all shadow-lg hover:shadow-xl"
-                          aria-label="GitHub repository"
-                          whileHover={{ scale: 1.1, rotate: 5 }}
-                          whileTap={{ scale: 0.95 }}
-                        >
-                          <FiGithub className="text-gray-800 dark:text-gray-200 text-xl" />
-                        </motion.a>
-                      )}
-                      {project.live !== "#" && (
-                        <motion.a
-                          href={project.live}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="bg-teal-500 hover:bg-teal-600 p-4 rounded-full transition-all shadow-lg hover:shadow-xl text-white"
-                          aria-label="Live demo"
-                          whileHover={{ scale: 1.1, rotate: -5 }}
-                          whileTap={{ scale: 0.95 }}
-                        >
-                          <FiExternalLink className="text-xl" />
-                        </motion.a>
-                      )}
-                    </motion.div>
-                    
-                    {/* Project number indicator */}
-                    <motion.div
-                      className="absolute top-4 left-4 bg-teal-500/90 backdrop-blur-sm text-white px-3 py-1 rounded-full text-sm font-bold"
-                      initial={{ opacity: 0, scale: 0 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      transition={{ delay: index * 0.1 }}
-                    >
-                      #{String(index + 1).padStart(2, '0')}
-                    </motion.div>
+                  {/* Grid Action Buttons */}
+                  <motion.div
+                    className="absolute inset-0 flex items-center justify-center gap-3 transition-all duration-300 opacity-0 group-hover:opacity-100"
+                    initial={{ scale: 0.8 }}
+                    whileHover={{ scale: 1 }}
+                  >
+                    {project.github !== "#" && (
+                      <motion.a
+                        href={project.github}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="p-3 transition-all rounded-full shadow-lg bg-white/90 dark:bg-gray-800/90 hover:shadow-xl"
+                        whileHover={{ scale: 1.1, rotate: 5 }}
+                        whileTap={{ scale: 0.95 }}
+                      >
+                        <FiGithub className="text-lg text-gray-800 dark:text-gray-200" />
+                      </motion.a>
+                    )}
+                    {project.live !== "#" && (
+                      <motion.a
+                        href={project.live}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="p-3 text-white transition-all bg-teal-500 rounded-full shadow-lg hover:shadow-xl"
+                        whileHover={{ scale: 1.1, rotate: -5 }}
+                        whileTap={{ scale: 0.95 }}
+                      >
+                        <FiExternalLink className="text-lg" />
+                      </motion.a>
+                    )}
+                  </motion.div>
+
+                  {/* Project Number */}
+                  <motion.div
+                    className="absolute px-2 py-1 text-xs font-bold text-white rounded-full top-3 left-3 bg-teal-500/90 backdrop-blur-sm"
+                    initial={{ opacity: 0, scale: 0 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ delay: index * 0.1 }}
+                  >
+                    #{String(index + 1).padStart(2, '0')}
+                  </motion.div>
+                </div>
+
+                {/* Grid Content */}
+                <div className="p-6">
+                  <motion.h3
+                    className="mb-3 text-xl font-bold text-gray-900 transition-colors dark:text-white group-hover:text-teal-600 dark:group-hover:text-teal-400"
+                    whileHover={{ x: 5 }}
+                  >
+                    {project.title}
+                  </motion.h3>
+                  <p className="mb-4 text-sm text-gray-600 dark:text-gray-300 line-clamp-3">
+                    {project.description.length > 120 ? project.description.substring(0, 120) + '...' : project.description}
+                  </p>
+
+                  {/* Grid Tags */}
+                  <div className="flex flex-wrap gap-2 mb-4">
+                    {project.tags.slice(0, 3).map((tag, i) => (
+                      <motion.span
+                        key={i}
+                        className="px-2 py-1 text-xs font-medium text-gray-600 bg-gray-100 rounded-md dark:text-gray-300 dark:bg-gray-700"
+                        whileHover={{ scale: 1.05 }}
+                      >
+                        {tag}
+                      </motion.span>
+                    ))}
+                    {project.tags.length > 3 && (
+                      <span className="px-2 py-1 text-xs font-medium text-teal-600 rounded-md dark:text-teal-400 bg-teal-50 dark:bg-teal-900/30">
+                        +{project.tags.length - 3}
+                      </span>
+                    )}
                   </div>
 
-                  <div className="p-8 flex flex-col flex-grow relative">
-                    {/* Subtle glow effect */}
-                    <motion.div
-                      className="absolute inset-0 bg-gradient-to-br from-teal-500/5 to-cyan-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-b-3xl"
-                      initial={{ scale: 0.8 }}
-                      whileHover={{ scale: 1 }}
-                    />
-                    
-                    <div className="relative z-10">
-                      <div className="mb-4">
-                        <motion.span 
-                          className="text-xs font-mono text-teal-600 dark:text-teal-400 tracking-wider bg-teal-50 dark:bg-teal-900/30 px-3 py-1 rounded-full"
-                          whileHover={{ scale: 1.05 }}
-                        >
-                          FEATURED PROJECT
-                        </motion.span>
-                      </div>
-                      <motion.h3 
-                        className="text-2xl font-bold text-gray-900 dark:text-white mb-4 group-hover:text-teal-600 dark:group-hover:text-teal-400 transition-colors"
-                        whileHover={{ x: 5 }}
+                  {/* Grid Action Links */}
+                  <div className="flex gap-3">
+                    {project.github !== "#" && (
+                      <motion.a
+                        href={project.github}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center gap-1 px-3 py-1.5 text-sm font-medium text-gray-700 dark:text-gray-300 bg-gray-100 dark:bg-gray-700 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors"
+                        whileHover={{ scale: 1.05 }}
                       >
-                        {project.title}
-                      </motion.h3>
-                      <p className="text-gray-600 dark:text-gray-300 mb-6 flex-grow leading-relaxed text-base">
-                        {project.description}
-                      </p>
-                    </div>
-
-                    <ul className="flex flex-wrap gap-3 mb-8 relative z-10">
-                      {project.tags.map((tag, i) => (
-                        <motion.li
-                          key={i}
-                          whileHover={{ scale: 1.1, y: -2 }}
-                          whileTap={{ scale: 0.95 }}
-                          className="group/tag relative text-xs font-semibold bg-gradient-to-r from-gray-100 to-gray-200 dark:from-gray-700 dark:to-gray-600 text-gray-700 dark:text-gray-300 px-4 py-2 rounded-xl flex items-center gap-2 shadow-sm hover:shadow-md transition-all border border-gray-200/50 dark:border-gray-600/50"
-                          initial={{ opacity: 0, y: 10 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          transition={{ delay: 0.1 + (i * 0.05) }}
-                        >
-                          {techIcons[tag] && (
-                            <motion.span
-                              whileHover={{ rotate: 360 }}
-                              transition={{ duration: 0.5 }}
-                              className="text-base"
-                            >
-                              {techIcons[tag]}
-                            </motion.span>
-                          )}
-                          {tag}
-                          
-                          {/* Hover glow */}
-                          <motion.div
-                            className="absolute inset-0 rounded-xl bg-teal-500/20 opacity-0 group-hover/tag:opacity-100 -z-10 blur-sm"
-                            initial={{ scale: 0.8 }}
-                            whileHover={{ scale: 1.2 }}
-                            transition={{ duration: 0.3 }}
-                          />
-                        </motion.li>
-                      ))}
-                    </ul>
-
-                    <div className="flex gap-4 mt-auto relative z-10">
-                      {project.github !== "#" && (
-                        <motion.a
-                          href={project.github}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="flex items-center gap-2 text-gray-700 dark:text-gray-300 hover:text-teal-600 dark:hover:text-teal-400 transition-all font-semibold group/link bg-gray-50 dark:bg-gray-700/50 px-4 py-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700"
-                          whileHover={{ x: 5, scale: 1.05 }}
-                          whileTap={{ scale: 0.95 }}
-                          aria-label="GitHub repository"
-                        >
-                          <motion.div
-                            whileHover={{ rotate: 360 }}
-                            transition={{ duration: 0.5 }}
-                          >
-                            <FiGithub className="text-lg" />
-                          </motion.div>
-                          Code
-                        </motion.a>
-                      )}
-                      {project.live !== "#" && (
-                        <motion.a
-                          href={project.live}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="flex items-center gap-2 bg-gradient-to-r from-teal-500 to-cyan-600 hover:from-teal-600 hover:to-cyan-700 text-white font-semibold px-4 py-2 rounded-lg transition-all shadow-lg hover:shadow-xl"
-                          whileHover={{ x: 5, scale: 1.05 }}
-                          whileTap={{ scale: 0.95 }}
-                          aria-label="Live demo"
-                        >
-                          <motion.div
-                            whileHover={{ rotate: 45 }}
-                            transition={{ duration: 0.3 }}
-                          >
-                            <FiExternalLink className="text-lg" />
-                          </motion.div>
-                          Live Demo
-                        </motion.a>
-                      )}
-                    </div>
+                        <FiGithub className="text-sm" />
+                        Code
+                      </motion.a>
+                    )}
+                    {project.live !== "#" && (
+                      <motion.a
+                        href={project.live}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center gap-1 px-3 py-1.5 text-sm font-medium text-white bg-teal-500 rounded-lg hover:bg-teal-600 transition-colors"
+                        whileHover={{ scale: 1.05 }}
+                      >
+                        <FiExternalLink className="text-sm" />
+                        Demo
+                      </motion.a>
+                    )}
                   </div>
                 </div>
               </motion.div>
+
             ))}
           </AnimatePresence>
         </motion.div>
 
-        {projects.length > 3 && (
+        {filteredProjects.length > 3 && (
           <motion.div
             variants={fadeIn}
             className="mt-16 text-center"
@@ -415,13 +434,13 @@ const Projects = () => {
             <motion.button
               onClick={toggleProjectsVisibility}
               className="inline-flex items-center px-8 py-3.5 border-2 border-teal-500 dark:border-teal-400 rounded-full text-teal-600 dark:text-teal-400 hover:bg-teal-600/10 dark:hover:bg-teal-400/10 transition-colors duration-300 font-medium group"
-              whileHover={{ 
+              whileHover={{
                 scale: 1.05,
                 boxShadow: "0 0 15px rgba(20, 184, 166, 0.3)"
               }}
               whileTap={{ scale: 0.95 }}
             >
-              {showAllProjects ? 'Show Less Projects' : 'Show More Projects'}
+              {showAllProjects ? `Show Less Projects` : `Show More Projects (${filteredProjects.length - 3} more)`}
               <motion.span
                 className="ml-3"
                 animate={{ rotate: showAllProjects ? 180 : 0 }}
