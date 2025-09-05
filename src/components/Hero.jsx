@@ -247,7 +247,7 @@ const Hero = () => {
               transition: { delay: 0.8 }
             } : {}}
           >
-            I build{' '}
+            I craft{' '}
             <motion.span
               className="relative"
               animate={isInView ? "float" : {}}
@@ -255,11 +255,11 @@ const Hero = () => {
               onHoverStart={() => setHoverState(true)}
               onHoverEnd={() => setHoverState(false)}
             >
-              <span className="relative z-10">digital</span>
+              <span className="relative z-10 bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent font-extrabold">digital</span>
               <AnimatePresence>
                 {hoverState && (
                   <motion.span
-                    className="absolute inset-0 -z-10 bg-gradient-to-r from-teal-400/30 to-cyan-500/30 dark:from-teal-400/20 dark:to-cyan-500/20 blur-lg rounded-full"
+                    className="absolute inset-0 -z-10 bg-gradient-to-r from-purple-400/30 to-pink-500/30 dark:from-purple-400/20 dark:to-pink-500/20 blur-lg rounded-full"
                     initial={{ scale: 0.8, opacity: 0 }}
                     animate={{ scale: 1, opacity: 1 }}
                     exit={{ scale: 1.2, opacity: 0 }}
@@ -283,8 +283,7 @@ const Hero = () => {
               transition: { delay: 1.0 }
             } : {}}
           >
-            I'm a full-stack developer specializing in building (and occasionally designing)
-            exceptional digital experiences.
+            I'm a passionate <span className="font-semibold text-gray-900 dark:text-white">full-stack developer</span> specializing in building modern, responsive web applications and managing e-commerce platforms.
           </motion.span>{' '}
           <motion.span
             className="font-medium text-teal-600 dark:text-teal-400"
@@ -294,7 +293,7 @@ const Hero = () => {
               transition: { delay: 1.2 }
             } : {}}
           >
-            Currently focused on creating accessible, human-centered products.
+            Currently focused on creating accessible, user-centered digital solutions that drive business growth.
           </motion.span>
         </motion.p>
 

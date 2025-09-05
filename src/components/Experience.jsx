@@ -80,7 +80,7 @@ const categoryIcons = {
 const Experience = () => {
   const [ref, inView] = useInView({
     threshold: 0.1,
-    triggerOnce: true
+    triggerOnce: false
   });
 
   const container = {
@@ -126,22 +126,15 @@ const Experience = () => {
     <section
       id="experience"
       ref={ref}
-      className="py-20 px-6 sm:px-12 lg:px-24 relative overflow-hidden"
+      className="py-24 px-6 sm:px-12 lg:px-24 relative bg-gradient-to-br from-gray-50/30 to-gray-100/30 dark:from-gray-900/30 dark:to-gray-950/30 overflow-hidden"
       aria-label="Experience section"
     >
-      {/* Decorative elements */}
-      <motion.div
-        initial={{ opacity: 0, scale: 0.8 }}
-        animate={inView ? { opacity: 0.1, scale: 1 } : {}}
-        transition={{ delay: 0.5, duration: 1 }}
-        className="absolute -right-20 -top-20 w-64 h-64 rounded-full bg-teal-500 opacity-10 blur-3xl"
-      />
-      <motion.div
-        initial={{ opacity: 0, scale: 0.8 }}
-        animate={inView ? { opacity: 0.1, scale: 1 } : {}}
-        transition={{ delay: 0.7, duration: 1 }}
-        className="absolute -left-20 bottom-20 w-64 h-64 rounded-full bg-blue-500 opacity-10 blur-3xl"
-      />
+      {/* Enhanced background decorations */}
+      <div className="absolute inset-0 -z-10">
+        <div className="absolute top-20 left-10 w-72 h-72 bg-teal-400/10 rounded-full mix-blend-multiply filter blur-3xl animate-blob"></div>
+        <div className="absolute top-40 right-10 w-96 h-96 bg-purple-400/10 rounded-full mix-blend-multiply filter blur-3xl animate-blob animation-delay-2000"></div>
+        <div className="absolute bottom-20 left-1/2 w-80 h-80 bg-blue-400/10 rounded-full mix-blend-multiply filter blur-3xl animate-blob animation-delay-4000"></div>
+      </div>
 
       <div className="max-w-7xl mx-auto relative z-10">
         <motion.div
@@ -149,26 +142,14 @@ const Experience = () => {
           initial="hidden"
           animate={inView ? "visible" : "hidden"}
         >
-          <motion.div
-            variants={item}
-            className="flex flex-col items-center mb-16"
-          >
-            <motion.span
-              variants={fadeIn}
-              className="text-teal-500 dark:text-teal-400 font-mono text-lg mb-2"
-            >
-              02. Expertise
-            </motion.span>
-            <motion.h2
-              variants={item}
-              className="text-4xl md:text-5xl font-bold text-center text-gray-900 dark:text-white"
-            >
-              Skills & Experience
-            </motion.h2>
-            <motion.div
-              variants={fadeIn}
-              className="w-20 h-1 bg-teal-500 dark:bg-teal-400 mt-4 rounded-full"
-            />
+          <motion.div variants={item} className="flex items-center mb-16">
+            <span className="text-teal-500 dark:text-teal-400 font-mono text-lg md:text-xl mr-4">
+              02.
+            </span>
+            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white">
+              <span className="text-teal-500 dark:text-teal-400">Skills &</span> Experience
+            </h2>
+            <span className="hidden md:inline-block h-px w-32 bg-teal-500 dark:bg-teal-400 ml-6 flex-grow max-w-32"></span>
           </motion.div>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
@@ -195,14 +176,29 @@ const Experience = () => {
                     key={index}
                     variants={item}
                     whileHover={{ 
-                      y: -5,
-                      boxShadow: "0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)"
+                      y: -8,
+                      scale: 1.05,
+                      boxShadow: "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)"
                     }}
                     whileTap={{ scale: 0.95 }}
-                    className={`flex items-center gap-2 px-4 py-2 rounded-full ${categoryColors[skill.category]} shadow-sm transition-all cursor-default`}
+                    className={`group relative flex items-center gap-3 px-5 py-3 rounded-xl ${categoryColors[skill.category]} shadow-lg hover:shadow-xl transition-all cursor-default border border-white/20 dark:border-gray-700/20 backdrop-blur-sm`}
                   >
-                    <span className="text-lg">{skill.icon}</span>
-                    <span className="font-medium">{skill.name}</span>
+                    <motion.span 
+                      className="text-xl"
+                      whileHover={{ rotate: [0, -10, 10, 0], scale: 1.2 }}
+                      transition={{ duration: 0.3 }}
+                    >
+                      {skill.icon}
+                    </motion.span>
+                    <span className="font-semibold">{skill.name}</span>
+                    
+                    {/* Hover glow effect */}
+                    <motion.div
+                      className="absolute inset-0 rounded-xl bg-gradient-to-r from-teal-500/20 to-cyan-500/20 opacity-0 group-hover:opacity-100 -z-10 blur-xl"
+                      initial={{ scale: 0.8 }}
+                      whileHover={{ scale: 1.2 }}
+                      transition={{ duration: 0.3 }}
+                    />
                   </motion.div>
                 ))}
               </motion.div>
@@ -271,21 +267,25 @@ const Experience = () => {
                     </motion.div>
 
                     <motion.div
-                      whileHover={{ y: -5 }}
-                      className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-md hover:shadow-lg transition-all border border-gray-100 dark:border-gray-700 relative overflow-hidden"
+                      whileHover={{ y: -8, scale: 1.02 }}
+                      className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-lg p-8 rounded-2xl shadow-xl hover:shadow-2xl transition-all border border-gray-200/50 dark:border-gray-700/50 relative overflow-hidden group"
                     >
-                      {/* Glow effect */}
-                      <div className="absolute -right-10 -top-10 w-32 h-32 rounded-full bg-teal-500 opacity-10 blur-xl" />
+                      {/* Enhanced glow effect */}
+                      <div className="absolute -right-10 -top-10 w-40 h-40 rounded-full bg-gradient-to-br from-teal-500/20 to-cyan-500/20 opacity-0 group-hover:opacity-100 blur-2xl transition-opacity duration-500" />
                       
-                      <h4 className="text-xl font-bold text-gray-900 dark:text-white mb-1">
-                        {exp.role}
-                      </h4>
-                      <p className="text-teal-500 dark:text-teal-400 font-medium mb-3">
-                        {exp.company} • {exp.period}
-                      </p>
-                      <p className="text-gray-700 dark:text-gray-300 mb-4">
-                        {exp.description}
-                      </p>
+                      <div className="relative z-10">
+                        <h4 className="text-2xl font-bold text-gray-900 dark:text-white mb-2 group-hover:text-teal-600 dark:group-hover:text-teal-400 transition-colors">
+                          {exp.role}
+                        </h4>
+                        <div className="flex items-center gap-2 mb-4">
+                          <span className="text-teal-500 dark:text-teal-400 font-semibold">{exp.company}</span>
+                          <span className="text-gray-400">•</span>
+                          <span className="text-gray-600 dark:text-gray-400 font-medium">{exp.period}</span>
+                        </div>
+                        <p className="text-gray-700 dark:text-gray-300 mb-6 leading-relaxed">
+                          {exp.description}
+                        </p>
+                      </div>
 
                       <ul className="space-y-2">
                         {exp.highlights.map((highlight, i) => (

@@ -1,10 +1,10 @@
 import { motion, useAnimation, AnimatePresence } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import { useEffect, useRef, useState } from "react";
-import { FaReact, FaNodeJs, FaGitAlt, FaShopify } from "react-icons/fa";
-import { SiNextdotjs, SiTypescript, SiMongodb, SiFirebase, SiTailwindcss, SiVercel } from "react-icons/si";
+import { FaReact, FaNodeJs, FaGitAlt, FaShopify, FaHtml5, FaCss3Alt } from "react-icons/fa";
+import { SiNextdotjs, SiTypescript, SiMongodb, SiFirebase, SiTailwindcss, SiVercel, SiExpress, SiVite } from "react-icons/si";
 import { TbBrandJavascript } from "react-icons/tb";
-import { RiFacebookFill, RiGoogleFill, RiYoutubeFill, RiTiktokFill } from "react-icons/ri";
+import { RiFacebookFill, RiGoogleFill, RiYoutubeFill, RiTiktokFill, RiInstagramFill } from "react-icons/ri";
 
 const About = () => {
   const [ref, inView] = useInView({
@@ -17,21 +17,25 @@ const About = () => {
   const containerRef = useRef(null);
   const [activeTab, setActiveTab] = useState("development");
 
-  // Skill icons mapping
+  // Enhanced skill icons mapping with better colors and animations
   const skillIcons = {
-    "JavaScript (ES6+)": <TbBrandJavascript className="text-yellow-400" />,
-    "TypeScript": <SiTypescript className="text-blue-600" />,
-    "React.js": <FaReact className="text-blue-500" />,
-    "Next.js": <SiNextdotjs className="text-black dark:text-white" />,
-    "Node.js": <FaNodeJs className="text-green-600" />,
-    "MongoDB": <SiMongodb className="text-green-500" />,
-    "Firebase": <SiFirebase className="text-orange-500" />,
-    "Tailwind CSS": <SiTailwindcss className="text-cyan-500" />,
-    "Git/GitHub": <FaGitAlt className="text-orange-600" />,
-    "Shopify Management": <FaShopify className="text-green-700" />,
-    "Facebook/Google Ads": <RiFacebookFill className="text-blue-700" />,
-    "YouTube/TikTok Ads": <RiYoutubeFill className="text-red-600" />,
-    "Vercel/Netlify": <SiVercel className="text-black dark:text-white" />,
+    "JavaScript (ES6+)": <TbBrandJavascript className="text-yellow-400 group-hover:text-yellow-300" />,
+    "TypeScript": <SiTypescript className="text-blue-600 group-hover:text-blue-500" />,
+    "React.js": <FaReact className="text-blue-500 group-hover:text-blue-400" />,
+    "Next.js": <SiNextdotjs className="text-black dark:text-white group-hover:text-gray-700 dark:group-hover:text-gray-300" />,
+    "Vite": <SiVite className="text-purple-500 group-hover:text-purple-400" />,
+    "Node.js": <FaNodeJs className="text-green-600 group-hover:text-green-500" />,
+    "Express": <SiExpress className="text-gray-600 dark:text-gray-400 group-hover:text-gray-500" />,
+    "MongoDB": <SiMongodb className="text-green-500 group-hover:text-green-400" />,
+    "Firebase": <SiFirebase className="text-orange-500 group-hover:text-orange-400" />,
+    "HTML5/CSS3": <FaHtml5 className="text-orange-600 group-hover:text-orange-500" />,
+    "Tailwind CSS": <SiTailwindcss className="text-cyan-500 group-hover:text-cyan-400" />,
+    "Git/GitHub": <FaGitAlt className="text-orange-600 group-hover:text-orange-500" />,
+    "Shopify Management": <FaShopify className="text-green-700 group-hover:text-green-600" />,
+    "Facebook/Google Ads": <RiFacebookFill className="text-blue-700 group-hover:text-blue-600" />,
+    "YouTube/TikTok Ads": <RiYoutubeFill className="text-red-600 group-hover:text-red-500" />,
+    "Instagram Ads": <RiInstagramFill className="text-pink-600 group-hover:text-pink-500" />,
+    "Vercel/Netlify": <SiVercel className="text-black dark:text-white group-hover:text-gray-700 dark:group-hover:text-gray-300" />,
   };
 
   const skills = {
@@ -270,19 +274,24 @@ const About = () => {
 
           <div className="flex flex-col lg:flex-row gap-16">
             <motion.div variants={container} className="lg:w-2/3 space-y-8">
-              <motion.p
+              <motion.div
                 variants={item}
-                className="text-xl text-gray-700 dark:text-gray-300 leading-relaxed"
+                className="space-y-6"
               >
-                I'm a passionate web developer with 6-7 months of internship experience in web development. During my internship, I worked with modern technologies to build responsive and interactive web applications.
-              </motion.p>
+                <div className="relative p-6 rounded-2xl bg-gradient-to-br from-teal-50/80 to-cyan-50/80 dark:from-teal-900/20 dark:to-cyan-900/20 border border-teal-200/50 dark:border-teal-700/50">
+                  <div className="absolute top-4 left-4 w-3 h-3 bg-teal-500 rounded-full animate-pulse"></div>
+                  <p className="text-lg text-gray-700 dark:text-gray-300 leading-relaxed ml-8">
+                    I'm a passionate <span className="font-semibold text-teal-600 dark:text-teal-400">full-stack developer</span> with 6-7 months of hands-on internship experience. I specialize in building modern, responsive web applications using cutting-edge technologies.
+                  </p>
+                </div>
 
-              <motion.p
-                variants={item}
-                className="text-xl text-gray-700 dark:text-gray-300 leading-relaxed"
-              >
-                Beyond web development, I'm proficient in managing Shopify stores (though not developing them from scratch through coding). I can handle all aspects of store management including setup, product listing, theme customization, and general maintenance.
-              </motion.p>
+                <div className="relative p-6 rounded-2xl bg-gradient-to-br from-purple-50/80 to-pink-50/80 dark:from-purple-900/20 dark:to-pink-900/20 border border-purple-200/50 dark:border-purple-700/50">
+                  <div className="absolute top-4 left-4 w-3 h-3 bg-purple-500 rounded-full animate-pulse animation-delay-2000"></div>
+                  <p className="text-lg text-gray-700 dark:text-gray-300 leading-relaxed ml-8">
+                    Beyond development, I excel in <span className="font-semibold text-purple-600 dark:text-purple-400">e-commerce management</span> with Shopify, handling everything from store setup to theme customization and maintenance.
+                  </p>
+                </div>
+              </motion.div>
 
               <motion.div variants={item} className="space-y-6">
                 <div className="flex space-x-2 border-b border-gray-200 dark:border-gray-700">
@@ -318,44 +327,70 @@ const About = () => {
                         key={skill}
                         variants={skillItem}
                         custom={index}
-                        className="flex items-center gap-3 group"
+                        className="group relative"
                         whileHover="hover"
                         whileTap={{ scale: 0.95 }}
                       >
-                        <motion.span
-                          className="text-teal-500 dark:text-teal-400 text-xl"
-                          animate={{
-                            rotate: [0, 20, 0],
-                            transition: {
-                              duration: 2,
-                              repeat: Infinity,
-                              repeatType: "reverse",
-                            }
-                          }}
-                        >
-                          ▹
-                        </motion.span>
-                        <div className="flex items-center gap-2">
-                          {skillIcons[skill] && (
-                            <span className="text-lg">
-                              {skillIcons[skill]}
+                        <div className="flex items-center gap-4 p-4 rounded-xl bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm border border-gray-200/50 dark:border-gray-700/50 hover:border-teal-300 dark:hover:border-teal-600 transition-all duration-300 hover:shadow-lg hover:shadow-teal-500/10">
+                          <motion.span
+                            className="text-teal-500 dark:text-teal-400 text-xl"
+                            animate={{
+                              rotate: [0, 20, 0],
+                              transition: {
+                                duration: 2,
+                                repeat: Infinity,
+                                repeatType: "reverse",
+                              }
+                            }}
+                          >
+                            ▹
+                          </motion.span>
+                          <div className="flex items-center gap-3 flex-1">
+                            {skillIcons[skill] && (
+                              <motion.span 
+                                className="text-2xl"
+                                whileHover={{ 
+                                  scale: 1.2,
+                                  rotate: [0, -10, 10, 0],
+                                  transition: { duration: 0.3 }
+                                }}
+                              >
+                                {skillIcons[skill]}
+                              </motion.span>
+                            )}
+                            <span className="text-gray-800 dark:text-gray-200 font-medium group-hover:text-teal-600 dark:group-hover:text-teal-400 transition-colors">
+                              {skill}
                             </span>
-                          )}
-                          <span className="text-gray-800 dark:text-gray-200">
-                            {skill}
-                          </span>
+                          </div>
+                          <motion.div
+                            className="w-2 h-2 bg-teal-500 rounded-full opacity-0 group-hover:opacity-100"
+                            initial={{ scale: 0 }}
+                            whileHover={{ scale: 1 }}
+                            transition={{ type: "spring", stiffness: 300 }}
+                          />
                         </div>
+                        
+                        {/* Hover glow effect */}
+                        <motion.div
+                          className="absolute inset-0 rounded-xl bg-gradient-to-r from-teal-500/20 to-cyan-500/20 opacity-0 group-hover:opacity-100 -z-10 blur-xl"
+                          initial={{ scale: 0.8 }}
+                          whileHover={{ scale: 1.1 }}
+                          transition={{ duration: 0.3 }}
+                        />
                       </motion.div>
                     ))}
                   </motion.div>
                 </AnimatePresence>
               </motion.div>
-              <motion.p
+              <motion.div
                 variants={item}
-                className="text-xl text-gray-700 dark:text-gray-300 leading-relaxed"
+                className="relative p-6 rounded-2xl bg-gradient-to-br from-blue-50/80 to-indigo-50/80 dark:from-blue-900/20 dark:to-indigo-900/20 border border-blue-200/50 dark:border-blue-700/50"
               >
-                Additionally, I have skills in running digital ads across platforms like Facebook, Google, YouTube, TikTok, and Instagram. While I haven't had professional experience in this area yet, I'm confident in my ability to create and manage effective ad campaigns.
-              </motion.p>
+                <div className="absolute top-4 left-4 w-3 h-3 bg-blue-500 rounded-full animate-pulse animation-delay-4000"></div>
+                <p className="text-lg text-gray-700 dark:text-gray-300 leading-relaxed ml-8">
+                  I also bring expertise in <span className="font-semibold text-blue-600 dark:text-blue-400">digital marketing</span>, creating and managing ad campaigns across Facebook, Google, YouTube, TikTok, and Instagram with a focus on ROI optimization.
+                </p>
+              </motion.div>
             </motion.div>
 
             <motion.div

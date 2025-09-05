@@ -1,4 +1,5 @@
-/* tailwind.css */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&family=JetBrains+Mono:wght@100;200;300;400;500;600;700;800&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -6,28 +7,120 @@
 @layer base {
   html {
     scroll-behavior: smooth;
+    overflow-x: hidden;
   }
   
   body {
     @apply bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 transition-colors duration-500;
     font-family: 'Inter', sans-serif;
+    line-height: 1.6;
+    overflow-x: hidden;
   }
   
   h1, h2, h3, h4, h5, h6 {
     @apply font-bold;
+    line-height: 1.2;
   }
   
   a {
-    @apply transition-colors duration-300;
+    @apply transition-all duration-300;
+  }
+  
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    @apply bg-gray-100 dark:bg-gray-800;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    @apply bg-teal-500 rounded-full;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-teal-600;
   }
 }
 
 @layer components {
   .btn-primary {
-    @apply px-6 py-3 bg-teal-500 hover:bg-teal-600 text-white rounded-lg font-medium transition-colors duration-300;
+    @apply px-8 py-4 bg-gradient-to-r from-teal-500 to-cyan-600 hover:from-teal-600 hover:to-cyan-700 text-white rounded-xl font-semibold transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1;
   }
   
   .btn-outline {
-    @apply px-6 py-3 border border-teal-500 text-teal-500 hover:bg-teal-500/10 rounded-lg font-medium transition-colors duration-300;
+    @apply px-8 py-4 border-2 border-teal-500 text-teal-500 hover:bg-teal-500 hover:text-white rounded-xl font-semibold transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1;
   }
+  
+  .glass-effect {
+    @apply bg-white/10 dark:bg-gray-900/10 backdrop-blur-lg border border-white/20 dark:border-gray-700/20;
+  }
+  
+  .gradient-text {
+    @apply bg-gradient-to-r from-teal-500 to-cyan-600 bg-clip-text text-transparent;
+  }
+  
+  .animate-blob {
+    animation: blob 7s infinite;
+  }
+  
+  .animation-delay-2000 {
+    animation-delay: 2s;
+  }
+  
+  .animation-delay-4000 {
+    animation-delay: 4s;
+  }
+}
+
+@layer utilities {
+  .text-shadow {
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .text-shadow-lg {
+    text-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+}
+
+@keyframes blob {
+  0% {
+    transform: translate(0px, 0px) scale(1);
+  }
+  33% {
+    transform: translate(30px, -50px) scale(1.1);
+  }
+  66% {
+    transform: translate(-20px, 20px) scale(0.9);
+  }
+  100% {
+    transform: translate(0px, 0px) scale(1);
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(20, 184, 166, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 40px rgba(20, 184, 166, 0.6);
+  }
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 2s ease-in-out infinite;
 }

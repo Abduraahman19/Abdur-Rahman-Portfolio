@@ -132,23 +132,45 @@ const Footer = () => {
 
           <motion.div 
             variants={item}
-            className="pt-8 border-t -mb-40 border-gray-200 dark:border-gray-800"
+            className="pt-8 border-t border-gray-200 dark:border-gray-800 space-y-4"
           >
-            <p className="text-gray-600 dark:text-gray-400 text-sm flex items-center justify-center gap-1">
-              Designed & Built with 
-              <motion.span
-                className="text-red-500"
-                animate={{ scale: [1, 1.2, 1] }}
-                transition={{ 
-                  duration: 1.5,
-                  repeat: Infinity,
-                  repeatType: "reverse"
-                }}
-              >
-                <FaHeart className="inline mx-1" />
-              </motion.span>
-              by Abdur Rahman • © {currentYear}
-            </p>
+            <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
+              <p className="text-gray-600 dark:text-gray-400 text-sm flex items-center gap-1">
+                Designed & Built with 
+                <motion.span
+                  className="text-red-500"
+                  animate={{ scale: [1, 1.2, 1] }}
+                  transition={{ 
+                    duration: 1.5,
+                    repeat: Infinity,
+                    repeatType: "reverse"
+                  }}
+                >
+                  <FaHeart className="inline mx-1" />
+                </motion.span>
+                by Abdur Rahman
+              </p>
+              
+              <div className="flex items-center gap-4 text-sm text-gray-500 dark:text-gray-400">
+                <span>© {currentYear} All rights reserved</span>
+                <span className="hidden sm:inline">•</span>
+                <motion.span 
+                  className="text-teal-500 dark:text-teal-400 font-medium"
+                  whileHover={{ scale: 1.05 }}
+                >
+                  Portfolio v2.0
+                </motion.span>
+              </div>
+            </div>
+            
+            <motion.div
+              className="text-xs text-gray-400 dark:text-gray-500 pt-4 border-t border-gray-100 dark:border-gray-800"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 1 }}
+            >
+              <p>Built with React, Vite, Tailwind CSS, and Framer Motion</p>
+            </motion.div>
           </motion.div>
         </motion.div>
       </div>
