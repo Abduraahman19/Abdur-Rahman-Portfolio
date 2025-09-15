@@ -64,7 +64,7 @@ const projects = [
     description: "A lightweight and responsive QR code generator web app. Users can instantly create QR codes by entering any text or URL. Built with modern technologies to ensure speed, simplicity, and mobile-friendliness.",
     tags: ["Vite React", "Framer Motion", "Tailwind CSS", "JavaScript"],
     github: "#",
-    live: "https://qr-code-generator-two-blond.vercel.app/",
+    live: "https://qr-code-generator1-nine.vercel.app/",
     image: "/qr.png"
   },
   {
