@@ -1,230 +1,190 @@
 // components/Header.jsx
-import { motion, AnimatePresence } from 'framer-motion'
-import { FaMoon, FaSun, FaBars, FaTimes } from 'react-icons/fa'
-import { useTheme } from '../context/ThemeContext'
+import { AnimatePresence, motion } from 'framer-motion'
 import { useState, useEffect } from 'react'
+import { FaBars, FaTimes, FaWhatsapp } from 'react-icons/fa'
 
 const navItems = [
-  { name: 'About', href: '#about' },
-  { name: 'Experience', href: '#experience' },
-  { name: 'Work', href: '#work' },
-  { name: 'Testimonials', href: '#testimonials' },
-  { name: 'Contact', href: '#contact' },
+  { name: 'HOME', href: '#home' },
+  { name: 'ABOUT ME', href: '#about' },
+  { name: 'SKILLS', href: '#skills' },
+  { name: 'EXPERIENCE', href: '#experience' },
+  { name: 'SERVICES', href: '#work' },
+  { name: 'PROCESS', href: '#workflow' },
+  { name: 'CONTACT', href: '#contact' },
 ]
 
 const Header = () => {
-  const { darkMode, toggleTheme } = useTheme()
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
   const [activeSection, setActiveSection] = useState('home')
 
   useEffect(() => {
+    let ticking = false
+
     const handleScroll = () => {
-      setScrolled(window.scrollY > 50)
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          setScrolled(window.scrollY > 25)
 
-      // Update active section based on scroll position
-      const sections = ['home', 'about', 'experience', 'work', 'testimonials', 'contact']
-      const scrollPosition = window.scrollY + 100
+          const sections = ['home', 'about', 'skills', 'experience', 'work', 'workflow', 'contact']
+          const scrollPosition = window.scrollY + 140
 
-      for (const section of sections) {
-        const element = document.getElementById(section)
-        if (element) {
-          const { offsetTop, offsetHeight } = element
-          if (scrollPosition >= offsetTop && scrollPosition < offsetTop + offsetHeight) {
-            setActiveSection(section)
-            break
+          for (const section of sections) {
+            const element = document.getElementById(section)
+            if (element) {
+              const { offsetTop, offsetHeight } = element
+              if (scrollPosition >= offsetTop && scrollPosition < offsetTop + offsetHeight) {
+                setActiveSection(section)
+                break
+              }
+            }
           }
-        }
+          ticking = false
+        })
+        ticking = true
       }
     }
 
-    window.addEventListener('scroll', handleScroll)
+    window.addEventListener('scroll', handleScroll, { passive: true })
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
   return (
-    <motion.header
-      className={`fixed w-full z-50 transition-all duration-500 ${scrolled ? 'bg-white/95 dark:bg-gray-900/95 backdrop-blur-xl shadow-lg border-b border-gray-200/20 dark:border-gray-700/20' : 'bg-transparent'}`}
-      initial={{ y: -100 }}
-      animate={{ y: 0 }}
-      transition={{ duration: 0.6, ease: "easeOut" }}
+    <header
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        scrolled
+          ? 'bg-[#0D0714]/90 backdrop-blur-xl border-b border-purple-500/20 py-3 shadow-[0_4px_30px_rgba(0,0,0,0.5)]'
+          : 'bg-transparent py-5'
+      }`}
     >
-      <nav className="flex items-center justify-between px-6 py-6 mx-auto max-w-7xl sm:px-8 lg:px-12">
-        <motion.a
+      <nav className="flex items-center justify-between px-4 sm:px-6 md:px-8 lg:px-12 mx-auto max-w-[1400px]">
+        {/* Brand Monogram Logo */}
+        <a
           href="#home"
-          initial={{ opacity: 0, x: -20 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.6, delay: 0.1 }}
-          className="flex items-center gap-3 text-2xl font-bold text-gray-900 dark:text-white group"
-          aria-label="Home"
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
+          className="flex items-center gap-3 group"
+          aria-label="Abdur Rahman Asim Home"
         >
-          <motion.span
-            className="p-3 text-white transition-all duration-300 shadow-lg bg-gradient-to-br from-teal-500 to-cyan-600 rounded-xl group-hover:shadow-xl"
-            whileHover={{
-              rotate: [0, -10, 10, 0],
-              transition: { duration: 0.5 }
-            }}
+          <div className="relative">
+            <span className="flex items-center justify-center w-10 h-10 rounded-xl bg-gradient-to-br from-purple-700 via-indigo-800 to-[#190C33] border border-purple-500/40 text-purple-200 shadow-[0_0_20px_rgba(147,51,234,0.45)] transition-transform group-hover:scale-105">
+              <svg className="w-6 h-6" viewBox="0 0 32 32" fill="none">
+                {/* Marketing Growth Trendline */}
+                <path
+                  d="M 5 24 L 12 17 L 17 21 L 27 9"
+                  stroke="#34D399"
+                  strokeWidth="2.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+                <path
+                  d="M 21 9 L 27 9 L 27 15"
+                  stroke="#34D399"
+                  strokeWidth="2.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+                {/* Data Points */}
+                <circle cx="12" cy="17" r="2" fill="#A855F7" />
+                <circle cx="17" cy="21" r="2" fill="#C084FC" />
+                <circle cx="27" cy="9" r="2.5" fill="#34D399" />
+                {/* Subtle AR Initials */}
+                <text x="6" y="13" fill="#FFFFFF" fontSize="8" fontWeight="800" fontFamily="sans-serif">A</text>
+                <text x="13" y="13" fill="#C4B5FD" fontSize="8" fontWeight="800" fontFamily="sans-serif">R</text>
+              </svg>
+            </span>
+            <span className="absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 rounded-full bg-emerald-400 border-2 border-[#0D0714] shadow-[0_0_6px_#34D399]" />
+          </div>
+          <div className="flex flex-col">
+            <span className="text-sm font-bold text-white tracking-tight group-hover:text-purple-300 transition-colors">
+              Abdur Rahman Asim
+            </span>
+            <span className="text-[10px] font-mono tracking-widest text-purple-300/60 uppercase">
+              Digital Marketer & <br/> Social Media Manager
+            </span>
+          </div>
+        </a>
+
+        {/* Desktop Tracked Navigation Links */}
+        <div className="hidden md:flex items-center gap-1 bg-[#160A29]/70 backdrop-blur-md border border-purple-500/20 rounded-full px-3 py-1.5 shadow-[0_0_20px_rgba(0,0,0,0.3)]">
+          {navItems.map((item) => {
+            const sectionId = item.href.substring(1)
+            const isActive = activeSection === sectionId
+
+            return (
+              <a
+                key={item.name}
+                href={item.href}
+                className={`px-4 py-1.5 rounded-full text-[11px] font-semibold tracking-wider transition-all duration-200 ${
+                  isActive
+                    ? 'bg-purple-600/80 text-white shadow-[0_0_15px_rgba(147,51,234,0.4)]'
+                    : 'text-purple-200/70 hover:text-white hover:bg-purple-500/10'
+                }`}
+              >
+                {item.name}
+              </a>
+            )
+          })}
+        </div>
+
+        {/* Right Action / Contact */}
+        <div className="flex items-center gap-3">
+          <a
+            href="https://wa.me/923126326009"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hidden sm:inline-flex items-center gap-2 px-5 py-2 rounded-full text-xs font-semibold tracking-wider uppercase text-white bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 border border-purple-400/30 shadow-[0_0_20px_rgba(147,51,234,0.35)] transition-all active:scale-95"
+            aria-label="Chat on WhatsApp"
           >
-            {"</>"}
-          </motion.span>
-          <span className="font-mono text-transparent transition-all duration-300 bg-gradient-to-r from-teal-600 to-cyan-600 bg-clip-text group-hover:from-teal-500 group-hover:to-cyan-500">
-            Abdur Rahman
-          </span>
-        </motion.a>
+            <FaWhatsapp className="w-3.5 h-3.5 text-emerald-300" />
+            <span>Let&apos;s Talk</span>
+          </a>
 
-        <div className="flex items-center gap-6">
-          <ul className="hidden gap-8 md:flex">
-            {navItems.map((item, index) => {
-              const sectionId = item.href.substring(1) // Remove # from href
-              const isActive = activeSection === sectionId
-
-              return (
-                <motion.li
-                  key={index}
-                  initial={{ opacity: 0, y: -10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: index * 0.1 + 0.2 }}
-                >
-                  <motion.a
-                    href={item.href}
-                    className={`relative group text-sm font-medium transition-all duration-300 px-4 py-2 rounded-lg ${isActive
-                        ? 'text-teal-500 dark:text-teal-400 bg-teal-50 dark:bg-teal-900/30'
-                        : 'text-gray-700 dark:text-gray-300 hover:text-teal-500 dark:hover:text-teal-400 hover:bg-gray-50 dark:hover:bg-gray-800/50'
-                      }`}
-                    whileHover={{ y: -2 }}
-                    whileTap={{ scale: 0.95 }}
-                  >
-                    <span className="mr-2 font-mono text-xs text-teal-500 dark:text-teal-400">
-                      0{index + 1}.
-                    </span>
-                    {item.name}
-
-                    {/* Active indicator */}
-                    {isActive && (
-                      <motion.span
-                        className="absolute bottom-0 w-1 h-1 bg-teal-500 rounded-full left-1/2 dark:bg-teal-400"
-                        layoutId="activeIndicator"
-                        initial={{ scale: 0 }}
-                        animate={{ scale: 1 }}
-                        style={{ x: '-50%' }}
-                      />
-                    )}
-
-                    {/* Hover underline */}
-                    <span className="absolute left-4 right-4 -bottom-1 h-0.5 bg-teal-500 dark:bg-teal-400 scale-x-0 group-hover:scale-x-100 transition-transform origin-left"></span>
-                  </motion.a>
-                </motion.li>
-
-              )
-            })}
-          </ul>
-
-          <motion.button
-            onClick={toggleTheme}
-            className="relative p-3 overflow-hidden text-gray-700 transition-all duration-300 rounded-xl dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 group"
-            aria-label={`Toggle ${darkMode ? 'light' : 'dark'} mode`}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            initial={{ opacity: 0, rotate: -180 }}
-            animate={{ opacity: 1, rotate: 0 }}
-            transition={{ duration: 0.6, delay: 0.8 }}
-          >
-            <motion.div
-              key={darkMode ? 'sun' : 'moon'}
-              initial={{ rotate: -180, opacity: 0 }}
-              animate={{ rotate: 0, opacity: 1 }}
-              exit={{ rotate: 180, opacity: 0 }}
-              transition={{ duration: 0.3 }}
-            >
-              {darkMode ? (
-                <FaSun className="w-5 h-5 text-yellow-500 group-hover:text-yellow-400" />
-              ) : (
-                <FaMoon className="w-5 h-5 text-blue-600 group-hover:text-blue-500" />
-              )}
-            </motion.div>
-
-            {/* Ripple effect */}
-            <motion.div
-              className="absolute inset-0 transition-transform duration-300 scale-0 bg-teal-500/20 rounded-xl group-hover:scale-100"
-              initial={{ scale: 0 }}
-              whileHover={{ scale: 1 }}
-            />
-          </motion.button>
-
-          <motion.button
+          <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="relative p-3 overflow-hidden text-gray-700 transition-all duration-300 md:hidden rounded-xl dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800"
+            className="p-2 rounded-xl text-purple-200 md:hidden bg-[#180D2E] border border-purple-500/25"
             aria-label="Toggle menu"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.6, delay: 0.9 }}
           >
-            <motion.div
-              animate={{ rotate: mobileMenuOpen ? 180 : 0 }}
-              transition={{ duration: 0.3 }}
-            >
-              {mobileMenuOpen ? <FaTimes size={20} /> : <FaBars size={20} />}
-            </motion.div>
-          </motion.button>
+            {mobileMenuOpen ? <FaTimes size={18} /> : <FaBars size={18} />}
+          </button>
         </div>
       </nav>
 
-      {/* Progress bar */}
-      <motion.div
-        className="absolute bottom-0 left-0 h-0.5 bg-gradient-to-r from-teal-500 to-cyan-600"
-        style={{
-          scaleX: scrolled ? 1 : 0,
-          transformOrigin: '0%',
-        }}
-        initial={{ scaleX: 0 }}
-        animate={{ scaleX: scrolled ? 1 : 0 }}
-        transition={{ duration: 0.3 }}
-      />
-
+      {/* Mobile Drawer */}
       <AnimatePresence>
         {mobileMenuOpen && (
           <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
-            exit={{ opacity: 0, height: 0 }}
-            className="overflow-hidden bg-white md:hidden dark:bg-gray-900"
+            initial={{ opacity: 0, y: -8 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -8 }}
+            transition={{ duration: 0.2 }}
+            className="md:hidden border-b border-purple-500/25 bg-[#0D0714]/95 backdrop-blur-2xl px-6 py-6"
           >
-            <ul className="flex flex-col items-center gap-6 py-6">
-              {navItems.map((item, index) => (
-                <motion.li
-                  key={index}
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.3, delay: index * 0.1 }}
+            <div className="flex flex-col gap-2">
+              {navItems.map((item) => (
+                <a
+                  key={item.name}
+                  href={item.href}
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="px-4 py-2.5 rounded-xl text-xs font-semibold tracking-wider text-purple-200 hover:bg-purple-600/20 hover:text-white"
                 >
-                  <a
-                    href={item.href}
-                    onClick={() => setMobileMenuOpen(false)}
-                    className="text-lg font-medium text-gray-700 dark:text-gray-300 hover:text-teal-500 dark:hover:text-teal-400"
-                  >
-                    <span className="mr-2 text-teal-500 dark:text-teal-400">0{index + 1}.</span>
-                    {item.name}
-                  </a>
-                </motion.li>
+                  {item.name}
+                </a>
               ))}
-              <li className="mt-4">
-                <button
-                  onClick={toggleTheme}
-                  className="flex items-center gap-2 text-gray-700 dark:text-gray-300 hover:text-teal-500 dark:hover:text-teal-400"
+              <div className="pt-4 mt-2 border-t border-purple-500/20 flex flex-col gap-2">
+                <a
+                  href="https://wa.me/923126326009"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center justify-center gap-2 px-4 py-3 rounded-full text-xs font-semibold tracking-wider uppercase text-white bg-purple-600 shadow-[0_0_20px_rgba(147,51,234,0.4)]"
                 >
-                  {darkMode ? <FaSun size={20} /> : <FaMoon size={20} />}
-                  {darkMode ? 'Light Mode' : 'Dark Mode'}
-                </button>
-              </li>
-            </ul>
+                  <FaWhatsapp className="w-4 h-4 text-emerald-300" />
+                  <span>Chat on WhatsApp (+92 312 6326009)</span>
+                </a>
+              </div>
+            </div>
           </motion.div>
         )}
       </AnimatePresence>
-    </motion.header>
+    </header>
   )
 }
 

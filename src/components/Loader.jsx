@@ -1,72 +1,44 @@
+// components/Loader.jsx
 import { motion } from 'framer-motion'
 
 const Loader = () => {
   return (
     <motion.div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-gradient-to-br from-white to-gray-50 dark:from-gray-900 dark:to-gray-950"
+      className="fixed inset-0 z-50 flex items-center justify-center bg-[#0D0714]"
       initial={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      transition={{ duration: 0.8, ease: "easeInOut" }}
+      transition={{ duration: 0.25, ease: 'easeInOut' }}
     >
-      <div className="text-center">
-        {/* Logo animation */}
-        <motion.div
-          className="mb-6"
-          initial={{ scale: 0.8, opacity: 0 }}
-          animate={{ scale: 1, opacity: 1 }}
-          transition={{ delay: 0.2, duration: 0.6 }}
-        >
-          <div className="p-4 mx-auto text-white shadow-2xl bg-gradient-to-br from-teal-500 to-cyan-600 rounded-2xl w-fit">
-            <span className="text-2xl font-bold">{"</>"}  </span>
-          </div>
-        </motion.div>
-
-        {/* Loading text with typing effect */}
-        <motion.div
-          className="space-y-2"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.4, duration: 0.6 }}
-        >
-          <motion.h2
-            className="text-2xl font-bold text-transparent bg-gradient-to-r from-teal-600 to-cyan-600 bg-clip-text"
-            animate={{ opacity: [0.5, 1, 0.5] }}
-            transition={{ duration: 2, repeat: Infinity }}
-          >
-            Abdur Rahman
-          </motion.h2>
-          <motion.p
-            className="font-medium text-gray-600 dark:text-gray-400"
-            animate={{ opacity: [0.7, 1, 0.7] }}
-            transition={{ duration: 1.5, repeat: Infinity, delay: 0.5 }}
-          >
-            Crafting Digital Experiences...
-          </motion.p>
-        </motion.div>
-
-        {/* Progress dots */}
-        <motion.div
-          className="flex justify-center gap-2 mt-8"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.8 }}
-        >
-          {[0, 1, 2].map((i) => (
-            <motion.div
-              key={i}
-              className="w-2 h-2 bg-teal-500 rounded-full"
-              animate={{
-                scale: [1, 1.5, 1],
-                opacity: [0.5, 1, 0.5]
-              }}
-              transition={{
-                duration: 1.5,
-                repeat: Infinity,
-                delay: i * 0.2
-              }}
+      <div className="flex flex-col items-center gap-3">
+        <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-purple-700 via-indigo-800 to-[#190C33] border border-purple-500/40 text-purple-200 font-mono text-sm font-bold flex items-center justify-center shadow-[0_0_25px_rgba(147,51,234,0.5)]">
+          <svg className="w-6 h-6" viewBox="0 0 32 32" fill="none">
+            <path
+              d="M 5 24 L 12 17 L 17 21 L 27 9"
+              stroke="#34D399"
+              strokeWidth="2.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
             />
-          ))}
-        </motion.div>
+            <path
+              d="M 21 9 L 27 9 L 27 15"
+              stroke="#34D399"
+              strokeWidth="2.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+            <circle cx="12" cy="17" r="2" fill="#A855F7" />
+            <circle cx="17" cy="21" r="2" fill="#C084FC" />
+            <circle cx="27" cy="9" r="2.5" fill="#34D399" />
+            <text x="6" y="13" fill="#FFFFFF" fontSize="8" fontWeight="800" fontFamily="sans-serif">A</text>
+            <text x="13" y="13" fill="#C4B5FD" fontSize="8" fontWeight="800" fontFamily="sans-serif">R</text>
+          </svg>
+        </div>
+        <div className="flex items-center gap-2">
+          <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse shadow-[0_0_8px_#34D399]" />
+          <span className="text-xs font-mono text-purple-300/80 uppercase tracking-widest">
+            Abdur Rahman Asim
+          </span>
+        </div>
       </div>
     </motion.div>
   )

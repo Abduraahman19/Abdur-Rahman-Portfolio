@@ -1,485 +1,353 @@
 // components/Hero.jsx
-import { motion, useAnimation, AnimatePresence } from 'framer-motion'
-import { useRef, useEffect, useState } from 'react'
+import { motion } from 'framer-motion'
+import { useRef, useState, useEffect } from 'react'
 import { useInView } from 'framer-motion'
+import { FiArrowRight, FiDownload, FiMail, FiCheckCircle } from 'react-icons/fi'
+import { FaWhatsapp, FaLinkedinIn } from 'react-icons/fa'
+import { SiShopify, SiMeta, SiCanva, SiLinkedin } from 'react-icons/si'
+
+const roles = [
+  'Shopify Store Specialist',
+  'Meta Ads Campaign Strategist',
+  'Digital Marketing Professional',
+  'LinkedIn B2B Outreach Specialist',
+  'Canva Pro Visual Designer'
+]
 
 const Hero = () => {
   const ref = useRef(null)
-  const isInView = useInView(ref, { once: false, amount: 0.1 })
-  const controls = useAnimation()
-  const [cursorPos, setCursorPos] = useState({ x: 0, y: 0 })
-  const [hoverState, setHoverState] = useState(false)
+  const isInView = useInView(ref, { once: true, amount: 0.1 })
 
-  // Track cursor position for parallax effect
+  // High-smooth Typewriter effect
+  const [currentRoleIndex, setCurrentRoleIndex] = useState(0)
+  const [displayText, setDisplayText] = useState('')
+  const [isDeleting, setIsDeleting] = useState(false)
+
   useEffect(() => {
-    const handleMouseMove = (e) => {
-      setCursorPos({
-        x: e.clientX / window.innerWidth - 0.5,
-        y: e.clientY / window.innerHeight - 0.5
-      })
-    }
-    window.addEventListener('mousemove', handleMouseMove)
-    return () => window.removeEventListener('mousemove', handleMouseMove)
-  }, [])
+    const currentRole = roles[currentRoleIndex]
+    const timeoutSpeed = isDeleting ? 35 : 75
 
-  // Background gradient animation
-  useEffect(() => {
-    if (isInView) {
-      controls.start({
-        backgroundPosition: ['0% 0%', '100% 100%'],
-        transition: { duration: 15, repeat: Infinity, repeatType: 'reverse' }
-      })
-    }
-  }, [isInView, controls])
-
-  const container = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.12,
-        delayChildren: 0.3,
-        when: "beforeChildren"
+    const timer = setTimeout(() => {
+      if (!isDeleting) {
+        setDisplayText(currentRole.substring(0, displayText.length + 1))
+        if (displayText === currentRole) {
+          setTimeout(() => setIsDeleting(true), 2000)
+        }
+      } else {
+        setDisplayText(currentRole.substring(0, displayText.length - 1))
+        if (displayText === '') {
+          setIsDeleting(false)
+          setCurrentRoleIndex((prev) => (prev + 1) % roles.length)
+        }
       }
-    }
-  }
+    }, timeoutSpeed)
 
-  const item = {
-    hidden: {
-      y: 30,
-      opacity: 0,
-      transition: {
-        type: 'spring',
-        damping: 12,
-        stiffness: 100
-      }
-    },
-    visible: {
-      y: 0,
-      opacity: 1,
-      transition: {
-        type: 'spring',
-        damping: 12,
-        stiffness: 100,
-        duration: 0.8,
-        ease: [0.25, 0.1, 0.25, 1]
-      }
-    }
-  }
-
-  const floatingVariants = {
-    float: {
-      y: [0, -15, 0],
-      transition: {
-        duration: 6,
-        repeat: Infinity,
-        ease: "easeInOut"
-      }
-    }
-  }
-
-  const backgroundVariants = {
-    initial: { opacity: 0 },
-    animate: {
-      opacity: 0.3,
-      transition: { duration: 1.5, delay: 0.5 }
-    }
-  }
-
-  const buttonVariants = {
-    rest: { scale: 1 },
-    hover: {
-      scale: 1.05,
-      transition: {
-        type: "spring",
-        stiffness: 400,
-        damping: 10
-      }
-    },
-    tap: { scale: 0.98 }
-  }
-
-  // Floating tech icons animation
-  const techIcons = [
-    { icon: "🚀", size: "text-2xl", delay: 0.1 },
-    { icon: "💻", size: "text-3xl", delay: 0.3 },
-    { icon: "🔗", size: "text-xl", delay: 0.5 },
-    { icon: "🌐", size: "text-2xl", delay: 0.2 },
-    { icon: "📱", size: "text-3xl", delay: 0.4 },
-    { icon: "⚙️", size: "text-2xl", delay: 0.6 },   // Gear for settings or dev tools
-    { icon: "🧠", size: "text-3xl", delay: 0.7 },   // Brain for AI/ML
-    { icon: "🎨", size: "text-xl", delay: 0.8 },    // Palette for design
-    { icon: "🛠️", size: "text-2xl", delay: 0.9 },   // Tools for development
-    { icon: "📦", size: "text-3xl", delay: 1.0 }    // Package for deployment/modules
-  ]
-
+    return () => clearTimeout(timer)
+  }, [displayText, isDeleting, currentRoleIndex])
 
   return (
     <section
       id="home"
-      className="min-h-screen flex flex-col justify-center px-6 sm:px-12 lg:px-24 relative overflow-hidden isolate"
-      aria-label="Hero section"
       ref={ref}
+      className="relative pt-28 sm:pt-36 pb-12 sm:pb-20 px-4 sm:px-6 md:px-8 lg:px-12 max-w-[1360px] mx-auto overflow-hidden"
     >
-      {/* Dynamic background with parallax effect */}
-      <motion.div
-        className="absolute inset-0 -z-20 overflow-hidden"
-        initial="initial"
-        animate={isInView ? "animate" : "initial"}
-        variants={backgroundVariants}
-        style={{
-          background: `linear-gradient(${45 + cursorPos.x * 10}deg, 
-            rgba(16, 185, 129, 0.1) 0%, 
-            rgba(6, 182, 212, 0.15) 50%, 
-            rgba(59, 130, 246, 0.1) 100%)`,
-          transform: `translate(${cursorPos.x * 20}px, ${cursorPos.y * 20}px)`
-        }}
-      />
+      {/* Dynamic Background Halo Glows */}
+      <div className="absolute top-1/4 left-1/4 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-purple-600/20 rounded-full blur-[140px] pointer-events-none -z-10" />
+      <div className="absolute top-1/3 right-10 w-[420px] h-[420px] bg-indigo-600/15 rounded-full blur-[150px] pointer-events-none -z-10" />
 
-      {/* Floating tech icons */}
-      <AnimatePresence>
-        {isInView && techIcons.map((tech, i) => (
+      {/* Main 2-Column Responsive Showcase Grid */}
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
+        {/* Left Column: Bold Value Proposition & Actions (7 Cols) */}
+        <div className="lg:col-span-7 flex flex-col items-start text-left gap-5 sm:gap-6">
+          {/* Status Badge with Live Indicator */}
           <motion.div
-            key={i}
-            className={`absolute ${tech.size} text-teal-400/30 dark:text-teal-500/30`}
-            initial={{
-              opacity: 0,
-              y: 100,
-              x: Math.random() * 100 - 50
-            }}
-            animate={{
-              opacity: [0, 0.5, 0],
-              y: [100, -100],
-              x: [tech.x, tech.x + Math.random() * 40 - 20],
-              rotate: [0, 360],
-              transition: {
-                duration: 15 + Math.random() * 10,
-                delay: tech.delay,
-                repeat: Infinity,
-                repeatDelay: Math.random() * 5,
-                ease: "linear"
-              }
-            }}
-            style={{
-              left: `${10 + Math.random() * 80}%`,
-              top: `${10 + Math.random() * 80}%`
-            }}
+            initial={{ opacity: 0, y: -10 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.5 }}
+            className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-[#1A0C35]/90 border border-purple-500/30 shadow-[0_0_20px_rgba(147,51,234,0.25)] text-xs font-mono text-purple-200"
           >
-            {tech.icon}
+            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse shadow-[0_0_8px_#34D399]" />
+            <span>Available for E-Commerce & Marketing Roles</span>
+            <span className="text-purple-500/60 hidden sm:inline">|</span>
+            <span className="text-purple-300/70 hidden sm:inline font-sans text-[11px]">Faisalabad & Remote</span>
           </motion.div>
-        ))}
-      </AnimatePresence>
 
-      {/* Main content */}
-      <motion.div
-        variants={container}
-        initial="hidden"
-        animate={isInView ? "visible" : "hidden"}
-        className="relative z-10 max-w-4xl mt-20"
-      >
-        <motion.p
-          variants={item}
-          className="text-teal-500 dark:text-teal-400 mb-4 font-mono text-lg md:text-xl"
-        >
-          <motion.span
-            initial={{ opacity: 0 }}
-            animate={isInView ? {
-              opacity: 1,
-              transition: { delay: 0.3 }
-            } : {}}
-          >
-            Hi, my name is
-          </motion.span>
-        </motion.p>
-
-        <motion.h1
-          variants={item}
-          className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold text-gray-900 dark:text-white mb-4 leading-tight tracking-tight"
-        >
-          <motion.span
-            className="inline-block"
+          {/* Main Hero Headline */}
+          <motion.h1
             initial={{ opacity: 0, y: 20 }}
-            animate={isInView ? {
-              opacity: 1,
-              y: 0,
-              transition: { delay: 0.4 }
-            } : {}}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.6, delay: 0.1 }}
+            className="text-3xl sm:text-5xl lg:text-6xl font-extrabold text-white tracking-tight leading-[1.12]"
           >
-            Abdur
-          </motion.span>{' '}
-          <motion.span
-            className="inline-block text-transparent bg-clip-text bg-gradient-to-r from-teal-500 to-cyan-600"
-            initial={{ opacity: 0, x: -20 }}
-            animate={isInView ? {
-              opacity: 1,
-              x: 0,
-              transition: {
-                delay: 0.6,
-                duration: 0.8,
-                type: "spring",
-                stiffness: 100,
-                damping: 10
-              }
-            } : {}}
-            whileHover={{
-              scale: 1.05,
-              backgroundPosition: ['0% 50%', '100% 50%'],
-              transition: {
-                duration: 2,
-                repeat: Infinity,
-                repeatType: "reverse"
-              }
-            }}
-          >
-            Rahman.
-          </motion.span>
-        </motion.h1>
+            Scaling Brands With{' '}
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-fuchsia-300 to-indigo-300 drop-shadow-[0_0_35px_rgba(168,85,247,0.35)]">
+              Shopify Stores
+            </span>{' '}
+            & High-ROI Marketing.
+          </motion.h1>
 
-        <motion.h2
-          variants={item}
-          className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-gray-600 dark:text-gray-300 mb-6 leading-tight"
-        >
-          <motion.span
-            className="inline-block"
-            initial={{ opacity: 0 }}
-            animate={isInView ? {
-              opacity: 1,
-              transition: { delay: 0.8 }
-            } : {}}
+          {/* Dynamic Role Typewriter Subheading */}
+          <motion.div
+            initial={{ opacity: 0, y: 15 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.5, delay: 0.2 }}
+            className="flex flex-wrap items-center gap-2 text-base sm:text-xl font-medium text-slate-200"
           >
-            I craft{' '}
-            <motion.span
-              className="relative"
-              animate={isInView ? "float" : {}}
-              variants={floatingVariants}
-              onHoverStart={() => setHoverState(true)}
-              onHoverEnd={() => setHoverState(false)}
+            <span className="text-purple-300/80 font-mono text-xs sm:text-sm uppercase tracking-wider">
+              Specialized As:
+            </span>
+            <span className="px-3 py-1 rounded-lg bg-[#1E0E38] border border-purple-500/30 text-transparent bg-clip-text bg-gradient-to-r from-purple-300 via-fuchsia-200 to-emerald-300 font-bold font-mono text-sm sm:text-lg shadow-[0_0_15px_rgba(147,51,234,0.2)]">
+              {displayText}
+              <span className="inline-block w-0.5 h-4 sm:h-5 bg-emerald-400 ml-1.5 animate-pulse align-middle" />
+            </span>
+          </motion.div>
+
+          {/* Value Proposition Description Grounded in CV */}
+          <motion.p
+            initial={{ opacity: 0 }}
+            animate={isInView ? { opacity: 1 } : {}}
+            transition={{ duration: 0.5, delay: 0.3 }}
+            className="text-sm sm:text-base text-slate-300/90 leading-relaxed max-w-2xl"
+          >
+            Hi, I&apos;m <strong className="text-white font-semibold">Abdur Rahman Asim</strong>. I specialize in building complete, high-converting Shopify stores from scratch, setting up targeted Meta Ads campaigns (Facebook & Instagram), and driving executive B2B client acquisition with verified agency experience at <span className="text-purple-300 font-medium">Next Level Software Company</span> and <span className="text-purple-300 font-medium">AdRightly</span>.
+          </motion.p>
+
+          {/* Verified Tool & Ecosystem Tags */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={isInView ? { opacity: 1 } : {}}
+            transition={{ duration: 0.5, delay: 0.35 }}
+            className="flex flex-wrap items-center gap-2 pt-1"
+          >
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-[#160A2A] border border-purple-500/25 text-xs font-mono text-purple-200 shadow-sm">
+              <SiShopify className="w-3.5 h-3.5 text-[#95BF47]" />
+              <span>Turnkey Shopify Store</span>
+            </span>
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-[#160A2A] border border-purple-500/25 text-xs font-mono text-purple-200 shadow-sm">
+              <SiMeta className="w-3.5 h-3.5 text-[#0081FB]" />
+              <span>Meta Ads & ROAS</span>
+            </span>
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-[#160A2A] border border-purple-500/25 text-xs font-mono text-purple-200 shadow-sm">
+              <SiCanva className="w-3.5 h-3.5 text-[#00C4CC]" />
+              <span>Canva Pro Creatives</span>
+            </span>
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-[#160A2A] border border-purple-500/25 text-xs font-mono text-purple-200 shadow-sm">
+              <SiLinkedin className="w-3.5 h-3.5 text-[#0A66C2]" />
+              <span>LinkedIn B2B Outreach</span>
+            </span>
+          </motion.div>
+
+          {/* Call-To-Action Group */}
+          <motion.div
+            initial={{ opacity: 0, y: 15 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.5, delay: 0.4 }}
+            className="flex flex-wrap items-center gap-3 sm:gap-4 pt-2"
+          >
+            <a href="#work" className="btn-figma-primary">
+              <span>View Case Studies</span>
+              <FiArrowRight className="w-4 h-4" />
+            </a>
+
+            <a
+              href="https://wa.me/923126326009?text=Hi%20Abdur%20Rahman,%20I%20am%20interested%20in%20your%20digital%20marketing%20and%20Shopify%20services."
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-figma-secondary"
             >
-              <span className="relative z-10 bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent font-extrabold">digital</span>
-              <AnimatePresence>
-                {hoverState && (
-                  <motion.span
-                    className="absolute inset-0 -z-10 bg-gradient-to-r from-purple-400/30 to-pink-500/30 dark:from-purple-400/20 dark:to-pink-500/20 blur-lg rounded-full"
-                    initial={{ scale: 0.8, opacity: 0 }}
-                    animate={{ scale: 1, opacity: 1 }}
-                    exit={{ scale: 1.2, opacity: 0 }}
-                    transition={{ duration: 0.3 }}
-                  />
-                )}
-              </AnimatePresence>
-            </motion.span>{' '}
-            experiences.
-          </motion.span>
-        </motion.h2>
+              <FaWhatsapp className="w-4 h-4 text-emerald-400" />
+              <span>Chat on WhatsApp</span>
+            </a>
 
-        <motion.p
-          variants={item}
-          className="text-gray-700 dark:text-gray-300 max-w-2xl mb-10 text-lg md:text-xl leading-relaxed"
-        >
-          <motion.span
-            initial={{ opacity: 0 }}
-            animate={isInView ? {
-              opacity: 1,
-              transition: { delay: 1.0 }
-            } : {}}
-          >
-            I'm a passionate <span className="font-semibold text-gray-900 dark:text-white">full-stack developer</span> specializing in building modern, responsive web applications and managing e-commerce platforms.
-          </motion.span>{' '}
-          <motion.span
-            className="font-medium text-teal-600 dark:text-teal-400"
-            initial={{ opacity: 0 }}
-            animate={isInView ? {
-              opacity: 1,
-              transition: { delay: 1.2 }
-            } : {}}
-          >
-            Currently focused on creating accessible, user-centered digital solutions that drive business growth.
-          </motion.span>
-        </motion.p>
-
-        <motion.div
-          variants={item}
-          initial="rest"
-          whileHover="hover"
-          whileTap="tap"
-          animate="rest"
-          className="relative"
-        >
-          <a
-            href="#contact"
-            className="inline-flex items-center px-8 py-4 rounded-lg font-medium group relative overflow-hidden"
-            aria-label="Contact me"
-            onMouseEnter={() => controls.start("hover")}
-            onMouseLeave={() => controls.start("rest")}
-          >
-            {/* Animated background layers */}
-            <motion.span
-              className="absolute inset-0 border-2 border-teal-500 dark:border-teal-400 rounded-full"
-              variants={{
-                rest: { opacity: 1 },
-                hover: { opacity: 0.8 }
-              }}
-            />
-
-            <motion.span
-              className="absolute inset-0 bg-gradient-to-r from-teal-500 to-cyan-600 rounded-full"
-              variants={{
-                rest: { opacity: 0, x: "-100%" },
-                hover: {
-                  opacity: 0.1,
-                  x: 0,
-                  transition: {
-                    type: "spring",
-                    stiffness: 300,
-                    damping: 20
-                  }
-                },
-                tap: { opacity: 0.15 }
-              }}
-            />
-
-            {/* Ripple effect */}
-            <motion.span
-              className="absolute inset-0 rounded-full overflow-hidden"
+            <a
+              href="/Abdur Rahman Asim Resume.pdf"
+              download
+              className="p-2.5 rounded-full bg-[#1B0D36] border border-purple-500/30 text-purple-300 hover:text-white hover:bg-purple-600/30 shadow-[0_0_15px_rgba(147,51,234,0.2)] transition-all flex items-center gap-1.5 text-xs font-semibold px-4"
+              title="Download CV"
             >
-              <motion.span
-                className="absolute bg-teal-400/20 rounded-full"
-                initial={{ scale: 0, opacity: 1 }}
-                animate={{
-                  scale: 4,
-                  opacity: 0,
-                  transition: { duration: 1 }
-                }}
-                style={{
-                  width: "100%",
-                  height: "100%",
-                  x: "-50%",
-                  y: "-50%",
-                  top: "50%",
-                  left: "50%"
-                }}
+              <FiDownload className="w-3.5 h-3.5" />
+              <span>Download CV</span>
+            </a>
+          </motion.div>
+
+          {/* Quick Social & Contact Bar */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={isInView ? { opacity: 1 } : {}}
+            transition={{ duration: 0.5, delay: 0.45 }}
+            className="flex items-center gap-3 pt-2 text-purple-300/80 text-xs"
+          >
+            <span className="font-mono text-purple-400/60 uppercase tracking-widest text-[11px]">Connect:</span>
+            <a
+              href="https://www.linkedin.com/in/abdur-rahman-asim/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="p-2 rounded-lg bg-[#170B2E] border border-purple-500/30 text-purple-300 hover:text-white hover:border-purple-400 transition-all"
+              aria-label="LinkedIn Profile"
+            >
+              <FaLinkedinIn className="w-3.5 h-3.5" />
+            </a>
+            <a
+              href="https://wa.me/923126326009"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="p-2 rounded-lg bg-[#170B2E] border border-purple-500/30 text-purple-300 hover:text-emerald-400 hover:border-emerald-400/40 transition-all"
+              aria-label="WhatsApp"
+            >
+              <FaWhatsapp className="w-3.5 h-3.5" />
+            </a>
+            <a
+              href="mailto:abdurrahmanasim0303@gmail.com"
+              className="p-2 rounded-lg bg-[#170B2E] border border-purple-500/30 text-purple-300 hover:text-white hover:border-purple-400 transition-all"
+              aria-label="Email"
+            >
+              <FiMail className="w-3.5 h-3.5" />
+            </a>
+            <span className="text-[11px] font-mono text-purple-300/60 ml-2 hidden sm:inline">
+              abdurrahmanasim0303@gmail.com
+            </span>
+          </motion.div>
+        </div>
+
+        {/* Right Column: Luxury Glassmorphic Portrait Showcase with Live Widgets (5 Cols) */}
+        <div className="lg:col-span-5 relative flex items-center justify-center">
+          {/* Ambient Purple Glow Behind Portrait Card */}
+          <div className="absolute inset-0 bg-gradient-to-tr from-purple-600/30 to-indigo-600/20 rounded-3xl blur-[80px] -z-10" />
+
+          {/* Master Glassmorphic Portrait Showcase Container */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.92, y: 20 }}
+            animate={isInView ? { opacity: 1, scale: 1, y: 0 } : {}}
+            transition={{ duration: 0.7, delay: 0.2 }}
+            className="relative w-full max-w-[390px] sm:max-w-[430px] rounded-3xl p-3 sm:p-3.5 bg-gradient-to-b from-purple-500/30 via-[#180C34]/90 to-[#0F071D] border border-purple-500/40 shadow-[0_25px_60px_rgba(0,0,0,0.85),0_0_35px_rgba(147,51,234,0.3)]"
+          >
+            {/* Image Canvas */}
+            <div className="relative aspect-[4/5] rounded-2xl overflow-hidden bg-[#100721]">
+              <img
+                src="/abdur-rahman-suit.jpg"
+                alt="Abdur Rahman Asim - Digital Marketer & Social Media Manager"
+                className="w-full h-full object-cover object-[center_10%]"
+                loading="eager"
               />
-            </motion.span>
 
-            {/* Content */}
-            <motion.span
-              className="relative z-10 text-teal-500 dark:text-teal-400 flex items-center"
-              variants={{
-                hover: {
-                  color: ["#0d9488", "#0891b2", "#0d9488"],
-                  transition: { duration: 1.5, repeat: Infinity }
-                }
-              }}
+              {/* Gradient Scrim for crisp text contrast */}
+              <div className="absolute inset-0 bg-gradient-to-t from-[#0E061B] via-transparent to-transparent opacity-90" />
+
+              {/* Bottom Identity Plaque inside card */}
+              <div className="absolute bottom-4 left-4 right-4 p-3.5 rounded-xl bg-[#14092B]/85 backdrop-blur-md border border-purple-500/30 shadow-lg flex flex-col gap-1">
+                <div className="flex items-center justify-between">
+                  <span className="text-sm font-extrabold text-white tracking-tight">
+                    Abdur Rahman Asim
+                  </span>
+                  <span className="inline-flex items-center gap-1 text-[10px] font-mono text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded-full border border-emerald-500/20">
+                    <FiCheckCircle className="w-2.5 h-2.5" /> Verified Track
+                  </span>
+                </div>
+                <span className="text-[11px] font-mono text-purple-300/80">
+                  Digital Marketer & Social Media Manager
+                </span>
+                <span className="text-[10px] text-purple-400/60 font-mono">
+                  Shopify & Meta Ads Specialist
+                </span>
+              </div>
+            </div>
+
+            {/* Floating Live Metric Badge 1: Meta Ads ROAS (Top-Left) */}
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              animate={isInView ? { opacity: 1, x: 0 } : {}}
+              transition={{ duration: 0.6, delay: 0.4 }}
+              className="absolute -top-4 -left-4 sm:-left-6 p-3 rounded-2xl bg-[#170A30]/95 backdrop-blur-xl border border-purple-500/40 shadow-[0_10px_30px_rgba(0,0,0,0.7),0_0_20px_rgba(147,51,234,0.35)] flex items-center gap-3 z-20"
             >
-              Get In Touch
-              <motion.span
-                className="ml-2"
-                variants={{
-                  hover: {
-                    x: [0, 4, 0],
-                    transition: {
-                      duration: 1.5,
-                      repeat: Infinity
-                    }
-                  },
-                  tap: {
-                    x: 2
-                  }
-                }}
-              >
-                <svg
-                  className="w-5 h-5"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                  aria-hidden="true"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M14 5l7 7m0 0l-7 7m7-7H3"
-                  />
-                </svg>
-              </motion.span>
-            </motion.span>
+              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#0081FB]/20 to-purple-600/30 border border-[#0081FB]/40 flex items-center justify-center text-[#0081FB] shrink-0">
+                <SiMeta className="w-5 h-5" />
+              </div>
+              <div className="flex flex-col text-left">
+                <div className="flex items-center gap-1.5">
+                  <span className="text-xs font-bold text-white">Meta Ad Suites</span>
+                  <span className="text-[10px] font-mono font-bold text-emerald-400 bg-emerald-500/20 px-1.5 py-0.2 rounded">
+                    ROAS Focus
+                  </span>
+                </div>
+                <span className="text-[10px] text-purple-300/70 font-mono">
+                  Targeted FB & IG Campaigns
+                </span>
+              </div>
+            </motion.div>
 
-            {/* Sparkle particles */}
-            {[0, 1, 2, 3].map((i) => (
-              <motion.span
-                key={i}
-                className="absolute rounded-full bg-teal-400/80 pointer-events-none"
-                variants={{
-                  rest: { opacity: 0 },
-                  hover: {
-                    opacity: [0, 1, 0],
-                    y: [0, -10],
-                    x: [0, (i % 2 === 0 ? -1 : 1) * Math.random() * 20],
-                    scale: [0.5, 1.2],
-                    transition: {
-                      duration: 1,
-                      delay: i * 0.1,
-                      repeat: Infinity,
-                      repeatDelay: 3
-                    }
-                  }
-                }}
-                style={{
-                  width: `${Math.random() * 4 + 2}px`,
-                  height: `${Math.random() * 4 + 2}px`,
-                  left: `${Math.random() * 80 + 10}%`,
-                  top: `${Math.random() * 60 + 20}%`
-                }}
-              />
-            ))}
-          </a>
-        </motion.div>
-      </motion.div>
+            {/* Floating Live Metric Badge 2: Shopify Turnkey (Bottom-Right) */}
+            <motion.div
+              initial={{ opacity: 0, x: 20 }}
+              animate={isInView ? { opacity: 1, x: 0 } : {}}
+              transition={{ duration: 0.6, delay: 0.5 }}
+              className="absolute -bottom-4 -right-4 sm:-right-6 p-3 rounded-2xl bg-[#170A30]/95 backdrop-blur-xl border border-purple-500/40 shadow-[0_10px_30px_rgba(0,0,0,0.7),0_0_20px_rgba(147,51,234,0.35)] flex items-center gap-3 z-20"
+            >
+              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#95BF47]/20 to-emerald-600/30 border border-[#95BF47]/40 flex items-center justify-center text-[#95BF47] shrink-0">
+                <SiShopify className="w-5 h-5" />
+              </div>
+              <div className="flex flex-col text-left">
+                <div className="flex items-center gap-1.5">
+                  <span className="text-xs font-bold text-white">Shopify Specialist</span>
+                  <span className="text-[10px] font-mono font-bold text-purple-300 bg-purple-500/20 px-1.5 py-0.2 rounded">
+                    No-Code
+                  </span>
+                </div>
+                <span className="text-[10px] text-purple-300/70 font-mono">
+                  Turnkey Setups & SEO Copy
+                </span>
+              </div>
+            </motion.div>
+          </motion.div>
+        </div>
+      </div>
 
-      {/* Decorative animated circles */}
+      {/* Modern Credibility Proof Bar below Hero */}
       <motion.div
-        className="absolute right-10 bottom-20 hidden lg:block"
-        initial={{ opacity: 0, y: 50 }}
-        animate={isInView ? { opacity: 0.8, y: 0 } : {}}
-        transition={{ delay: 1.5 }}
+        initial={{ opacity: 0, y: 20 }}
+        animate={isInView ? { opacity: 1, y: 0 } : {}}
+        transition={{ duration: 0.6, delay: 0.55 }}
+        className="mt-14 sm:mt-20 p-5 sm:p-6 rounded-2xl bg-[#130826]/80 backdrop-blur-xl border border-purple-500/25 shadow-[0_8px_30px_rgba(0,0,0,0.5)] grid grid-cols-2 md:grid-cols-4 gap-6 text-left"
       >
-        <div className="relative w-32 h-32">
-          <motion.div
-            className="absolute inset-0 border-2 border-teal-400/30 rounded-full"
-            animate={{
-              rotate: 360,
-              scale: [1, 1.2, 1],
-              transition: {
-                duration: 12,
-                repeat: Infinity,
-                ease: "linear"
-              }
-            }}
-          />
-          <motion.div
-            className="absolute inset-4 border-2 border-cyan-400/30 rounded-full"
-            animate={{
-              rotate: -360,
-              scale: [1, 0.8, 1],
-              transition: {
-                duration: 15,
-                repeat: Infinity,
-                ease: "linear"
-              }
-            }}
-          />
+        <div className="flex flex-col gap-1 border-r border-purple-500/15 pr-4 last:border-none">
+          <div className="flex items-center gap-2">
+            <SiShopify className="w-4 h-4 text-[#95BF47]" />
+            <span className="text-sm font-bold text-white">Shopify Operations</span>
+          </div>
+          <span className="text-xs text-purple-300/70 font-mono">
+            Turnkey store setup, collection architecture & SEO copy
+          </span>
+        </div>
+
+        <div className="flex flex-col gap-1 border-r border-purple-500/15 pr-4 last:border-none">
+          <div className="flex items-center gap-2">
+            <SiMeta className="w-4 h-4 text-[#0081FB]" />
+            <span className="text-sm font-bold text-white">Performance Ads</span>
+          </div>
+          <span className="text-xs text-purple-300/70 font-mono">
+            Meta Ads Manager, audience clustering & ROAS monitoring
+          </span>
+        </div>
+
+        <div className="flex flex-col gap-1 border-r border-purple-500/15 pr-4 last:border-none">
+          <div className="flex items-center gap-2">
+            <SiCanva className="w-4 h-4 text-[#00C4CC]" />
+            <span className="text-sm font-bold text-white">Visual Creatives</span>
+          </div>
+          <span className="text-xs text-purple-300/70 font-mono">
+            Canva Pro promotional ads & social media branding
+          </span>
+        </div>
+
+        <div className="flex flex-col gap-1">
+          <div className="flex items-center gap-2">
+            <SiLinkedin className="w-4 h-4 text-[#0A66C2]" />
+            <span className="text-sm font-bold text-white">B2B Acquisition</span>
+          </div>
+          <span className="text-xs text-purple-300/70 font-mono">
+            Direct LinkedIn executive messaging & corporate outreach
+          </span>
         </div>
       </motion.div>
-
-      {/* Cursor follower effect */}
-      <motion.div
-        className="fixed w-96 h-96 rounded-full bg-teal-400/10 dark:bg-cyan-500/10 pointer-events-none -z-10"
-        animate={{
-          x: cursorPos.x * 100 - 48,
-          y: cursorPos.y * 100 - 48,
-          transition: { type: "spring", stiffness: 100, damping: 20 }
-        }}
-      />
     </section>
   )
 }

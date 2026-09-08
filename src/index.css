@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&family=JetBrains+Mono:wght@100;200;300;400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&family=Caveat:wght@600;700&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -8,119 +8,116 @@
   html {
     scroll-behavior: smooth;
     overflow-x: hidden;
+    background-color: #0D0714;
+    color: #F8FAFC;
   }
   
   body {
-    @apply bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 transition-colors duration-500;
-    font-family: 'Inter', sans-serif;
+    background-color: #0D0714;
+    color: #F8FAFC;
+    font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
     line-height: 1.6;
     overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
   
   h1, h2, h3, h4, h5, h6 {
-    @apply font-bold;
+    @apply font-bold tracking-tight text-white;
     line-height: 1.2;
   }
-  
-  a {
-    @apply transition-all duration-300;
+
+  code, pre, .font-mono {
+    font-family: 'JetBrains Mono', monospace;
   }
   
-  /* Custom scrollbar */
+  /* Precision Cosmic Scrollbar */
   ::-webkit-scrollbar {
-    width: 8px;
+    width: 6px;
   }
   
   ::-webkit-scrollbar-track {
-    @apply bg-gray-100 dark:bg-gray-800;
+    background: #0D0714;
   }
   
   ::-webkit-scrollbar-thumb {
-    @apply bg-teal-500 rounded-full;
+    background: #2E1A47;
+    border-radius: 9999px;
   }
-  
+
   ::-webkit-scrollbar-thumb:hover {
-    @apply bg-teal-600;
+    background: #4C2882;
   }
 }
 
 @layer components {
-  .btn-primary {
-    @apply px-8 py-4 bg-gradient-to-r from-teal-500 to-cyan-600 hover:from-teal-600 hover:to-cyan-700 text-white rounded-xl font-semibold transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1;
+  /* Figma Glowing Primary Pill Button */
+  .btn-figma-primary {
+    @apply inline-flex items-center justify-center gap-2 px-6 py-2.5 rounded-full font-semibold text-xs tracking-wider uppercase text-white bg-gradient-to-r from-purple-600 via-indigo-600 to-purple-600 hover:from-purple-500 hover:to-indigo-500 shadow-[0_0_20px_rgba(147,51,234,0.45)] hover:shadow-[0_0_30px_rgba(147,51,234,0.65)] transition-all duration-300 active:scale-[0.98];
   }
   
-  .btn-outline {
-    @apply px-8 py-4 border-2 border-teal-500 text-teal-500 hover:bg-teal-500 hover:text-white rounded-xl font-semibold transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1;
+  /* Figma Outline Secondary Pill Button */
+  .btn-figma-secondary {
+    @apply inline-flex items-center justify-center gap-2 px-6 py-2.5 rounded-full font-semibold text-xs tracking-wider uppercase text-purple-200 bg-purple-950/30 border border-purple-500/30 hover:bg-purple-900/40 hover:border-purple-400/60 shadow-[0_0_15px_rgba(147,51,234,0.15)] transition-all duration-300 active:scale-[0.98];
   }
-  
-  .glass-effect {
-    @apply bg-white/10 dark:bg-gray-900/10 backdrop-blur-lg border border-white/20 dark:border-gray-700/20;
+
+  /* Figma Glassmorphic Luxury Cards */
+  .glass-card-figma {
+    @apply bg-[#130924]/75 backdrop-blur-xl border border-purple-500/20 rounded-2xl transition-all duration-300;
   }
-  
-  .gradient-text {
-    @apply bg-gradient-to-r from-teal-500 to-cyan-600 bg-clip-text text-transparent;
+
+  .glass-card-figma-hover {
+    @apply hover:border-purple-500/50 hover:shadow-[0_0_35px_rgba(147,51,234,0.22)] hover:-translate-y-1;
   }
-  
-  .animate-blob {
-    animation: blob 7s infinite;
+
+  /* Mini Pill Learn More Button */
+  .btn-learn-more {
+    @apply inline-flex items-center justify-center gap-1 px-4 py-1.5 rounded-full text-[11px] font-bold tracking-wider uppercase text-purple-100 bg-purple-600/80 hover:bg-purple-500 border border-purple-400/30 shadow-[0_0_15px_rgba(147,51,234,0.35)] transition-all duration-200;
   }
-  
-  .animation-delay-2000 {
-    animation-delay: 2s;
-  }
-  
-  .animation-delay-4000 {
-    animation-delay: 4s;
+
+  /* Figma Tech Tag */
+  .badge-figma-tech {
+    @apply inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium bg-purple-950/50 text-purple-200 border border-purple-500/25;
   }
 }
 
-@layer utilities {
-  .text-shadow {
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+/* Atmospheric Glow Utilities */
+.cosmic-radial-glow {
+  background: radial-gradient(circle, rgba(147, 51, 234, 0.22) 0%, rgba(13, 7, 20, 0) 70%);
+}
+
+.cosmic-hero-glow {
+  background: radial-gradient(circle, rgba(168, 85, 247, 0.28) 0%, rgba(126, 34, 206, 0.12) 45%, rgba(13, 7, 20, 0) 75%);
+}
+
+/* Orbit Animation */
+@keyframes spinSlow {
+  from {
+    transform: rotate(0deg);
   }
-  
-  .text-shadow-lg {
-    text-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  to {
+    transform: rotate(360deg);
   }
 }
 
-@keyframes blob {
-  0% {
-    transform: translate(0px, 0px) scale(1);
+@keyframes spinReverseSlow {
+  from {
+    transform: rotate(360deg);
   }
-  33% {
-    transform: translate(30px, -50px) scale(1.1);
-  }
-  66% {
-    transform: translate(-20px, 20px) scale(0.9);
-  }
-  100% {
-    transform: translate(0px, 0px) scale(1);
+  to {
+    transform: rotate(0deg);
   }
 }
 
-@keyframes float {
-  0%, 100% {
-    transform: translateY(0px);
-  }
-  50% {
-    transform: translateY(-20px);
-  }
+.animate-spin-slow {
+  animation: spinSlow 35s linear infinite;
 }
 
-@keyframes pulse-glow {
-  0%, 100% {
-    box-shadow: 0 0 20px rgba(20, 184, 166, 0.3);
-  }
-  50% {
-    box-shadow: 0 0 40px rgba(20, 184, 166, 0.6);
-  }
+.animate-spin-reverse {
+  animation: spinReverseSlow 45s linear infinite;
 }
 
-.animate-float {
-  animation: float 6s ease-in-out infinite;
-}
-
-.animate-pulse-glow {
-  animation: pulse-glow 2s ease-in-out infinite;
+/* Hand-drawn lasso oval for cover */
+.hand-drawn-circle {
+  font-family: 'Caveat', cursive;
 }

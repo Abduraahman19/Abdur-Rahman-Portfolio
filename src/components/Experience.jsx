@@ -1,316 +1,549 @@
-"use client";
-import { motion } from 'framer-motion';
-import { useInView } from 'react-intersection-observer';
-import { FiCode, FiBriefcase, FiAward, FiDatabase, FiTool, FiShoppingCart, FiBarChart2 } from 'react-icons/fi';
-
-const skills = [
-  { name: 'JavaScript', icon: '🟨', category: 'Frontend' },
-  { name: 'TypeScript', icon: '🔷', category: 'Frontend' },
-  { name: 'React', icon: '⚛️', category: 'Frontend' },
-  { name: 'Next.js', icon: '⏭️', category: 'Frontend' },
-  { name: 'Vite', icon: '⚡', category: 'Frontend' },
-  { name: 'Node.js', icon: '🟢', category: 'Backend' },
-  { name: 'Express', icon: '🚀', category: 'Backend' },
-  { name: 'MongoDB', icon: '🍃', category: 'Database' },
-  { name: 'Firebase', icon: '🔥', category: 'Database' },
-  { name: 'Tailwind CSS', icon: '🎨', category: 'Frontend' },
-  { name: 'Bootstrap', icon: '🅱️', category: 'Frontend' },
-  { name: 'HTML5', icon: '📄', category: 'Frontend' },
-  { name: 'CSS3', icon: '🎀', category: 'Frontend' },
-  { name: 'Git', icon: '🔄', category: 'Tools' },
-  { name: 'GitHub', icon: '🐙', category: 'Tools' },
-  { name: 'Shopify', icon: '🛍️', category: 'E-commerce' },
-  { name: 'Digital Ads', icon: '📢', category: 'Marketing' }
-];
+// components/Experience.jsx
+import { motion, AnimatePresence } from 'framer-motion'
+import { useRef, useState } from 'react'
+import { useInView } from 'framer-motion'
+import { FiCheck, FiX, FiCalendar, FiMapPin, FiAward, FiDownload, FiFileText, FiEye, FiZoomIn, FiZoomOut, FiMaximize2, FiExternalLink } from 'react-icons/fi'
+import { SiLinkedin, SiMeta, SiShopify, SiCanva } from 'react-icons/si'
 
 const experiences = [
   {
-    role: "Web Development Intern",
-    company: "Three Arrows Tech",
-    period: "6-7 months",
-    description: "Completed an intensive web development internship working with modern technologies.",
-    highlights: [
-      "Developed responsive web applications using React.js and Next.js",
-      "Built RESTful APIs with Node.js and Express",
-      "Worked with MongoDB for database management",
-      "Implemented UI designs with Tailwind CSS and Bootstrap",
-      "Deployed projects on Vercel and Netlify",
-      "Collaborated using Git/GitHub for version control"
-    ]
+    id: 'nextlevel',
+    role: 'LinkedIn Marketing Intern',
+    company: 'Next Level Software Company',
+    period: 'April 2026 – July 2026',
+    location: 'Faisalabad, Pakistan',
+    tagline: 'Strategic B2B outreach, client acquisition & professional brand presence.',
+    badgeIcon: <SiLinkedin className="w-7 h-7 text-[#0A66C2]" />,
+    badgeColor: 'from-[#0A66C2] to-indigo-600',
+    credentialNote: 'Official Letter Verified',
+    experienceLetterImg: '/next-level-experience-letter.png',
+    description: 'Optimized professional LinkedIn accounts, ran targeted corporate outreach, and conducted research to discover new business trends.',
+    responsibilities: [
+      'Optimized professional LinkedIn accounts to build a stronger brand presence.',
+      'Ran targeted B2B outreach and lead generation campaigns to connect with corporate clients.',
+      'Handled day-to-day business development tasks to assist with client acquisition.',
+      'Conducted market research to spot new business trends and outreach opportunities.'
+    ],
+    skills: ['LinkedIn Outreach', 'B2B Lead Generation', 'Profile Optimization', 'Market Research', 'Professional Messaging']
   },
   {
-    role: "Shopify Store Manager",
-    company: "Personal Projects",
-    period: "Present",
-    description: "Managed and customized Shopify stores (without coding from scratch).",
-    highlights: [
-      "Set up complete Shopify stores from scratch",
-      "Added products, collections and managed inventory",
-      "Customized themes using Shopify admin interface",
-      "Configured payments and shipping options",
-      "Optimized store settings for better performance",
-      "Managed customer orders and fulfillment"
-    ]
+    id: 'adrightly',
+    role: 'Digital Marketing Intern',
+    company: 'AdRightly',
+    period: 'Oct 2024 – Dec 2024',
+    location: 'Faisalabad, Pakistan',
+    tagline: 'Meta Ads performance marketing, audience demographics & Shopify operations.',
+    badgeIcon: <SiMeta className="w-7 h-7 text-[#0081FB]" />,
+    badgeColor: 'from-[#0081FB] to-purple-600',
+    credentialNote: 'Verified Agency Internship',
+    description: 'Collaborated with senior marketers to set up Meta ad campaigns, track ad performance metrics, and manage Shopify store syncs.',
+    responsibilities: [
+      'Worked with senior marketers to help set up and monitor Meta ad campaigns (Facebook & Instagram).',
+      'Tracked ad performance numbers (CTR, CPC, CPA, ROAS) and suggested tweaks to improve results.',
+      'Dug into audience insights to make sure ads reached the right demographics.',
+      'Assisted with backend store management, product syncing, and daily tasks on Shopify.'
+    ],
+    skills: ['Meta Ads Manager', 'Audience Research', 'Budget Setup', 'Shopify Admin', 'Product Syncing']
   },
   {
-    role: "Digital Ads Specialist",
-    company: "Self-Learning",
-    period: "Present",
-    description: "Learned and practiced digital advertising across multiple platforms.",
-    highlights: [
-      "Created Facebook and Instagram ad campaigns",
-      "Ran Google Ads and YouTube advertising",
-      "Managed TikTok promotional campaigns",
-      "Researched target audiences and demographics",
-      "Analyzed ad performance metrics",
-      "Optimized campaigns for better results"
-    ]
+    id: 'shopify_mgmt',
+    role: 'Shopify & Store Specialist',
+    company: 'E-Commerce Store Operations',
+    period: 'Hands-on Practice',
+    location: 'Faisalabad / Remote',
+    tagline: 'Complete store setups, SEO descriptions, and turnkey no-code customizations.',
+    badgeIcon: <SiShopify className="w-7 h-7 text-[#95BF47]" />,
+    badgeColor: 'from-[#95BF47] to-emerald-600',
+    credentialNote: 'Official CV Expertise',
+    description: 'Building Shopify stores from scratch, writing SEO product copy, customizing no-code layouts, and tracking fulfillment.',
+    responsibilities: [
+      'Complete Shopify store setup from scratch, domain connection, and payment setup.',
+      'Product uploads with keyword-rich SEO descriptions and organized collections.',
+      'Theme customization utilizing intuitive no-code layouts for maximum mobile conversion.',
+      'App integrations, inventory tracking, shipping configuration, and order fulfillment.'
+    ],
+    skills: ['Shopify Admin Panel', 'Complete Store Setup', 'SEO Product Descriptions', 'App Integrations', 'Fulfillment']
+  },
+  {
+    id: 'social_design',
+    role: 'Social Media & Design Specialist',
+    company: 'Brand Marketing & Outreach',
+    period: 'Hands-on Practice',
+    location: 'Faisalabad / Remote',
+    tagline: 'Canva Pro graphics, content scheduling, and community engagement.',
+    badgeIcon: <SiCanva className="w-7 h-7 text-[#00C4CC]" />,
+    badgeColor: 'from-[#00C4CC] to-indigo-600',
+    credentialNote: 'Official CV Expertise',
+    description: 'Managing social media accounts, crafting high-converting ad graphics in Canva Pro, and scheduling content calendars.',
+    responsibilities: [
+      'Comprehensive social media profile management and brand aesthetics.',
+      'Strategic content planning, editorial calendar management, and scheduling.',
+      'High-converting promotional graphic design using Canva Pro for Meta and LinkedIn.',
+      'Audience engagement, comment management, and brand messaging consistency.'
+    ],
+    skills: ['Canva Pro', 'Content Planning & Scheduling', 'Profile Management', 'Graphics Design', 'Audience Engagement']
   }
-];
-
-const categoryIcons = {
-  Frontend: <FiCode className="text-blue-500" />,
-  Backend: <FiDatabase className="text-green-500" />,
-  Database: <FiDatabase className="text-purple-500" />,
-  Tools: <FiTool className="text-gray-500" />,
-  'E-commerce': <FiShoppingCart className="text-pink-500" />,
-  Marketing: <FiBarChart2 className="text-yellow-500" />
-};
+]
 
 const Experience = () => {
-  const [ref, inView] = useInView({
-    threshold: 0.1,
-    triggerOnce: false
-  });
+  const ref = useRef(null)
+  const isInView = useInView(ref, { once: true, amount: 0.15 })
+  const [selectedExp, setSelectedExp] = useState(null)
+  const [letterModalOpen, setLetterModalOpen] = useState(false)
+  const [letterMode, setLetterMode] = useState('fit') // 'fit' or 'read'
+  const [zoomLevel, setZoomLevel] = useState(100)
 
-  const container = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1,
-        when: "beforeChildren"
-      }
-    }
-  };
-
-  const item = {
-    hidden: { y: 30, opacity: 0 },
-    visible: {
-      y: 0,
-      opacity: 1,
-      transition: {
-        type: "spring",
-        stiffness: 100,
-        damping: 10,
-        duration: 0.5
-      }
-    }
-  };
-
-  const fadeIn = {
-    hidden: { opacity: 0 },
-    visible: { opacity: 1, transition: { duration: 0.8 } }
-  };
-
-  const categoryColors = {
-    Frontend: 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200',
-    Backend: 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200',
-    Database: 'bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200',
-    Tools: 'bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-200',
-    'E-commerce': 'bg-pink-100 text-pink-800 dark:bg-pink-900 dark:text-pink-200',
-    Marketing: 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200'
-  };
+  const handleOpenLetter = (mode = 'fit') => {
+    setLetterMode(mode)
+    setZoomLevel(100)
+    setLetterModalOpen(true)
+  }
 
   return (
     <section
       id="experience"
       ref={ref}
-      className="py-24 px-6 sm:px-12 lg:px-24 relative bg-gradient-to-br from-gray-50/30 to-gray-100/30 dark:from-gray-900/30 dark:to-gray-950/30 overflow-hidden"
-      aria-label="Experience section"
+      className="relative py-12 sm:py-16 px-4 sm:px-6 md:px-8 max-w-[1300px] mx-auto"
     >
-      {/* Enhanced background decorations */}
-      <div className="absolute inset-0 -z-10">
-        <div className="absolute top-20 left-10 w-72 h-72 bg-teal-400/10 rounded-full mix-blend-multiply filter blur-3xl animate-blob"></div>
-        <div className="absolute top-40 right-10 w-96 h-96 bg-purple-400/10 rounded-full mix-blend-multiply filter blur-3xl animate-blob animation-delay-2000"></div>
-        <div className="absolute bottom-20 left-1/2 w-80 h-80 bg-blue-400/10 rounded-full mix-blend-multiply filter blur-3xl animate-blob animation-delay-4000"></div>
+      {/* Central Ambient Violet Glow */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] sm:w-[700px] h-[350px] bg-purple-600/15 rounded-full blur-[120px] pointer-events-none -z-10" />
+
+      {/* Section Header */}
+      <div className="flex flex-col items-center text-center gap-2.5 mb-8 sm:mb-12">
+        <motion.span
+          initial={{ opacity: 0 }}
+          animate={isInView ? { opacity: 1 } : {}}
+          className="text-xs font-mono font-semibold tracking-widest text-purple-400 uppercase"
+        >
+          EXPERIENCE & EXPERTISE (CV)
+        </motion.span>
+        <motion.h2
+          initial={{ opacity: 0, y: 15 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.5 }}
+          className="text-3xl sm:text-5xl font-extrabold text-white tracking-tight"
+        >
+          Work Experience
+        </motion.h2>
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={isInView ? { opacity: 1 } : {}}
+          transition={{ duration: 0.5, delay: 0.1 }}
+          className="text-sm sm:text-base text-purple-200/70 max-w-xl leading-relaxed"
+        >
+          Practical agency internships and e-commerce marketing operations directly from official resume credentials.
+        </motion.p>
       </div>
 
-      <div className="max-w-7xl mx-auto relative z-10">
-        <motion.div
-          variants={container}
-          initial="hidden"
-          animate={inView ? "visible" : "hidden"}
-        >
-          <motion.div variants={item} className="flex items-center mb-16">
-            <span className="text-teal-500 dark:text-teal-400 font-mono text-lg md:text-xl mr-4">
-              02.
-            </span>
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white">
-              <span className="text-teal-500 dark:text-teal-400">Skills &</span> Experience
-            </h2>
-            <span className="hidden md:inline-block h-px w-32 bg-teal-500 dark:bg-teal-400 ml-6 flex-grow max-w-32"></span>
-          </motion.div>
-
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
-            {/* Skills Section */}
-            <motion.div variants={item} className="space-y-8">
-              <motion.div
-                variants={item}
-                className="flex items-center gap-4 mb-8"
-              >
-                <div className="p-3 rounded-lg bg-blue-100 dark:bg-blue-900/50">
-                  <FiCode className="text-blue-500 text-2xl" />
+      {/* 2x2 Glowing Cards Grid matching Figma Screenshot */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
+        {experiences.map((exp, index) => (
+          <motion.div
+            key={exp.id}
+            initial={{ opacity: 0, y: 20 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.5, delay: index * 0.1 }}
+            className="group relative flex flex-col justify-between p-6 sm:p-7 rounded-2xl bg-[#140929]/80 backdrop-blur-xl border border-purple-500/25 hover:border-purple-400/60 shadow-[0_4px_25px_rgba(0,0,0,0.5)] hover:shadow-[0_0_35px_rgba(147,51,234,0.3)] transition-all duration-300"
+          >
+            <div className="flex items-start gap-4 sm:gap-5">
+              {/* 3D Illuminated Badge Icon */}
+              <div className="shrink-0">
+                <div className={`w-13 h-13 sm:w-16 sm:h-16 rounded-2xl bg-gradient-to-br ${exp.badgeColor} p-0.5 shadow-[0_0_20px_rgba(147,51,234,0.4)] flex items-center justify-center group-hover:scale-105 transition-transform`}>
+                  <div className="w-full h-full rounded-[14px] bg-[#120726] flex items-center justify-center text-2xl sm:text-3xl">
+                    {exp.badgeIcon}
+                  </div>
                 </div>
-                <h3 className="text-3xl font-bold text-gray-900 dark:text-white">
-                  Technical Skills
+              </div>
+
+              {/* Content */}
+              <div className="flex flex-col flex-1 gap-1.5 min-w-0">
+                <h3 className="text-base sm:text-lg font-bold text-white group-hover:text-purple-300 transition-colors truncate">
+                  {exp.role}
                 </h3>
-              </motion.div>
 
-              <motion.div
-                variants={container}
-                className="flex flex-wrap gap-3"
+                <div className="flex items-center gap-2 text-xs font-semibold text-purple-400">
+                  <span className="truncate">{exp.company}</span>
+                  <span className="text-purple-500/50">·</span>
+                  <span className="text-purple-300/60 font-mono shrink-0">{exp.period}</span>
+                </div>
+
+                <p className="text-xs sm:text-sm text-slate-300/80 line-clamp-2 leading-relaxed mt-1">
+                  {exp.description}
+                </p>
+              </div>
+            </div>
+
+            {/* If Experience Letter Available: Dedicated Visual Document Preview Box */}
+            {exp.experienceLetterImg && (
+              <div
+                onClick={() => handleOpenLetter('fit')}
+                className="mt-4 p-2.5 sm:p-3 rounded-xl bg-gradient-to-r from-emerald-950/40 via-[#160a2b] to-purple-950/40 border border-emerald-500/35 hover:border-emerald-400 transition-all cursor-pointer group/letter shadow-[0_4px_18px_rgba(16,185,129,0.14)]"
+                title="Tap to view verified official letter"
               >
-                {skills.map((skill, index) => (
-                  <motion.div
-                    key={index}
-                    variants={item}
-                    whileHover={{ 
-                      y: -8,
-                      scale: 1.05,
-                      boxShadow: "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)"
-                    }}
-                    whileTap={{ scale: 0.95 }}
-                    className={`group relative flex items-center gap-3 px-5 py-3 rounded-xl ${categoryColors[skill.category]} shadow-lg hover:shadow-xl transition-all cursor-default border border-white/20 dark:border-gray-700/20 backdrop-blur-sm`}
-                  >
-                    <motion.span 
-                      className="text-xl"
-                      whileHover={{ rotate: [0, -10, 10, 0], scale: 1.2 }}
-                      transition={{ duration: 0.3 }}
-                    >
-                      {skill.icon}
-                    </motion.span>
-                    <span className="font-semibold">{skill.name}</span>
-                    
-                    {/* Hover glow effect */}
-                    <motion.div
-                      className="absolute inset-0 rounded-xl bg-gradient-to-r from-teal-500/20 to-cyan-500/20 opacity-0 group-hover:opacity-100 -z-10 blur-xl"
-                      initial={{ scale: 0.8 }}
-                      whileHover={{ scale: 1.2 }}
-                      transition={{ duration: 0.3 }}
-                    />
-                  </motion.div>
-                ))}
-              </motion.div>
+                <div className="flex items-center justify-between gap-3">
+                  <div className="flex items-center gap-3 min-w-0">
+                    <div className="relative w-11 h-13 rounded-lg overflow-hidden border border-emerald-400/50 shrink-0 bg-white shadow-md">
+                      <img
+                        src="/next-level-experience-letter.png"
+                        alt="Experience Letter Preview"
+                        className="w-full h-full object-cover object-top filter brightness-95 group-hover/letter:scale-105 transition-transform"
+                      />
+                      <div className="absolute inset-0 bg-emerald-600/10 pointer-events-none" />
+                    </div>
+                    <div className="flex flex-col min-w-0 text-left">
+                      <span className="text-xs font-bold text-emerald-300 flex items-center gap-1.5">
+                        <FiAward className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
+                        <span className="truncate">Official Experience Letter</span>
+                      </span>
+                      <span className="text-[10px] text-purple-200/70 font-mono truncate">
+                        Verified 3-Month Internship · 01 April - 04 July 2026
+                      </span>
+                    </div>
+                  </div>
+                  <span className="shrink-0 px-2.5 py-1 rounded-full text-[10px] font-bold tracking-wider uppercase text-emerald-300 bg-emerald-500/20 border border-emerald-500/30 group-hover/letter:bg-emerald-500/30 transition-all flex items-center gap-1">
+                    <FiEye className="w-3 h-3" />
+                    <span>View</span>
+                  </span>
+                </div>
+              </div>
+            )}
 
-              {/* Skill Categories */}
-              <motion.div variants={item} className="mt-12 space-y-6">
-                <h4 className="text-xl font-semibold text-gray-800 dark:text-gray-200">
-                  Skill Categories
-                </h4>
-                <motion.div
-                  variants={container}
-                  className="grid grid-cols-2 sm:grid-cols-3 gap-4"
+            {/* Pill Action Buttons */}
+            <div className="pt-4 mt-auto flex flex-wrap items-center justify-between gap-2 border-t border-purple-500/15">
+              <div className="flex items-center gap-2">
+                <button
+                  onClick={() => setSelectedExp(exp)}
+                  className="btn-learn-more"
+                  aria-label={`Learn more about ${exp.role}`}
                 >
-                  {Object.entries(categoryColors).map(([category, colorClass]) => (
-                    <motion.div
-                      key={category}
-                      variants={item}
-                      whileHover={{ 
-                        y: -5,
-                        boxShadow: "0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)"
-                      }}
-                      className={`px-4 py-3 rounded-lg ${colorClass} shadow-sm transition-all`}
-                    >
-                      <div className="flex items-center gap-3">
-                        {categoryIcons[category]}
-                        <h5 className="font-medium">{category}</h5>
-                      </div>
-                      <p className="text-sm mt-2 ml-8">
-                        {skills.filter(s => s.category === category).length} skills
-                      </p>
-                    </motion.div>
-                  ))}
-                </motion.div>
-              </motion.div>
-            </motion.div>
-
-            {/* Experience Section */}
-            <motion.div variants={item} className="space-y-8">
-              <motion.div
-                variants={item}
-                className="flex items-center gap-4 mb-8"
-              >
-                <div className="p-3 rounded-lg bg-teal-100 dark:bg-teal-900/50">
-                  <FiBriefcase className="text-teal-500 text-2xl" />
-                </div>
-                <h3 className="text-3xl font-bold text-gray-900 dark:text-white">
-                  Professional Journey
-                </h3>
-              </motion.div>
-
-              <motion.div 
-                variants={container}
-                className="space-y-8 relative before:absolute before:left-8 before:h-full before:w-1 before:bg-gradient-to-b before:from-teal-400 before:to-teal-600 before:dark:from-teal-500 before:dark:to-teal-700 before:rounded-full"
-              >
-                {experiences.map((exp, index) => (
-                  <motion.div
-                    key={index}
-                    variants={item}
-                    className="relative pl-16 group"
+                  <span>LEARN MORE</span>
+                </button>
+                {exp.experienceLetterImg && (
+                  <button
+                    onClick={() => handleOpenLetter('read')}
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[11px] font-bold tracking-wider uppercase text-emerald-300 bg-emerald-500/15 hover:bg-emerald-500/25 border border-emerald-500/30 shadow-[0_0_15px_rgba(16,185,129,0.2)] transition-all"
+                    title="Open 100% Crisp Reading Mode"
                   >
-                    <motion.div
-                      whileHover={{ scale: 1.1 }}
-                      className="absolute left-0 top-1 w-8 h-8 rounded-full bg-gradient-to-r from-teal-400 to-teal-600 dark:from-teal-500 dark:to-teal-700 flex items-center justify-center text-white font-bold shadow-lg z-10"
-                    >
-                      {index + 1}
-                    </motion.div>
+                    <FiAward className="w-3.5 h-3.5 text-emerald-400" />
+                    <span>READ LETTER</span>
+                  </button>
+                )}
+              </div>
 
-                    <motion.div
-                      whileHover={{ y: -8, scale: 1.02 }}
-                      className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-lg p-8 rounded-2xl shadow-xl hover:shadow-2xl transition-all border border-gray-200/50 dark:border-gray-700/50 relative overflow-hidden group"
-                    >
-                      {/* Enhanced glow effect */}
-                      <div className="absolute -right-10 -top-10 w-40 h-40 rounded-full bg-gradient-to-br from-teal-500/20 to-cyan-500/20 opacity-0 group-hover:opacity-100 blur-2xl transition-opacity duration-500" />
-                      
-                      <div className="relative z-10">
-                        <h4 className="text-2xl font-bold text-gray-900 dark:text-white mb-2 group-hover:text-teal-600 dark:group-hover:text-teal-400 transition-colors">
-                          {exp.role}
-                        </h4>
-                        <div className="flex items-center gap-2 mb-4">
-                          <span className="text-teal-500 dark:text-teal-400 font-semibold">{exp.company}</span>
-                          <span className="text-gray-400">•</span>
-                          <span className="text-gray-600 dark:text-gray-400 font-medium">{exp.period}</span>
-                        </div>
-                        <p className="text-gray-700 dark:text-gray-300 mb-6 leading-relaxed">
-                          {exp.description}
-                        </p>
-                      </div>
+              <span className="text-[10px] font-mono text-purple-400/60 uppercase">
+                {exp.location}
+              </span>
+            </div>
+          </motion.div>
+        ))}
+      </div>
 
-                      <ul className="space-y-2">
-                        {exp.highlights.map((highlight, i) => (
-                          <motion.li 
-                            key={i} 
-                            className="flex items-start gap-2"
-                            initial={{ opacity: 0, x: 10 }}
-                            animate={inView ? { opacity: 1, x: 0 } : {}}
-                            transition={{ delay: 0.2 + (i * 0.1) }}
-                          >
-                            <span className="text-teal-500 dark:text-teal-400 mt-1">▹</span>
-                            <span className="text-gray-700 dark:text-gray-300">{highlight}</span>
-                          </motion.li>
-                        ))}
-                      </ul>
-                    </motion.div>
-                  </motion.div>
+      {/* Interactive Detail Modal for "LEARN MORE" */}
+      <AnimatePresence>
+        {selectedExp && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/75 backdrop-blur-md">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.92, y: 15 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.92, y: 15 }}
+              className="relative w-full max-w-lg p-6 sm:p-8 rounded-3xl bg-[#170B30] border border-purple-500/40 shadow-[0_0_50px_rgba(147,51,234,0.45)] text-left flex flex-col gap-5"
+            >
+              <button
+                onClick={() => setSelectedExp(null)}
+                className="absolute top-5 right-5 p-2 rounded-full text-purple-300 hover:text-white bg-purple-950/60 border border-purple-500/30 transition-all"
+                aria-label="Close modal"
+              >
+                <FiX size={18} />
+              </button>
+
+              <div className="flex items-center gap-4">
+                <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${selectedExp.badgeColor} p-0.5 shadow-lg flex items-center justify-center shrink-0`}>
+                  <div className="w-full h-full rounded-[14px] bg-[#120726] flex items-center justify-center text-2xl">
+                    {selectedExp.badgeIcon}
+                  </div>
+                </div>
+                <div className="flex flex-col">
+                  <h3 className="text-lg sm:text-xl font-bold text-white">
+                    {selectedExp.role}
+                  </h3>
+                  <span className="text-xs font-semibold text-purple-400">
+                    {selectedExp.company}
+                  </span>
+                  <div className="flex items-center gap-2 mt-1 text-xs font-mono text-purple-300/70">
+                    <span className="flex items-center gap-1"><FiCalendar className="w-3 h-3 text-purple-400" /> {selectedExp.period}</span>
+                    <span>·</span>
+                    <span className="flex items-center gap-1"><FiMapPin className="w-3 h-3 text-purple-400" /> {selectedExp.location}</span>
+                  </div>
+                </div>
+              </div>
+
+              <div className="px-3 py-1.5 rounded-xl bg-purple-900/30 border border-purple-500/30 text-xs font-mono text-purple-200">
+                Status: <span className="text-emerald-300 font-bold">{selectedExp.credentialNote}</span>
+              </div>
+
+              {/* Experience Letter Banner if available */}
+              {selectedExp.experienceLetterImg && (
+                <div className="p-3.5 rounded-2xl bg-[#120626] border border-emerald-500/30 flex items-center justify-between gap-3 shadow-[0_0_20px_rgba(16,185,129,0.15)]">
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-xl bg-emerald-500/15 border border-emerald-500/30 flex items-center justify-center text-emerald-400 shrink-0">
+                      <FiAward className="w-5 h-5" />
+                    </div>
+                    <div className="flex flex-col text-left">
+                      <span className="text-xs font-bold text-white flex items-center gap-1.5">
+                        Official Experience Letter
+                      </span>
+                      <span className="text-[11px] text-purple-300/80 font-mono">
+                        Next Level Software (Verified Internship)
+                      </span>
+                    </div>
+                  </div>
+                  <button
+                    onClick={() => {
+                      setSelectedExp(null)
+                      handleOpenLetter('fit')
+                    }}
+                    className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-semibold bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-300 border border-emerald-500/30 transition-all shrink-0"
+                  >
+                    <FiEye className="w-3.5 h-3.5" />
+                    <span>View Letter</span>
+                  </button>
+                </div>
+              )}
+
+              <div className="flex flex-col gap-2.5">
+                <span className="text-xs font-mono uppercase tracking-wider text-purple-300 font-semibold">
+                  Key Tasks & Achievements:
+                </span>
+                <ul className="space-y-2">
+                  {selectedExp.responsibilities.map((resp, i) => (
+                    <li key={i} className="flex items-start gap-2.5 text-xs sm:text-sm text-slate-200 leading-relaxed">
+                      <FiCheck className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
+                      <span>{resp}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              <div className="flex flex-wrap gap-1.5 pt-2">
+                {selectedExp.skills.map((skill, i) => (
+                  <span key={i} className="badge-figma-tech">
+                    {skill}
+                  </span>
                 ))}
-              </motion.div>
+              </div>
+
+              <div className="pt-3 border-t border-purple-500/20 flex justify-end">
+                <button
+                  onClick={() => setSelectedExp(null)}
+                  className="btn-figma-primary !py-2 !px-5"
+                >
+                  Close
+                </button>
+              </div>
             </motion.div>
           </div>
-        </motion.div>
-      </div>
-    </section>
-  );
-};
+        )}
+      </AnimatePresence>
 
-export default Experience;
+      {/* Universal Multi-Device Experience Letter Lightbox Modal */}
+      <AnimatePresence>
+        {letterModalOpen && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-0 sm:p-4 md:p-6 bg-black/90 backdrop-blur-xl">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.95 }}
+              className="relative w-full h-full sm:h-auto sm:max-h-[94vh] sm:max-w-4xl flex flex-col rounded-none sm:rounded-3xl bg-[#120726] sm:border border-purple-500/40 shadow-[0_0_70px_rgba(147,51,234,0.5)] overflow-hidden text-left"
+            >
+              {/* Primary Header */}
+              <div className="flex items-center justify-between px-3 sm:px-5 py-3 bg-[#1B0D36] border-b border-purple-500/20 shrink-0 gap-2">
+                <div className="flex items-center gap-2 sm:gap-3 min-w-0">
+                  <span className="p-1.5 sm:p-2 rounded-xl bg-emerald-500/15 text-emerald-400 border border-emerald-500/20 shrink-0">
+                    <FiAward className="w-4 h-4" />
+                  </span>
+                  <div className="flex flex-col min-w-0 text-left">
+                    <h3 className="text-xs sm:text-base font-bold text-white tracking-tight truncate">
+                      Next Level Software — Experience Letter
+                    </h3>
+                    <span className="text-[10px] sm:text-xs font-mono text-emerald-400/90 truncate">
+                      ✓ Verified Internship · 01 April 2026 – 04 July 2026
+                    </span>
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
+                  {/* Open in New Tab for Native High-Res Browser Pinch-to-Zoom */}
+                  <a
+                    href="/next-level-experience-letter.png"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="p-1.5 sm:px-3 sm:py-1.5 rounded-xl bg-purple-950/60 border border-purple-500/30 text-purple-200 hover:text-white hover:bg-purple-600/30 transition-all text-xs font-semibold flex items-center gap-1.5"
+                    title="Open Full High-Resolution in New Tab"
+                  >
+                    <FiExternalLink className="w-3.5 h-3.5 text-purple-300" />
+                    <span className="hidden sm:inline">Full Screen</span>
+                  </a>
+
+                  {/* Direct Download */}
+                  <a
+                    href="/next-level-experience-letter.png"
+                    download="Next-Level-Software-Experience-Letter-Abdur-Rahman.png"
+                    className="p-1.5 sm:px-3 sm:py-1.5 rounded-xl bg-purple-950/60 border border-purple-500/30 text-purple-200 hover:text-white hover:bg-purple-600/30 transition-all text-xs font-semibold flex items-center gap-1.5"
+                    title="Download Letter Image"
+                  >
+                    <FiDownload className="w-3.5 h-3.5 text-purple-300" />
+                    <span className="hidden sm:inline">Save</span>
+                  </a>
+
+                  {/* Close */}
+                  <button
+                    onClick={() => setLetterModalOpen(false)}
+                    className="p-1.5 sm:p-2 rounded-full text-purple-300 hover:text-white bg-purple-950/80 border border-purple-500/30 hover:border-purple-400 transition-all ml-1"
+                    aria-label="Close letter preview"
+                  >
+                    <FiX size={18} />
+                  </button>
+                </div>
+              </div>
+
+              {/* Multi-Device Reading Mode & Zoom Control Toolbar */}
+              <div className="flex flex-wrap items-center justify-between gap-2 px-3 sm:px-5 py-2 bg-[#0E051F] border-b border-purple-500/15 shrink-0 text-xs font-medium text-purple-200">
+                {/* Mode Selector */}
+                <div className="flex items-center gap-1 bg-[#170B30] p-1 rounded-xl border border-purple-500/30">
+                  <button
+                    onClick={() => {
+                      setLetterMode('fit')
+                      setZoomLevel(100)
+                    }}
+                    className={`px-2.5 py-1 rounded-lg transition-all flex items-center gap-1.5 text-[11px] font-semibold ${
+                      letterMode === 'fit'
+                        ? 'bg-purple-600 text-white shadow-md'
+                        : 'text-purple-300 hover:text-white hover:bg-purple-900/40'
+                    }`}
+                    title="Fit entire letter on screen"
+                  >
+                    <FiMaximize2 className="w-3 h-3" />
+                    <span>Fit Screen</span>
+                  </button>
+
+                  <button
+                    onClick={() => {
+                      setLetterMode('read')
+                      setZoomLevel(100)
+                    }}
+                    className={`px-2.5 py-1 rounded-lg transition-all flex items-center gap-1.5 text-[11px] font-semibold ${
+                      letterMode === 'read'
+                        ? 'bg-emerald-600 text-white shadow-md'
+                        : 'text-emerald-300 hover:text-white hover:bg-emerald-950/50'
+                    }`}
+                    title="100% Native sharp text reading mode"
+                  >
+                    <FiFileText className="w-3 h-3" />
+                    <span>100% Crisp Reading Mode</span>
+                  </button>
+                </div>
+
+                {/* Zoom Stepper (Works in both modes) */}
+                <div className="flex items-center gap-1.5 ml-auto">
+                  <div className="flex items-center bg-[#170B30] border border-purple-500/30 rounded-xl p-0.5 text-xs">
+                    <button
+                      onClick={() => {
+                        setLetterMode('zoom')
+                        setZoomLevel((prev) => Math.max(60, prev - 20))
+                      }}
+                      className="p-1 hover:text-white hover:bg-purple-900/50 rounded-md transition-colors"
+                      title="Zoom Out"
+                      aria-label="Zoom Out"
+                    >
+                      <FiZoomOut className="w-3.5 h-3.5" />
+                    </button>
+                    <span className="px-2 font-mono text-[11px] text-purple-300">
+                      {letterMode === 'fit' ? 'Auto Fit' : `${zoomLevel}%`}
+                    </span>
+                    <button
+                      onClick={() => {
+                        setLetterMode('zoom')
+                        setZoomLevel((prev) => Math.min(220, prev + 20))
+                      }}
+                      className="p-1 hover:text-white hover:bg-purple-900/50 rounded-md transition-colors"
+                      title="Zoom In"
+                      aria-label="Zoom In"
+                    >
+                      <FiZoomIn className="w-3.5 h-3.5" />
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              {/* Main Document Canvas with Smooth Touch Pan & Scroll */}
+              <div className="flex-1 overflow-auto bg-[#07020F] p-2 sm:p-6 flex justify-center items-start overscroll-contain select-none touch-pan-x touch-pan-y">
+                {letterMode === 'fit' ? (
+                  /* Fit Screen Mode: Fits the whole letter into the viewport cleanly */
+                  <div
+                    onClick={() => {
+                      setLetterMode('read')
+                      setZoomLevel(100)
+                    }}
+                    className="relative my-auto max-w-full rounded-xl overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.95)] border border-purple-500/30 bg-white cursor-zoom-in transition-transform hover:scale-[1.01]"
+                    title="Tap to switch to 100% Crisp Reading Mode"
+                  >
+                    <img
+                      src="/next-level-experience-letter.png"
+                      alt="Next Level Software Experience Letter - Abdur Rahman"
+                      className="max-h-[calc(100vh-150px)] sm:max-h-[72vh] w-auto max-w-full object-contain block"
+                    />
+                    <div className="absolute bottom-3 left-1/2 -translate-x-1/2 px-3 py-1 rounded-full bg-black/80 backdrop-blur-md text-[11px] font-mono text-emerald-300 border border-emerald-500/40 shadow-lg flex items-center gap-1.5 whitespace-nowrap">
+                      <span>🔍</span>
+                      <span>Tap image for 100% Crisp Reading Mode</span>
+                    </div>
+                  </div>
+                ) : (
+                  /* Crisp Reading / Zoom Mode: Native 724px resolution for effortless reading on every phone & PC */
+                  <div
+                    style={{
+                      width: `${Math.round(724 * (zoomLevel / 100))}px`,
+                      maxWidth: 'none',
+                    }}
+                    className="relative my-2 rounded-xl overflow-hidden shadow-[0_25px_60px_rgba(0,0,0,0.95)] border border-purple-500/30 bg-white shrink-0 mx-auto transition-all duration-150"
+                  >
+                    <img
+                      src="/next-level-experience-letter.png"
+                      alt="Next Level Software Experience Letter - Abdur Rahman"
+                      className="w-full h-auto block"
+                      draggable="false"
+                    />
+                  </div>
+                )}
+              </div>
+
+              {/* Bottom Helpful Device Guidance Footer */}
+              <div className="px-3 sm:px-5 py-2 bg-[#120726] border-t border-purple-500/15 flex items-center justify-between text-[11px] font-mono text-purple-300/70 shrink-0">
+                <span className="hidden sm:inline">
+                  ✓ Verified official document. Scroll or drag in all directions to inspect dates, stamps, and signatures.
+                </span>
+                <span className="sm:hidden text-[10px]">
+                  💡 Swipe screen to read all details clearly.
+                </span>
+                <button
+                  onClick={() => {
+                    if (letterMode === 'fit') {
+                      setLetterMode('read')
+                      setZoomLevel(100)
+                    } else {
+                      setLetterMode('fit')
+                    }
+                  }}
+                  className="text-emerald-400 hover:text-emerald-300 font-bold ml-auto"
+                >
+                  {letterMode === 'fit' ? 'Switch to Crisp Reading Mode →' : '↺ Back to Fit Screen'}
+                </button>
+              </div>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
+    </section>
+  )
+}
+
+export default Experience
