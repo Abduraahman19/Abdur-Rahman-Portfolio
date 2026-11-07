@@ -73,7 +73,7 @@ const Projects = () => {
         <motion.span
           initial={{ opacity: 0 }}
           animate={isInView ? { opacity: 1 } : {}}
-          className="text-xs font-mono font-semibold tracking-widest text-purple-600 dark:text-purple-400 uppercase"
+          className="text-xs font-mono font-semibold tracking-widest text-blue-600 dark:text-cyan-400 uppercase"
         >
           CORE EXPERTISE IN ACTION
         </motion.span>
@@ -89,7 +89,7 @@ const Projects = () => {
           initial={{ opacity: 0 }}
           animate={isInView ? { opacity: 1 } : {}}
           transition={{ duration: 0.5, delay: 0.1 }}
-          className="text-sm sm:text-base text-slate-600 dark:text-purple-200/70 max-w-xl leading-relaxed"
+          className="text-sm sm:text-base text-slate-600 dark:text-slate-300/80 max-w-xl leading-relaxed"
         >
           Demonstrated practical experience in multi-account social growth, Shopify storefront setups, Meta Ads management, and B2B corporate outreach.
         </motion.p>
@@ -116,7 +116,7 @@ const Projects = () => {
                   isReversed ? 'lg:items-end lg:text-right' : 'lg:items-start lg:text-left'
                 }`}
               >
-                <span className="text-xs font-mono font-bold tracking-widest text-purple-600 dark:text-purple-400 uppercase">
+                <span className="text-xs font-mono font-bold tracking-widest text-blue-600 dark:text-cyan-400 uppercase">
                   {service.badge}
                 </span>
 
@@ -125,7 +125,7 @@ const Projects = () => {
                 </h3>
 
                 {/* Floating Glassmorphic Card */}
-                <div className="p-6 sm:p-7 rounded-2xl bg-white/90 dark:bg-[#170C2E]/90 backdrop-blur-xl border border-purple-200 dark:border-purple-500/30 shadow-md dark:shadow-[0_10px_35px_rgba(0,0,0,0.6)] text-slate-700 dark:text-slate-200 text-sm leading-relaxed max-w-xl">
+                <div className="p-6 sm:p-7 rounded-2xl bg-white/90 dark:bg-[#0D1526]/90 backdrop-blur-xl border border-slate-200 dark:border-blue-500/30 shadow-md dark:shadow-[0_10px_35px_rgba(0,0,0,0.6)] text-slate-700 dark:text-slate-200 text-sm leading-relaxed max-w-xl">
                   {service.description}
                 </div>
 
@@ -152,14 +152,14 @@ const Projects = () => {
                     href={service.actionUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="p-2.5 rounded-full bg-purple-600 hover:bg-purple-500 text-white shadow-[0_0_20px_rgba(147,51,234,0.4)] transition-all flex items-center gap-2 text-xs font-semibold px-5"
+                    className="p-2.5 rounded-full bg-blue-600 hover:bg-blue-500 text-white shadow-[0_0_20px_rgba(37,99,235,0.4)] transition-all flex items-center gap-2 text-xs font-semibold px-5"
                   >
                     <FaWhatsapp className="w-4 h-4 text-emerald-300" />
                     <span>{service.actionText}</span>
                   </a>
                   <a
                     href="#contact"
-                    className="p-2.5 rounded-full bg-purple-100 dark:bg-[#1A0D36] hover:bg-purple-200 dark:hover:bg-purple-900/40 text-purple-800 dark:text-purple-300 hover:text-purple-950 dark:hover:text-white border border-purple-200 dark:border-purple-500/30 transition-all flex items-center gap-1.5 text-xs font-semibold px-4"
+                    className="p-2.5 rounded-full bg-slate-100 dark:bg-[#0D1526] hover:bg-slate-200 dark:hover:bg-blue-900/40 text-slate-800 dark:text-slate-200 hover:text-blue-600 dark:hover:text-white border border-slate-200 dark:border-blue-500/30 transition-all flex items-center gap-1.5 text-xs font-semibold px-4"
                   >
                     <FiMessageSquare className="w-3.5 h-3.5" />
                     <span>Inquire</span>
@@ -169,22 +169,22 @@ const Projects = () => {
 
               {/* High-Fidelity Browser Mockup Window */}
               <div className="w-full lg:w-1/2 relative group">
-                <div className="absolute inset-0 bg-purple-400/15 dark:bg-purple-600/25 rounded-3xl blur-[50px] -z-10 group-hover:bg-purple-500/30 transition-all duration-500" />
+                <div className="absolute inset-0 bg-blue-400/15 dark:bg-blue-600/25 rounded-3xl blur-[50px] -z-10 group-hover:bg-cyan-500/30 transition-all duration-500" />
 
-                <div className="relative rounded-2xl overflow-hidden bg-white dark:bg-[#120726] border border-purple-200 dark:border-purple-500/35 shadow-lg dark:shadow-[0_20px_50px_rgba(0,0,0,0.7)] group-hover:border-purple-400 transition-all duration-300">
-                  <div className="flex items-center justify-between px-4 py-3 bg-purple-100/70 dark:bg-[#1B0D36] border-b border-purple-200 dark:border-purple-500/20">
+                <div className="relative rounded-2xl overflow-hidden bg-white dark:bg-[#09101F] border border-slate-200 dark:border-blue-500/35 shadow-lg dark:shadow-[0_20px_50px_rgba(0,0,0,0.7)] group-hover:border-cyan-400 transition-all duration-300">
+                  <div className="flex items-center justify-between px-4 py-3 bg-slate-100/80 dark:bg-[#0D1526] border-b border-slate-200 dark:border-blue-500/20">
                     <div className="flex items-center gap-2">
                       <span className="w-3 h-3 rounded-full bg-rose-500/80" />
                       <span className="w-3 h-3 rounded-full bg-amber-500/80" />
                       <span className="w-3 h-3 rounded-full bg-emerald-500/80" />
                     </div>
-                    <div className="px-4 py-1 rounded-md bg-white dark:bg-[#0D0714] border border-purple-200 dark:border-purple-500/20 text-[10px] font-mono text-purple-700 dark:text-purple-300/60 max-w-[220px] truncate">
+                    <div className="px-4 py-1 rounded-md bg-white dark:bg-[#070B12] border border-slate-200 dark:border-blue-500/20 text-[10px] font-mono text-blue-600 dark:text-cyan-300/60 max-w-[220px] truncate">
                       abdul-rehman-marketing.case-study
                     </div>
                     <div className="w-10" />
                   </div>
 
-                  <div className="relative aspect-[16/10] overflow-hidden bg-[#0D0714]">
+                  <div className="relative aspect-[16/10] overflow-hidden bg-[#070B12]">
                     <img
                       src={service.image}
                       alt={service.title}

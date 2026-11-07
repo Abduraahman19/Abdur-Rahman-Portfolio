@@ -60,7 +60,7 @@ const Testimonials = () => {
           <motion.span
             initial={{ opacity: 0 }}
             animate={isInView ? { opacity: 1 } : {}}
-            className="text-xs font-mono font-semibold tracking-widest text-purple-400 uppercase"
+            className="text-xs font-mono font-semibold tracking-widest text-blue-600 dark:text-cyan-400 uppercase"
           >
             ENDORSEMENTS & FEEDBACK
           </motion.span>
@@ -68,7 +68,7 @@ const Testimonials = () => {
             initial={{ opacity: 0, y: 15 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.5 }}
-            className="text-3xl sm:text-5xl font-extrabold text-white tracking-tight"
+            className="text-3xl sm:text-5xl font-extrabold text-slate-900 dark:text-white tracking-tight"
           >
             Client Recommendations
           </motion.h2>
@@ -76,7 +76,7 @@ const Testimonials = () => {
             initial={{ opacity: 0 }}
             animate={isInView ? { opacity: 1 } : {}}
             transition={{ duration: 0.5, delay: 0.1 }}
-            className="text-sm sm:text-base text-purple-200/70 max-w-xl leading-relaxed"
+            className="text-sm sm:text-base text-slate-600 dark:text-slate-300/80 max-w-xl leading-relaxed"
           >
             Feedback from founders, product leads, and managers on delivered software projects and store setups.
           </motion.p>
@@ -90,7 +90,7 @@ const Testimonials = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="flex flex-col justify-between p-6 sm:p-8 rounded-2xl bg-[#140929]/80 backdrop-blur-xl border border-purple-500/25 hover:border-purple-400/50 shadow-[0_4px_30px_rgba(0,0,0,0.5)] transition-all duration-300"
+              className="flex flex-col justify-between p-6 sm:p-8 rounded-2xl bg-white/90 dark:bg-[#0D1526]/85 backdrop-blur-xl border border-slate-200 dark:border-blue-500/25 hover:border-blue-400 dark:hover:border-cyan-400/50 shadow-sm dark:shadow-[0_4px_30px_rgba(0,0,0,0.5)] transition-all duration-300"
             >
               <div className="flex flex-col gap-4">
                 {/* Rating & Quote Icon */}
@@ -100,26 +100,26 @@ const Testimonials = () => {
                       <FiStar key={i} className="w-4 h-4 fill-amber-400 text-amber-400" />
                     ))}
                   </div>
-                  <FaQuoteLeft className="w-4 h-4 text-purple-400/40" />
+                  <FaQuoteLeft className="w-4 h-4 text-blue-500/40 dark:text-cyan-400/40" />
                 </div>
 
                 {/* Quote Text */}
-                <p className="text-sm sm:text-base text-slate-300 leading-relaxed">
+                <p className="text-sm sm:text-base text-slate-700 dark:text-slate-300 leading-relaxed">
                   &ldquo;{item.text}&rdquo;
                 </p>
               </div>
 
               {/* Author */}
-              <div className="flex items-center gap-3.5 pt-6 mt-6 border-t border-purple-500/20">
-                <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-purple-700 to-indigo-800 border border-purple-400/30 flex items-center justify-center font-mono text-xs font-bold text-white shadow-md">
+              <div className="flex items-center gap-3.5 pt-6 mt-6 border-t border-slate-200 dark:border-blue-500/20">
+                <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-600 to-indigo-700 border border-blue-400/30 flex items-center justify-center font-mono text-xs font-bold text-white shadow-md">
                   {item.initials}
                 </div>
                 <div className="flex flex-col">
-                  <span className="text-sm font-bold text-white">
+                  <span className="text-sm font-bold text-slate-900 dark:text-white">
                     {item.name}
                   </span>
-                  <span className="text-xs text-purple-300/70">
-                    {item.role} · <strong className="font-semibold text-purple-200">{item.company}</strong>
+                  <span className="text-xs text-slate-600 dark:text-slate-400">
+                    {item.role} · <strong className="font-semibold text-blue-600 dark:text-cyan-300">{item.company}</strong>
                   </span>
                 </div>
               </div>

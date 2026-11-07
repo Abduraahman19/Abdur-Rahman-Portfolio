@@ -38,7 +38,7 @@ const ScrollToTop = () => {
           exit={{ opacity: 0, y: 10, scale: 0.9 }}
           whileTap={{ scale: 0.95 }}
           onClick={scrollToTop}
-          className="fixed bottom-6 right-6 z-50 p-3 rounded-full bg-purple-600 hover:bg-purple-500 text-white shadow-[0_0_20px_rgba(147,51,234,0.5)] border border-purple-400/40 transition-all focus:outline-none"
+          className="fixed bottom-6 right-6 z-50 p-3 rounded-full bg-blue-600 hover:bg-blue-500 text-white shadow-[0_0_20px_rgba(37,99,235,0.5)] border border-cyan-400/40 transition-all focus:outline-none"
           aria-label="Scroll to top"
         >
           <FiArrowUp className="w-4 h-4" />

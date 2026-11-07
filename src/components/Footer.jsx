@@ -23,7 +23,7 @@ const Footer = () => {
   const currentYear = new Date().getFullYear()
 
   return (
-    <footer className="border-t border-purple-200/80 dark:border-purple-500/20 bg-white dark:bg-[#090412] py-14 px-4 sm:px-6 md:px-8 lg:px-12 transition-colors">
+    <footer className="border-t border-slate-200 dark:border-blue-500/20 bg-white dark:bg-[#070B12] py-14 px-4 sm:px-6 md:px-8 lg:px-12 transition-colors">
       <div className="max-w-[1300px] mx-auto flex flex-col gap-8">
         {/* Main Row */}
         <div className="flex flex-col md:flex-row items-center justify-between gap-6">
@@ -34,7 +34,7 @@ const Footer = () => {
               <span className="text-sm font-bold text-slate-900 dark:text-white">
                 Abdul Rehman
               </span>
-              <span className="text-[11px] text-purple-700 dark:text-purple-300/60 font-mono">
+              <span className="text-[11px] text-blue-600 dark:text-cyan-400/80 font-mono">
                 Digital Marketer & Social Media Manager
               </span>
             </div>
@@ -46,7 +46,7 @@ const Footer = () => {
               <a
                 key={link.name}
                 href={link.href}
-                className="text-xs font-mono font-semibold tracking-wider text-slate-700 dark:text-purple-300/70 hover:text-purple-900 dark:hover:text-white transition-colors"
+                className="text-xs font-mono font-semibold tracking-wider text-slate-700 dark:text-slate-300 hover:text-blue-600 dark:hover:text-cyan-300 transition-colors"
               >
                 {link.name}
               </a>
@@ -61,7 +61,7 @@ const Footer = () => {
                 href={item.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-2.5 rounded-full bg-purple-100/70 dark:bg-[#180C2E] border border-purple-200 dark:border-purple-500/25 text-purple-700 dark:text-purple-300 hover:text-purple-950 dark:hover:text-white hover:bg-purple-200 dark:hover:bg-purple-600/30 transition-all shadow-sm"
+                className="p-2.5 rounded-full bg-slate-100/80 dark:bg-[#0D1526] border border-slate-200 dark:border-blue-500/25 text-slate-700 dark:text-slate-300 hover:text-blue-600 dark:hover:text-white hover:bg-slate-200 dark:hover:bg-blue-600/30 transition-all shadow-sm"
                 aria-label={item.name}
               >
                 {item.icon}
@@ -71,7 +71,7 @@ const Footer = () => {
         </div>
 
         {/* Bottom Row */}
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-6 border-t border-purple-200 dark:border-purple-500/15 text-xs text-slate-600 dark:text-purple-300/50 font-mono">
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-6 border-t border-slate-200 dark:border-blue-500/15 text-xs text-slate-600 dark:text-slate-400 font-mono">
           <p>© {currentYear} Abdul Rehman. Faisalabad, Pakistan.</p>
           <p className="text-[11px]">
             Social Media Management · Meta Ads · Shopify Store Operations

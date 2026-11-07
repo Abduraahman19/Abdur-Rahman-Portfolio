@@ -83,7 +83,7 @@ const About = () => {
       <div
         className="absolute top-1/3 left-1/4 w-[450px] h-[300px] pointer-events-none -z-10"
         style={{
-          background: 'radial-gradient(ellipse at center, rgba(168, 85, 247, 0.12) 0%, transparent 70%)'
+          background: 'radial-gradient(ellipse at center, rgba(37, 99, 235, 0.12) 0%, transparent 70%)'
         }}
       />
 
@@ -92,7 +92,7 @@ const About = () => {
         <motion.span
           initial={{ opacity: 0 }}
           animate={isInView ? { opacity: 1 } : {}}
-          className="text-xs font-mono font-semibold tracking-widest text-purple-600 dark:text-purple-400 uppercase"
+          className="text-xs font-mono font-semibold tracking-widest text-blue-600 dark:text-cyan-400 uppercase"
         >
           PROFILE & QUALIFICATIONS
         </motion.span>
@@ -108,7 +108,7 @@ const About = () => {
           initial={{ opacity: 0 }}
           animate={isInView ? { opacity: 1 } : {}}
           transition={{ duration: 0.5, delay: 0.1 }}
-          className="text-sm sm:text-base text-slate-600 dark:text-purple-200/70 max-w-xl leading-relaxed"
+          className="text-sm sm:text-base text-slate-600 dark:text-slate-300/80 max-w-xl leading-relaxed"
         >
           Verbatim qualifications, education, and verified agency expertise from official CV.
         </motion.p>
@@ -118,9 +118,9 @@ const About = () => {
         {/* Left Column: CV Profile & Education (7 Cols) */}
         <div className="lg:col-span-7 flex flex-col gap-6">
           {/* Profile Card */}
-          <div className="p-6 sm:p-8 rounded-2xl bg-white/90 dark:bg-[#140929]/80 backdrop-blur-xl border border-purple-200 dark:border-purple-500/25 shadow-sm dark:shadow-[0_4px_30px_rgba(0,0,0,0.5)] flex flex-col gap-4 text-sm sm:text-base text-slate-700 dark:text-slate-300 leading-relaxed">
+          <div className="p-6 sm:p-8 rounded-2xl bg-white/95 dark:bg-[#0D1526]/80 backdrop-blur-xl border border-slate-200 dark:border-blue-500/25 shadow-sm dark:shadow-[0_4px_30px_rgba(0,0,0,0.6)] flex flex-col gap-4 text-sm sm:text-base text-slate-700 dark:text-slate-300 leading-relaxed">
             <h3 className="text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2">
-              <span className="w-2 h-2 rounded-full bg-purple-600 dark:bg-purple-400" />
+              <span className="w-2 h-2 rounded-full bg-blue-600 dark:bg-cyan-400" />
               <span>Professional Profile</span>
             </h3>
             <p>
@@ -129,34 +129,34 @@ const About = () => {
             <p>
               Skilled in growing accounts across YouTube, TikTok, Instagram, Facebook, and LinkedIn through competitor analysis, targeted content planning, and clear performance reporting.
             </p>
-            <div className="pt-3 border-t border-purple-200 dark:border-purple-500/20 flex flex-wrap gap-2 text-xs font-mono">
-              <span className="px-3 py-1 rounded-full bg-purple-100/80 dark:bg-[#1F0E3D] border border-purple-300/60 dark:border-purple-500/30 text-purple-900 dark:text-purple-300">Meta Ads Manager & Suite</span>
-              <span className="px-3 py-1 rounded-full bg-purple-100/80 dark:bg-[#1F0E3D] border border-purple-300/60 dark:border-purple-500/30 text-purple-900 dark:text-purple-300">Google Sheets (Content Trackers)</span>
-              <span className="px-3 py-1 rounded-full bg-purple-100/80 dark:bg-[#1F0E3D] border border-purple-300/60 dark:border-purple-500/30 text-purple-900 dark:text-purple-300">Canva Pro</span>
-              <span className="px-3 py-1 rounded-full bg-purple-100/80 dark:bg-[#1F0E3D] border border-purple-300/60 dark:border-purple-500/30 text-purple-900 dark:text-purple-300">Shopify Admin Panel</span>
-              <span className="px-3 py-1 rounded-full bg-purple-100/80 dark:bg-[#1F0E3D] border border-purple-300/60 dark:border-purple-500/30 text-purple-900 dark:text-purple-300">YouTube Studio & TikTok Tools</span>
+            <div className="pt-3 border-t border-slate-200 dark:border-blue-500/20 flex flex-wrap gap-2 text-xs font-mono">
+              <span className="px-3 py-1 rounded-full bg-slate-100 dark:bg-slate-900/80 border border-slate-200 dark:border-blue-500/30 text-slate-800 dark:text-cyan-300">Meta Ads Manager & Suite</span>
+              <span className="px-3 py-1 rounded-full bg-slate-100 dark:bg-slate-900/80 border border-slate-200 dark:border-blue-500/30 text-slate-800 dark:text-cyan-300">Google Sheets (Content Trackers)</span>
+              <span className="px-3 py-1 rounded-full bg-slate-100 dark:bg-slate-900/80 border border-slate-200 dark:border-blue-500/30 text-slate-800 dark:text-cyan-300">Canva Pro</span>
+              <span className="px-3 py-1 rounded-full bg-slate-100 dark:bg-slate-900/80 border border-slate-200 dark:border-blue-500/30 text-slate-800 dark:text-cyan-300">Shopify Admin Panel</span>
+              <span className="px-3 py-1 rounded-full bg-slate-100 dark:bg-slate-900/80 border border-slate-200 dark:border-blue-500/30 text-slate-800 dark:text-cyan-300">YouTube Studio & TikTok Tools</span>
             </div>
           </div>
 
           {/* Education from CV */}
-          <div className="p-6 sm:p-8 rounded-2xl bg-white/90 dark:bg-[#140929]/80 backdrop-blur-xl border border-purple-200 dark:border-purple-500/25 shadow-sm dark:shadow-[0_4px_30px_rgba(0,0,0,0.5)] flex flex-col gap-5">
-            <div className="flex items-center gap-2 text-xs font-mono font-bold uppercase tracking-wider text-purple-700 dark:text-purple-400">
-              <FiBookOpen className="w-4 h-4 text-purple-600 dark:text-purple-400" />
+          <div className="p-6 sm:p-8 rounded-2xl bg-white/95 dark:bg-[#0D1526]/80 backdrop-blur-xl border border-slate-200 dark:border-blue-500/25 shadow-sm dark:shadow-[0_4px_30px_rgba(0,0,0,0.6)] flex flex-col gap-5">
+            <div className="flex items-center gap-2 text-xs font-mono font-bold uppercase tracking-wider text-blue-700 dark:text-cyan-400">
+              <FiBookOpen className="w-4 h-4 text-blue-600 dark:text-cyan-400" />
               <span>Official Education</span>
             </div>
 
             <div className="space-y-4">
               {educationDetails.map((edu, i) => (
-                <div key={i} className="p-4 rounded-xl bg-purple-50/70 dark:bg-[#1B0D36]/60 border border-purple-200/80 dark:border-purple-500/20 flex flex-col gap-1.5">
+                <div key={i} className="p-4 rounded-xl bg-slate-50 dark:bg-[#09101F] border border-slate-200 dark:border-blue-500/20 flex flex-col gap-1.5">
                   <div className="flex flex-wrap items-center justify-between gap-1">
                     <h4 className="text-sm sm:text-base font-bold text-slate-900 dark:text-white">
                       {edu.degree}
                     </h4>
-                    <span className="text-xs font-mono text-purple-700 dark:text-purple-400 bg-purple-100 dark:bg-purple-950/60 px-2.5 py-0.5 rounded-full border border-purple-300 dark:border-purple-500/30">
+                    <span className="text-xs font-mono text-blue-700 dark:text-cyan-400 bg-blue-50 dark:bg-blue-950/60 px-2.5 py-0.5 rounded-full border border-blue-200 dark:border-cyan-500/30">
                       {edu.period}
                     </span>
                   </div>
-                  <p className="text-xs font-semibold text-purple-700 dark:text-purple-300">
+                  <p className="text-xs font-semibold text-blue-700 dark:text-cyan-300">
                     {edu.institution} · {edu.campus}
                   </p>
                   <p className="text-xs text-slate-600 dark:text-slate-300/80 leading-relaxed mt-1">
@@ -171,22 +171,22 @@ const About = () => {
         {/* Right Column: Contact & CV Expertise Pillars (5 Cols) */}
         <div className="lg:col-span-5 flex flex-col gap-6">
           {/* Quick Contact Info */}
-          <div className="p-6 rounded-2xl bg-white/90 dark:bg-[#140929]/80 backdrop-blur-xl border border-purple-200 dark:border-purple-500/25 shadow-sm dark:shadow-[0_4px_30px_rgba(0,0,0,0.5)] flex flex-col gap-4">
+          <div className="p-6 rounded-2xl bg-white/95 dark:bg-[#0D1526]/80 backdrop-blur-xl border border-slate-200 dark:border-blue-500/25 shadow-sm dark:shadow-[0_4px_30px_rgba(0,0,0,0.6)] flex flex-col gap-4">
             <h3 className="text-base font-bold text-slate-900 dark:text-white flex items-center gap-2">
-              <FiAward className="w-4 h-4 text-purple-600 dark:text-purple-400" />
+              <FiAward className="w-4 h-4 text-blue-600 dark:text-cyan-400" />
               <span>Contact & Personal Info</span>
             </h3>
 
             <div className="flex flex-col gap-3 text-xs sm:text-sm font-mono text-slate-700 dark:text-slate-300">
               <div className="flex items-center gap-2.5">
-                <FiMapPin className="w-4 h-4 text-purple-600 dark:text-purple-400 shrink-0" />
+                <FiMapPin className="w-4 h-4 text-blue-600 dark:text-cyan-400 shrink-0" />
                 <span>Faisalabad, Pakistan</span>
               </div>
               <a
                 href="mailto:abdurrahmanasim0303@gmail.com"
-                className="flex items-center gap-2.5 hover:text-purple-900 dark:hover:text-white transition-colors truncate"
+                className="flex items-center gap-2.5 hover:text-blue-600 dark:hover:text-cyan-300 transition-colors truncate"
               >
-                <FiMail className="w-4 h-4 text-purple-600 dark:text-purple-400 shrink-0" />
+                <FiMail className="w-4 h-4 text-blue-600 dark:text-cyan-400 shrink-0" />
                 <span className="truncate">abdurrahmanasim0303@gmail.com</span>
               </a>
               <a
@@ -198,17 +198,17 @@ const About = () => {
                 <FaWhatsapp className="w-4 h-4 shrink-0" />
                 <span>+92-3126326009 (WhatsApp / Phone)</span>
               </a>
-              <div className="pt-2 border-t border-purple-200 dark:border-purple-500/20 flex flex-col gap-1 text-[11px] text-slate-600 dark:text-purple-300/80">
+              <div className="pt-2 border-t border-slate-200 dark:border-blue-500/20 flex flex-col gap-1 text-[11px] text-slate-600 dark:text-slate-400">
                 <span className="font-semibold text-slate-900 dark:text-white uppercase font-mono">Languages:</span>
                 <span>Urdu: Native · Punjabi: Fluent · English: Intermediate</span>
               </div>
-              <div className="pt-3 border-t border-purple-200 dark:border-purple-500/20">
+              <div className="pt-3 border-t border-slate-200 dark:border-blue-500/20">
                 <a
                   href="/Abdul-Rehman-CV.pdf"
                   download="Abdul-Rehman-CV.pdf"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-full inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-purple-600 hover:bg-purple-500 text-white font-semibold text-xs transition-all shadow-[0_0_15px_rgba(147,51,234,0.3)] cursor-pointer"
+                  className="w-full inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-semibold text-xs transition-all shadow-[0_0_15px_rgba(37,99,235,0.35)] cursor-pointer"
                 >
                   <FiDownload className="w-3.5 h-3.5" />
                   <span>Download Updated CV (PDF)</span>
@@ -218,15 +218,15 @@ const About = () => {
           </div>
 
           {/* Detailed Expertise Matrix from CV */}
-          <div className="p-6 rounded-2xl bg-white/90 dark:bg-[#140929]/80 backdrop-blur-xl border border-purple-200 dark:border-purple-500/25 shadow-sm dark:shadow-[0_4px_30px_rgba(0,0,0,0.5)] flex flex-col gap-4">
-            <span className="text-xs font-mono font-bold uppercase tracking-wider text-purple-700 dark:text-purple-400">
+          <div className="p-6 rounded-2xl bg-white/95 dark:bg-[#0D1526]/80 backdrop-blur-xl border border-slate-200 dark:border-blue-500/25 shadow-sm dark:shadow-[0_4px_30px_rgba(0,0,0,0.6)] flex flex-col gap-4">
+            <span className="text-xs font-mono font-bold uppercase tracking-wider text-blue-700 dark:text-cyan-400">
               Core Expertise Breakdown (CV)
             </span>
 
             <div className="flex flex-col gap-3">
               {cvExpertise.map((exp, i) => (
-                <div key={i} className="p-3.5 rounded-xl bg-purple-50/70 dark:bg-[#1B0D36]/60 border border-purple-200/80 dark:border-purple-500/20 text-xs">
-                  <div className="font-bold text-purple-800 dark:text-purple-300 mb-2 text-xs uppercase tracking-wider">
+                <div key={i} className="p-3.5 rounded-xl bg-slate-50 dark:bg-[#09101F] border border-slate-200 dark:border-blue-500/20 text-xs">
+                  <div className="font-bold text-blue-800 dark:text-cyan-300 mb-2 text-xs uppercase tracking-wider">
                     {exp.category}
                   </div>
                   <ul className="space-y-1.5">

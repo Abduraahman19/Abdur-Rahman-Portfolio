@@ -1,32 +1,32 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="100%" height="100%">
   <defs>
-    <!-- Background Cosmic Gradient -->
+    <!-- Background Cyber Midnight Gradient -->
     <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#1B0C38" />
-      <stop offset="50%" stop-color="#120726" />
-      <stop offset="100%" stop-color="#080312" />
+      <stop offset="0%" stop-color="#0F172A" />
+      <stop offset="50%" stop-color="#0B1329" />
+      <stop offset="100%" stop-color="#060913" />
     </linearGradient>
 
     <!-- Outer Border Glow Gradient -->
     <linearGradient id="borderGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#C084FC" />
-      <stop offset="40%" stop-color="#818CF8" />
-      <stop offset="80%" stop-color="#34D399" />
+      <stop offset="0%" stop-color="#38BDF8" />
+      <stop offset="35%" stop-color="#2563EB" />
+      <stop offset="75%" stop-color="#06B6D4" />
       <stop offset="100%" stop-color="#10B981" />
     </linearGradient>
 
     <!-- Letter A Gradient -->
     <linearGradient id="letterAGrad" x1="0%" y1="100%" x2="50%" y2="0%">
-      <stop offset="0%" stop-color="#C084FC" />
+      <stop offset="0%" stop-color="#38BDF8" />
       <stop offset="60%" stop-color="#FFFFFF" />
-      <stop offset="100%" stop-color="#EDE9FE" />
+      <stop offset="100%" stop-color="#E2E8F0" />
     </linearGradient>
 
     <!-- Letter R & Surge Gradient -->
     <linearGradient id="surgeGrad" x1="0%" y1="100%" x2="100%" y2="0%">
-      <stop offset="0%" stop-color="#818CF8" />
-      <stop offset="40%" stop-color="#A855F7" />
-      <stop offset="80%" stop-color="#34D399" />
+      <stop offset="0%" stop-color="#2563EB" />
+      <stop offset="40%" stop-color="#06B6D4" />
+      <stop offset="75%" stop-color="#34D399" />
       <stop offset="100%" stop-color="#10B981" />
     </linearGradient>
 
@@ -38,11 +38,11 @@
   </defs>
 
   <!-- Squircle Base -->
-  <rect x="6" y="6" width="116" height="116" rx="30" fill="url(#bgGrad)" stroke="url(#borderGrad)" stroke-width="3" />
+  <rect x="6" y="6" width="116" height="116" rx="30" fill="url(#bgGrad)" stroke="url(#borderGrad)" stroke-width="3.2" />
 
   <!-- Inner Ambient Neon Glow -->
-  <circle cx="94" cy="34" r="24" fill="#10B981" opacity="0.18" />
-  <circle cx="34" cy="94" r="28" fill="#A855F7" opacity="0.15" />
+  <circle cx="96" cy="34" r="24" fill="#06B6D4" opacity="0.18" />
+  <circle cx="34" cy="94" r="26" fill="#2563EB" opacity="0.16" />
 
   <!-- Monogram Mark: Dynamic Interlocking A + R with Marketing Surge Arrow -->
   <!-- Left Leg of A -->
@@ -65,7 +65,7 @@
   <!-- R Stem (Shared Right Apex) & R Loop -->
   <path
     d="M 68 36 L 68 92"
-    stroke="#EDE9FE"
+    stroke="#F8FAFC"
     stroke-width="8.5"
     stroke-linecap="round"
   />
@@ -87,16 +87,16 @@
   <!-- Arrow Head -->
   <path
     d="M 86 38 L 102 36 L 100 52"
-    stroke="#34D399"
+    stroke="#00E5FF"
     stroke-width="7.5"
     stroke-linecap="round"
     stroke-linejoin="round"
   />
 
-  <!-- Glowing Emerald Growth Spark at Peak -->
-  <circle cx="102" cy="36" r="3.5" fill="#34D399" filter="url(#emeraldGlow)" />
+  <!-- Glowing Cyan Growth Spark at Peak -->
+  <circle cx="102" cy="36" r="3.5" fill="#00E5FF" filter="url(#emeraldGlow)" />
   <circle cx="102" cy="36" r="1.8" fill="#FFFFFF" />
 
   <!-- Mini Marketing Growth Trend Dot (Bottom Left) -->
-  <circle cx="28" cy="92" r="3" fill="#A855F7" />
+  <circle cx="28" cy="92" r="3.2" fill="#06B6D4" />
 </svg>
