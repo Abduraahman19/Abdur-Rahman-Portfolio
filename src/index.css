@@ -159,6 +159,79 @@ html.theme-switching *:after {
   animation: spinReverseSlow 45s linear infinite;
 }
 
+/* GPU-Accelerated True Planetary Orbit Engine (Zero JS Frame Overhead) */
+@keyframes orbitSpinCW {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes orbitSpinCCW {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(-360deg);
+  }
+}
+
+@keyframes radarSweep {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.orbit-ring-cw {
+  animation: orbitSpinCW var(--orbit-duration, 36s) linear infinite;
+  will-change: transform;
+  transform: translateZ(0);
+}
+
+.orbit-ring-ccw {
+  animation: orbitSpinCCW var(--orbit-duration, 48s) linear infinite;
+  will-change: transform;
+  transform: translateZ(0);
+}
+
+.orbit-node-cw {
+  animation: orbitSpinCCW var(--orbit-duration, 36s) linear infinite;
+  will-change: transform;
+  transform: translateZ(0);
+}
+
+.orbit-node-ccw {
+  animation: orbitSpinCW var(--orbit-duration, 48s) linear infinite;
+  will-change: transform;
+  transform: translateZ(0);
+}
+
+.radar-sweep-beam {
+  animation: radarSweep 12s linear infinite;
+  will-change: transform;
+  transform: translateZ(0);
+}
+
+.orbit-paused,
+.orbit-paused * {
+  animation-play-state: paused !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .orbit-ring-cw,
+  .orbit-ring-ccw,
+  .orbit-node-cw,
+  .orbit-node-ccw,
+  .radar-sweep-beam {
+    animation: none !important;
+  }
+}
+
 /* Hand-drawn lasso oval for cover */
 .hand-drawn-circle {
   font-family: 'Caveat', cursive;
