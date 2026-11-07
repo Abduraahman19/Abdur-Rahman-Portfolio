@@ -17,18 +17,23 @@ function App() {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    // Ensure dark class is applied for Tailwind compatibility
-    document.documentElement.classList.add('dark')
     const timer = setTimeout(() => setLoading(false), 200)
     return () => clearTimeout(timer)
   }, [])
 
   return (
-    <div className="min-h-screen bg-[#0D0714] text-slate-100 selection:bg-purple-500 selection:text-white relative overflow-x-hidden">
-      {/* Figma Ambient Background Glow Effects */}
-      <div className="fixed top-0 left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-purple-600/15 rounded-full blur-[160px] pointer-events-none -z-10" />
-      <div className="fixed top-1/2 left-0 w-[500px] h-[500px] bg-indigo-600/10 rounded-full blur-[180px] pointer-events-none -z-10" />
-      <div className="fixed bottom-0 right-0 w-[600px] h-[500px] bg-purple-700/10 rounded-full blur-[180px] pointer-events-none -z-10" />
+    <div className="min-h-screen bg-[#FAF8FF] dark:bg-[#0D0714] text-slate-800 dark:text-slate-100 selection:bg-purple-500 selection:text-white relative overflow-x-hidden">
+      {/* High-Performance Hardware-Accelerated Ambient Glows (Zero Blur Filter GPU Lag) */}
+      <div
+        className="fixed inset-0 pointer-events-none -z-10 opacity-70 dark:opacity-60"
+        style={{
+          background: `
+            radial-gradient(circle at 50% 0%, rgba(168, 85, 247, 0.15) 0%, transparent 50%),
+            radial-gradient(circle at 0% 50%, rgba(99, 102, 241, 0.1) 0%, transparent 45%),
+            radial-gradient(circle at 100% 85%, rgba(168, 85, 247, 0.12) 0%, transparent 50%)
+          `
+        }}
+      />
 
       <AnimatePresence>
         {loading ? (

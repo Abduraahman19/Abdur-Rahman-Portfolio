@@ -2,14 +2,39 @@
 import { motion, AnimatePresence } from 'framer-motion'
 import { useRef, useState } from 'react'
 import { useInView } from 'framer-motion'
-import { FiCheck, FiX, FiCalendar, FiMapPin, FiAward, FiDownload, FiFileText, FiEye, FiZoomIn, FiZoomOut, FiMaximize2, FiExternalLink } from 'react-icons/fi'
-import { SiLinkedin, SiMeta, SiShopify, SiCanva } from 'react-icons/si'
+import { FiCheck, FiX, FiCalendar, FiMapPin, FiAward, FiDownload, FiFileText, FiEye, FiZoomIn, FiZoomOut, FiMaximize2, FiExternalLink, FiTrendingUp } from 'react-icons/fi'
+import { SiLinkedin, SiMeta, SiShopify, SiCanva, SiYoutube, SiTiktok } from 'react-icons/si'
 
 const experiences = [
   {
+    id: 'shoaib_projects',
+    role: 'Social Media Manager (Paid Intern)',
+    company: 'Shoaib Projects Ltd',
+    period: '21 Sep 2026 – Present',
+    location: 'Faisalabad, Pakistan',
+    tagline: 'Multi-client social growth across YouTube, TikTok, Instagram, Facebook & LinkedIn.',
+    badgeIcon: (
+      <div className="flex items-center gap-1">
+        <SiYoutube className="w-5 h-5 text-red-500" />
+        <SiTiktok className="w-4 h-4 text-cyan-400" />
+      </div>
+    ),
+    badgeColor: 'from-rose-500 via-purple-600 to-indigo-600',
+    credentialNote: 'Current Role · Active',
+    isCurrent: true,
+    description: 'Manage daily posts, Reels, Shorts, Stories, and hashtags for multiple client accounts, analyze competitor content gaps, and track performance with Google Sheets workflows.',
+    responsibilities: [
+      'Manage daily posts, Reels, Shorts, Stories, captions, and hashtags for multiple client accounts across YouTube, TikTok, Instagram, Facebook, and LinkedIn.',
+      'Analyze top competitors to identify content gaps, fix posting mistakes, and build practical growth strategies for client brands.',
+      'Track account performance and prepare clear progress reports with improvement ideas for clients and the internal team.',
+      'Maintain organized Google Sheets for content calendars, scheduling trackers, and weekly team workflows.'
+    ],
+    skills: ['Multi-Account Management', 'Content Planning & Scheduling', 'Captions & Hashtags', 'Competitor Analysis', 'Performance Reporting', 'Google Sheets (Trackers)', 'YouTube Studio & TikTok Tools']
+  },
+  {
     id: 'nextlevel',
-    role: 'LinkedIn Marketing Intern',
-    company: 'Next Level Software Company',
+    role: 'LinkedIn Marketing (Paid Intern)',
+    company: 'NextLevelSoftware Company',
     period: 'April 2026 – July 2026',
     location: 'Faisalabad, Pakistan',
     tagline: 'Strategic B2B outreach, client acquisition & professional brand presence.',
@@ -17,12 +42,11 @@ const experiences = [
     badgeColor: 'from-[#0A66C2] to-indigo-600',
     credentialNote: 'Official Letter Verified',
     experienceLetterImg: '/next-level-experience-letter.png',
-    description: 'Optimized professional LinkedIn accounts, ran targeted corporate outreach, and conducted research to discover new business trends.',
+    description: 'Optimized professional LinkedIn accounts to build a stronger brand presence, ran targeted corporate B2B outreach, and conducted research for new business trends.',
     responsibilities: [
       'Optimized professional LinkedIn accounts to build a stronger brand presence.',
       'Ran targeted B2B outreach and lead generation campaigns to connect with corporate clients.',
-      'Handled day-to-day business development tasks to assist with client acquisition.',
-      'Conducted market research to spot new business trends and outreach opportunities.'
+      'Handled day-to-day business development tasks and market research to spot new outreach opportunities.'
     ],
     skills: ['LinkedIn Outreach', 'B2B Lead Generation', 'Profile Optimization', 'Market Research', 'Professional Messaging']
   },
@@ -30,20 +54,19 @@ const experiences = [
     id: 'adrightly',
     role: 'Digital Marketing Intern',
     company: 'AdRightly',
-    period: 'Oct 2024 – Dec 2024',
+    period: 'Oct 2025 – Dec 2025',
     location: 'Faisalabad, Pakistan',
     tagline: 'Meta Ads performance marketing, audience demographics & Shopify operations.',
     badgeIcon: <SiMeta className="w-7 h-7 text-[#0081FB]" />,
     badgeColor: 'from-[#0081FB] to-purple-600',
     credentialNote: 'Verified Agency Internship',
-    description: 'Collaborated with senior marketers to set up Meta ad campaigns, track ad performance metrics, and manage Shopify store syncs.',
+    description: 'Collaborated with senior marketers to set up Meta ad campaigns, analyze audience demographics, and assist with Shopify store management and product syncing.',
     responsibilities: [
-      'Worked with senior marketers to help set up and monitor Meta ad campaigns (Facebook & Instagram).',
-      'Tracked ad performance numbers (CTR, CPC, CPA, ROAS) and suggested tweaks to improve results.',
-      'Dug into audience insights to make sure ads reached the right demographics.',
-      'Assisted with backend store management, product syncing, and daily tasks on Shopify.'
+      'Worked with senior marketers to set up, monitor, and tweak Meta ad campaigns (Facebook & Instagram) for better results.',
+      'Analyzed audience insights to ensure ads reached the right target demographics.',
+      'Assisted with daily Shopify store management, product syncing, and backend tasks.'
     ],
-    skills: ['Meta Ads Manager', 'Audience Research', 'Budget Setup', 'Shopify Admin', 'Product Syncing']
+    skills: ['Meta Ads Manager & Suite', 'Audience Research', 'Budget Setup & Monitoring', 'Shopify Admin Panel', 'Product Syncing']
   },
   {
     id: 'shopify_mgmt',
@@ -55,18 +78,18 @@ const experiences = [
     badgeIcon: <SiShopify className="w-7 h-7 text-[#95BF47]" />,
     badgeColor: 'from-[#95BF47] to-emerald-600',
     credentialNote: 'Official CV Expertise',
-    description: 'Building Shopify stores from scratch, writing SEO product copy, customizing no-code layouts, and tracking fulfillment.',
+    description: 'Building complete Shopify stores from scratch, writing SEO product copy, customizing no-code layouts, and tracking inventory and fulfillment.',
     responsibilities: [
       'Complete Shopify store setup from scratch, domain connection, and payment setup.',
       'Product uploads with keyword-rich SEO descriptions and organized collections.',
       'Theme customization utilizing intuitive no-code layouts for maximum mobile conversion.',
-      'App integrations, inventory tracking, shipping configuration, and order fulfillment.'
+      'Inventory tracking, fulfillment management, and backend store tasks.'
     ],
-    skills: ['Shopify Admin Panel', 'Complete Store Setup', 'SEO Product Descriptions', 'App Integrations', 'Fulfillment']
+    skills: ['Complete Store Setup', 'Product Uploads & SEO Descriptions', 'Theme Customization (No-Code)', 'Inventory Tracking & Fulfillment']
   },
   {
     id: 'social_design',
-    role: 'Social Media & Design Specialist',
+    role: 'Social Media & Graphic Design',
     company: 'Brand Marketing & Outreach',
     period: 'Hands-on Practice',
     location: 'Faisalabad / Remote',
@@ -76,12 +99,12 @@ const experiences = [
     credentialNote: 'Official CV Expertise',
     description: 'Managing social media accounts, crafting high-converting ad graphics in Canva Pro, and scheduling content calendars.',
     responsibilities: [
-      'Comprehensive social media profile management and brand aesthetics.',
+      'Comprehensive social media profile management and brand aesthetics across channels.',
       'Strategic content planning, editorial calendar management, and scheduling.',
       'High-converting promotional graphic design using Canva Pro for Meta and LinkedIn.',
-      'Audience engagement, comment management, and brand messaging consistency.'
+      'Captions, hashtags, copy, and audience engagement consistency.'
     ],
-    skills: ['Canva Pro', 'Content Planning & Scheduling', 'Profile Management', 'Graphics Design', 'Audience Engagement']
+    skills: ['Graphics Design (Canva Pro)', 'Content Planning & Scheduling', 'Captions, Tags & Copywriting', 'Competitor & Trend Analysis', 'Performance Reporting']
   }
 ]
 
@@ -105,15 +128,20 @@ const Experience = () => {
       ref={ref}
       className="relative py-12 sm:py-16 px-4 sm:px-6 md:px-8 max-w-[1300px] mx-auto"
     >
-      {/* Central Ambient Violet Glow */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] sm:w-[700px] h-[350px] bg-purple-600/15 rounded-full blur-[120px] pointer-events-none -z-10" />
+      {/* Central Ambient Glow (Hardware Accelerated) */}
+      <div
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] sm:w-[700px] h-[350px] pointer-events-none -z-10"
+        style={{
+          background: 'radial-gradient(ellipse at center, rgba(168, 85, 247, 0.14) 0%, transparent 70%)'
+        }}
+      />
 
       {/* Section Header */}
       <div className="flex flex-col items-center text-center gap-2.5 mb-8 sm:mb-12">
         <motion.span
           initial={{ opacity: 0 }}
           animate={isInView ? { opacity: 1 } : {}}
-          className="text-xs font-mono font-semibold tracking-widest text-purple-400 uppercase"
+          className="text-xs font-mono font-semibold tracking-widest text-purple-600 dark:text-purple-400 uppercase"
         >
           EXPERIENCE & EXPERTISE (CV)
         </motion.span>
@@ -121,7 +149,7 @@ const Experience = () => {
           initial={{ opacity: 0, y: 15 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.5 }}
-          className="text-3xl sm:text-5xl font-extrabold text-white tracking-tight"
+          className="text-3xl sm:text-5xl font-extrabold text-slate-900 dark:text-white tracking-tight"
         >
           Work Experience
         </motion.h2>
@@ -129,13 +157,13 @@ const Experience = () => {
           initial={{ opacity: 0 }}
           animate={isInView ? { opacity: 1 } : {}}
           transition={{ duration: 0.5, delay: 0.1 }}
-          className="text-sm sm:text-base text-purple-200/70 max-w-xl leading-relaxed"
+          className="text-sm sm:text-base text-slate-600 dark:text-purple-200/70 max-w-xl leading-relaxed"
         >
           Practical agency internships and e-commerce marketing operations directly from official resume credentials.
         </motion.p>
       </div>
 
-      {/* 2x2 Glowing Cards Grid matching Figma Screenshot */}
+      {/* 2x2 Glowing Cards Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
         {experiences.map((exp, index) => (
           <motion.div
@@ -143,13 +171,13 @@ const Experience = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.5, delay: index * 0.1 }}
-            className="group relative flex flex-col justify-between p-6 sm:p-7 rounded-2xl bg-[#140929]/80 backdrop-blur-xl border border-purple-500/25 hover:border-purple-400/60 shadow-[0_4px_25px_rgba(0,0,0,0.5)] hover:shadow-[0_0_35px_rgba(147,51,234,0.3)] transition-all duration-300"
+            className="group relative flex flex-col justify-between p-6 sm:p-7 rounded-2xl bg-white/90 dark:bg-[#140929]/80 backdrop-blur-xl border border-purple-200 dark:border-purple-500/25 hover:border-purple-400 dark:hover:border-purple-400/60 shadow-sm dark:shadow-[0_4px_25px_rgba(0,0,0,0.5)] hover:shadow-md dark:hover:shadow-[0_0_35px_rgba(147,51,234,0.3)] transition-all duration-300"
           >
             <div className="flex items-start gap-4 sm:gap-5">
               {/* 3D Illuminated Badge Icon */}
               <div className="shrink-0">
-                <div className={`w-13 h-13 sm:w-16 sm:h-16 rounded-2xl bg-gradient-to-br ${exp.badgeColor} p-0.5 shadow-[0_0_20px_rgba(147,51,234,0.4)] flex items-center justify-center group-hover:scale-105 transition-transform`}>
-                  <div className="w-full h-full rounded-[14px] bg-[#120726] flex items-center justify-center text-2xl sm:text-3xl">
+                <div className={`w-13 h-13 sm:w-16 sm:h-16 rounded-2xl bg-gradient-to-br ${exp.badgeColor} p-0.5 shadow-sm dark:shadow-[0_0_20px_rgba(147,51,234,0.4)] flex items-center justify-center group-hover:scale-105 transition-transform`}>
+                  <div className="w-full h-full rounded-[14px] bg-purple-50 dark:bg-[#120726] flex items-center justify-center text-2xl sm:text-3xl">
                     {exp.badgeIcon}
                   </div>
                 </div>
@@ -157,17 +185,25 @@ const Experience = () => {
 
               {/* Content */}
               <div className="flex flex-col flex-1 gap-1.5 min-w-0">
-                <h3 className="text-base sm:text-lg font-bold text-white group-hover:text-purple-300 transition-colors truncate">
-                  {exp.role}
-                </h3>
-
-                <div className="flex items-center gap-2 text-xs font-semibold text-purple-400">
-                  <span className="truncate">{exp.company}</span>
-                  <span className="text-purple-500/50">·</span>
-                  <span className="text-purple-300/60 font-mono shrink-0">{exp.period}</span>
+                <div className="flex items-center justify-between gap-2 flex-wrap">
+                  <h3 className="text-base sm:text-lg font-bold text-slate-900 dark:text-white group-hover:text-purple-600 dark:group-hover:text-purple-300 transition-colors truncate">
+                    {exp.role}
+                  </h3>
+                  {exp.isCurrent && (
+                    <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold text-emerald-700 dark:text-emerald-300 bg-emerald-100 dark:bg-emerald-500/20 border border-emerald-300 dark:border-emerald-500/40 shadow-sm dark:shadow-[0_0_12px_rgba(16,185,129,0.3)] shrink-0">
+                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 dark:bg-emerald-400 animate-pulse" />
+                      Current Role
+                    </span>
+                  )}
                 </div>
 
-                <p className="text-xs sm:text-sm text-slate-300/80 line-clamp-2 leading-relaxed mt-1">
+                <div className="flex items-center gap-2 text-xs font-semibold text-purple-700 dark:text-purple-400">
+                  <span className="truncate">{exp.company}</span>
+                  <span className="text-purple-400/50">·</span>
+                  <span className="text-slate-500 dark:text-purple-300/60 font-mono shrink-0">{exp.period}</span>
+                </div>
+
+                <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300/80 line-clamp-2 leading-relaxed mt-1">
                   {exp.description}
                 </p>
               </div>
@@ -177,7 +213,7 @@ const Experience = () => {
             {exp.experienceLetterImg && (
               <div
                 onClick={() => handleOpenLetter('fit')}
-                className="mt-4 p-2.5 sm:p-3 rounded-xl bg-gradient-to-r from-emerald-950/40 via-[#160a2b] to-purple-950/40 border border-emerald-500/35 hover:border-emerald-400 transition-all cursor-pointer group/letter shadow-[0_4px_18px_rgba(16,185,129,0.14)]"
+                className="mt-4 p-2.5 sm:p-3 rounded-xl bg-gradient-to-r from-emerald-50 via-purple-50 to-emerald-50 dark:from-emerald-950/40 dark:via-[#160a2b] dark:to-purple-950/40 border border-emerald-300 dark:border-emerald-500/35 hover:border-emerald-400 transition-all cursor-pointer group/letter shadow-sm dark:shadow-[0_4px_18px_rgba(16,185,129,0.14)]"
                 title="Tap to view verified official letter"
               >
                 <div className="flex items-center justify-between gap-3">
@@ -191,16 +227,16 @@ const Experience = () => {
                       <div className="absolute inset-0 bg-emerald-600/10 pointer-events-none" />
                     </div>
                     <div className="flex flex-col min-w-0 text-left">
-                      <span className="text-xs font-bold text-emerald-300 flex items-center gap-1.5">
-                        <FiAward className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
+                      <span className="text-xs font-bold text-emerald-700 dark:text-emerald-300 flex items-center gap-1.5">
+                        <FiAward className="w-3.5 h-3.5 text-emerald-500 dark:text-emerald-400 shrink-0" />
                         <span className="truncate">Official Experience Letter</span>
                       </span>
-                      <span className="text-[10px] text-purple-200/70 font-mono truncate">
+                      <span className="text-[10px] text-slate-600 dark:text-purple-200/70 font-mono truncate">
                         Verified 3-Month Internship · 01 April - 04 July 2026
                       </span>
                     </div>
                   </div>
-                  <span className="shrink-0 px-2.5 py-1 rounded-full text-[10px] font-bold tracking-wider uppercase text-emerald-300 bg-emerald-500/20 border border-emerald-500/30 group-hover/letter:bg-emerald-500/30 transition-all flex items-center gap-1">
+                  <span className="shrink-0 px-2.5 py-1 rounded-full text-[10px] font-bold tracking-wider uppercase text-emerald-700 dark:text-emerald-300 bg-emerald-100 dark:bg-emerald-500/20 border border-emerald-300 dark:border-emerald-500/30 group-hover/letter:bg-emerald-200 dark:group-hover/letter:bg-emerald-500/30 transition-all flex items-center gap-1">
                     <FiEye className="w-3 h-3" />
                     <span>View</span>
                   </span>
@@ -209,7 +245,7 @@ const Experience = () => {
             )}
 
             {/* Pill Action Buttons */}
-            <div className="pt-4 mt-auto flex flex-wrap items-center justify-between gap-2 border-t border-purple-500/15">
+            <div className="pt-4 mt-auto flex flex-wrap items-center justify-between gap-2 border-t border-purple-200 dark:border-purple-500/15">
               <div className="flex items-center gap-2">
                 <button
                   onClick={() => setSelectedExp(exp)}
@@ -221,16 +257,16 @@ const Experience = () => {
                 {exp.experienceLetterImg && (
                   <button
                     onClick={() => handleOpenLetter('read')}
-                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[11px] font-bold tracking-wider uppercase text-emerald-300 bg-emerald-500/15 hover:bg-emerald-500/25 border border-emerald-500/30 shadow-[0_0_15px_rgba(16,185,129,0.2)] transition-all"
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[11px] font-bold tracking-wider uppercase text-emerald-700 dark:text-emerald-300 bg-emerald-100 dark:bg-emerald-500/15 hover:bg-emerald-200 dark:hover:bg-emerald-500/25 border border-emerald-300 dark:border-emerald-500/30 shadow-sm transition-all"
                     title="Open 100% Crisp Reading Mode"
                   >
-                    <FiAward className="w-3.5 h-3.5 text-emerald-400" />
+                    <FiAward className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
                     <span>READ LETTER</span>
                   </button>
                 )}
               </div>
 
-              <span className="text-[10px] font-mono text-purple-400/60 uppercase">
+              <span className="text-[10px] font-mono text-purple-700/80 dark:text-purple-400/60 uppercase">
                 {exp.location}
               </span>
             </div>
@@ -241,16 +277,16 @@ const Experience = () => {
       {/* Interactive Detail Modal for "LEARN MORE" */}
       <AnimatePresence>
         {selectedExp && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/75 backdrop-blur-md">
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 dark:bg-black/75 backdrop-blur-md">
             <motion.div
               initial={{ opacity: 0, scale: 0.92, y: 15 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.92, y: 15 }}
-              className="relative w-full max-w-lg p-6 sm:p-8 rounded-3xl bg-[#170B30] border border-purple-500/40 shadow-[0_0_50px_rgba(147,51,234,0.45)] text-left flex flex-col gap-5"
+              className="relative w-full max-w-lg p-6 sm:p-8 rounded-3xl bg-white dark:bg-[#170B30] border border-purple-200 dark:border-purple-500/40 shadow-2xl dark:shadow-[0_0_50px_rgba(147,51,234,0.45)] text-left flex flex-col gap-5"
             >
               <button
                 onClick={() => setSelectedExp(null)}
-                className="absolute top-5 right-5 p-2 rounded-full text-purple-300 hover:text-white bg-purple-950/60 border border-purple-500/30 transition-all"
+                className="absolute top-5 right-5 p-2 rounded-full text-purple-600 dark:text-purple-300 hover:text-purple-900 dark:hover:text-white bg-purple-100 dark:bg-purple-950/60 border border-purple-200 dark:border-purple-500/30 transition-all"
                 aria-label="Close modal"
               >
                 <FiX size={18} />
@@ -258,41 +294,41 @@ const Experience = () => {
 
               <div className="flex items-center gap-4">
                 <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${selectedExp.badgeColor} p-0.5 shadow-lg flex items-center justify-center shrink-0`}>
-                  <div className="w-full h-full rounded-[14px] bg-[#120726] flex items-center justify-center text-2xl">
+                  <div className="w-full h-full rounded-[14px] bg-purple-50 dark:bg-[#120726] flex items-center justify-center text-2xl">
                     {selectedExp.badgeIcon}
                   </div>
                 </div>
                 <div className="flex flex-col">
-                  <h3 className="text-lg sm:text-xl font-bold text-white">
+                  <h3 className="text-lg sm:text-xl font-bold text-slate-900 dark:text-white">
                     {selectedExp.role}
                   </h3>
-                  <span className="text-xs font-semibold text-purple-400">
+                  <span className="text-xs font-semibold text-purple-700 dark:text-purple-400">
                     {selectedExp.company}
                   </span>
-                  <div className="flex items-center gap-2 mt-1 text-xs font-mono text-purple-300/70">
-                    <span className="flex items-center gap-1"><FiCalendar className="w-3 h-3 text-purple-400" /> {selectedExp.period}</span>
+                  <div className="flex items-center gap-2 mt-1 text-xs font-mono text-purple-700/80 dark:text-purple-300/70">
+                    <span className="flex items-center gap-1"><FiCalendar className="w-3 h-3 text-purple-600 dark:text-purple-400" /> {selectedExp.period}</span>
                     <span>·</span>
-                    <span className="flex items-center gap-1"><FiMapPin className="w-3 h-3 text-purple-400" /> {selectedExp.location}</span>
+                    <span className="flex items-center gap-1"><FiMapPin className="w-3 h-3 text-purple-600 dark:text-purple-400" /> {selectedExp.location}</span>
                   </div>
                 </div>
               </div>
 
-              <div className="px-3 py-1.5 rounded-xl bg-purple-900/30 border border-purple-500/30 text-xs font-mono text-purple-200">
-                Status: <span className="text-emerald-300 font-bold">{selectedExp.credentialNote}</span>
+              <div className="px-3 py-1.5 rounded-xl bg-purple-100/70 dark:bg-purple-900/30 border border-purple-200 dark:border-purple-500/30 text-xs font-mono text-purple-800 dark:text-purple-200">
+                Status: <span className="text-emerald-600 dark:text-emerald-300 font-bold">{selectedExp.credentialNote}</span>
               </div>
 
               {/* Experience Letter Banner if available */}
               {selectedExp.experienceLetterImg && (
-                <div className="p-3.5 rounded-2xl bg-[#120626] border border-emerald-500/30 flex items-center justify-between gap-3 shadow-[0_0_20px_rgba(16,185,129,0.15)]">
+                <div className="p-3.5 rounded-2xl bg-emerald-50 dark:bg-[#120626] border border-emerald-300 dark:border-emerald-500/30 flex items-center justify-between gap-3 shadow-sm dark:shadow-[0_0_20px_rgba(16,185,129,0.15)]">
                   <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-xl bg-emerald-500/15 border border-emerald-500/30 flex items-center justify-center text-emerald-400 shrink-0">
+                    <div className="w-10 h-10 rounded-xl bg-emerald-100 dark:bg-emerald-500/15 border border-emerald-300 dark:border-emerald-500/30 flex items-center justify-center text-emerald-600 dark:text-emerald-400 shrink-0">
                       <FiAward className="w-5 h-5" />
                     </div>
                     <div className="flex flex-col text-left">
-                      <span className="text-xs font-bold text-white flex items-center gap-1.5">
+                      <span className="text-xs font-bold text-slate-900 dark:text-white flex items-center gap-1.5">
                         Official Experience Letter
                       </span>
-                      <span className="text-[11px] text-purple-300/80 font-mono">
+                      <span className="text-[11px] text-purple-700 dark:text-purple-300/80 font-mono">
                         Next Level Software (Verified Internship)
                       </span>
                     </div>
@@ -302,7 +338,7 @@ const Experience = () => {
                       setSelectedExp(null)
                       handleOpenLetter('fit')
                     }}
-                    className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-semibold bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-300 border border-emerald-500/30 transition-all shrink-0"
+                    className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-semibold bg-emerald-600 dark:bg-emerald-500/20 hover:bg-emerald-700 dark:hover:bg-emerald-500/30 text-white dark:text-emerald-300 border border-emerald-400 dark:border-emerald-500/30 transition-all shrink-0"
                   >
                     <FiEye className="w-3.5 h-3.5" />
                     <span>View Letter</span>
@@ -311,13 +347,13 @@ const Experience = () => {
               )}
 
               <div className="flex flex-col gap-2.5">
-                <span className="text-xs font-mono uppercase tracking-wider text-purple-300 font-semibold">
+                <span className="text-xs font-mono uppercase tracking-wider text-purple-700 dark:text-purple-300 font-semibold">
                   Key Tasks & Achievements:
                 </span>
                 <ul className="space-y-2">
                   {selectedExp.responsibilities.map((resp, i) => (
-                    <li key={i} className="flex items-start gap-2.5 text-xs sm:text-sm text-slate-200 leading-relaxed">
-                      <FiCheck className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
+                    <li key={i} className="flex items-start gap-2.5 text-xs sm:text-sm text-slate-700 dark:text-slate-200 leading-relaxed">
+                      <FiCheck className="w-4 h-4 text-emerald-600 dark:text-emerald-400 shrink-0 mt-0.5" />
                       <span>{resp}</span>
                     </li>
                   ))}
@@ -332,7 +368,7 @@ const Experience = () => {
                 ))}
               </div>
 
-              <div className="pt-3 border-t border-purple-500/20 flex justify-end">
+              <div className="pt-3 border-t border-purple-200 dark:border-purple-500/20 flex justify-end">
                 <button
                   onClick={() => setSelectedExp(null)}
                   className="btn-figma-primary !py-2 !px-5"

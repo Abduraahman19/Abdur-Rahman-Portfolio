@@ -8,13 +8,21 @@
   html {
     scroll-behavior: smooth;
     overflow-x: hidden;
+  }
+  
+  html.dark {
     background-color: #0D0714;
     color: #F8FAFC;
+    color-scheme: dark;
+  }
+
+  html:not(.dark) {
+    background-color: #FAF8FF;
+    color: #1E1233;
+    color-scheme: light;
   }
   
   body {
-    background-color: #0D0714;
-    color: #F8FAFC;
     font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
     line-height: 1.6;
     overflow-x: hidden;
@@ -23,7 +31,7 @@
   }
   
   h1, h2, h3, h4, h5, h6 {
-    @apply font-bold tracking-tight text-white;
+    @apply font-bold tracking-tight;
     line-height: 1.2;
   }
 
@@ -37,47 +45,81 @@
   }
   
   ::-webkit-scrollbar-track {
+    background: #FAF8FF;
+  }
+
+  .dark ::-webkit-scrollbar-track {
     background: #0D0714;
   }
   
   ::-webkit-scrollbar-thumb {
-    background: #2E1A47;
+    background: #D8B4FE;
     border-radius: 9999px;
   }
 
+  .dark ::-webkit-scrollbar-thumb {
+    background: #2E1A47;
+  }
+
   ::-webkit-scrollbar-thumb:hover {
+    background: #A855F7;
+  }
+
+  .dark ::-webkit-scrollbar-thumb:hover {
     background: #4C2882;
   }
+}
+
+/* View Transition Styles for Liquid Wave Ripple (matching HR Panel) */
+html.theme-switching::view-transition-old(root),
+html.theme-switching::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+html.theme-switching,
+html.theme-switching *,
+html.theme-switching *:before,
+html.theme-switching *:after {
+  transition: none !important;
+}
+
+::view-transition-old(root) {
+  z-index: 1;
+}
+
+::view-transition-new(root) {
+  z-index: 9999;
 }
 
 @layer components {
   /* Figma Glowing Primary Pill Button */
   .btn-figma-primary {
-    @apply inline-flex items-center justify-center gap-2 px-6 py-2.5 rounded-full font-semibold text-xs tracking-wider uppercase text-white bg-gradient-to-r from-purple-600 via-indigo-600 to-purple-600 hover:from-purple-500 hover:to-indigo-500 shadow-[0_0_20px_rgba(147,51,234,0.45)] hover:shadow-[0_0_30px_rgba(147,51,234,0.65)] transition-all duration-300 active:scale-[0.98];
+    @apply inline-flex items-center justify-center gap-2 px-6 py-2.5 rounded-full font-semibold text-xs tracking-wider uppercase text-white bg-gradient-to-r from-purple-600 via-indigo-600 to-purple-600 hover:from-purple-500 hover:to-indigo-500 shadow-[0_0_20px_rgba(147,51,234,0.35)] hover:shadow-[0_0_30px_rgba(147,51,234,0.55)] transition-all duration-300 active:scale-[0.98];
   }
   
   /* Figma Outline Secondary Pill Button */
   .btn-figma-secondary {
-    @apply inline-flex items-center justify-center gap-2 px-6 py-2.5 rounded-full font-semibold text-xs tracking-wider uppercase text-purple-200 bg-purple-950/30 border border-purple-500/30 hover:bg-purple-900/40 hover:border-purple-400/60 shadow-[0_0_15px_rgba(147,51,234,0.15)] transition-all duration-300 active:scale-[0.98];
+    @apply inline-flex items-center justify-center gap-2 px-6 py-2.5 rounded-full font-semibold text-xs tracking-wider uppercase text-purple-900 dark:text-purple-200 bg-purple-100/80 dark:bg-purple-950/30 border border-purple-300/80 dark:border-purple-500/30 hover:bg-purple-200/90 dark:hover:bg-purple-900/40 hover:border-purple-400 shadow-[0_0_15px_rgba(147,51,234,0.12)] transition-all duration-300 active:scale-[0.98];
   }
 
   /* Figma Glassmorphic Luxury Cards */
   .glass-card-figma {
-    @apply bg-[#130924]/75 backdrop-blur-xl border border-purple-500/20 rounded-2xl transition-all duration-300;
+    @apply bg-white/85 dark:bg-[#130924]/75 backdrop-blur-xl border border-purple-200/80 dark:border-purple-500/20 rounded-2xl shadow-sm dark:shadow-[0_4px_30px_rgba(0,0,0,0.5)] transition-all duration-300;
   }
 
   .glass-card-figma-hover {
-    @apply hover:border-purple-500/50 hover:shadow-[0_0_35px_rgba(147,51,234,0.22)] hover:-translate-y-1;
+    @apply hover:border-purple-400 dark:hover:border-purple-500/50 hover:shadow-[0_10px_35px_rgba(147,51,234,0.15)] dark:hover:shadow-[0_0_35px_rgba(147,51,234,0.22)] hover:-translate-y-1;
   }
 
   /* Mini Pill Learn More Button */
   .btn-learn-more {
-    @apply inline-flex items-center justify-center gap-1 px-4 py-1.5 rounded-full text-[11px] font-bold tracking-wider uppercase text-purple-100 bg-purple-600/80 hover:bg-purple-500 border border-purple-400/30 shadow-[0_0_15px_rgba(147,51,234,0.35)] transition-all duration-200;
+    @apply inline-flex items-center justify-center gap-1 px-4 py-1.5 rounded-full text-[11px] font-bold tracking-wider uppercase text-white bg-purple-600 hover:bg-purple-500 border border-purple-400/30 shadow-[0_0_15px_rgba(147,51,234,0.35)] transition-all duration-200;
   }
 
   /* Figma Tech Tag */
   .badge-figma-tech {
-    @apply inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium bg-purple-950/50 text-purple-200 border border-purple-500/25;
+    @apply inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium bg-purple-100/90 dark:bg-purple-950/50 text-purple-900 dark:text-purple-200 border border-purple-200 dark:border-purple-500/25;
   }
 }
 
